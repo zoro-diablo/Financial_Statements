@@ -16,7 +16,7 @@ const ItForm = () => {
         <h1 className='text-center'>
           Click here for :
           <Link
-           to='/billform'
+            to='/billform'
             className='flex items-center justify-center mb-8 underline hover:text-red-600 cursor-pointer'
           >
             Bill Drawn

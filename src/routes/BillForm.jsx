@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import TableBill from '../components/bill/TableBill';
+import TotalBill from '../components/bill/TotalBill';
 
 const BillForm = () => {
   return (
@@ -15,7 +16,14 @@ const BillForm = () => {
       </h1>
 
       <div className='container-fluid'>
-        <TableBill />
+        <div className='row'>
+          <div className='col-md-12'>
+            <div className='w-[1500px] mx-auto bg-white p-4 border-2 border-black rounded shadow-md'>
+              <TableBill />
+              <TotalBill />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
