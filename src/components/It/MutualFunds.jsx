@@ -1,4 +1,18 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { updateMutualFundDetails } from '../../redux/features/finance';
+
 const MutualFunds = () => {
+  const dispatch = useDispatch();
+  const data = useSelector(
+    (state) => state.finance.form[0].itForm.particularsMutualFund
+  );
+  const { totalMutualFund } = useSelector(
+    (state) => state.finance.form[0].itForm
+  );
+
+  const handleChange = (index, field, value) => {
+    dispatch(updateMutualFundDetails({ index, field, value }));
+  };
   return (
     <div className='max-w-4xl mx-auto bg-white p-1 my-3 border-2 border-black rounded shadow-md'>
       <div className='max-w-4xl mx-auto bg-white p-4 border-2 border-black rounded shadow-md'>
@@ -28,132 +42,86 @@ const MutualFunds = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              >
-                39588097
-              </td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-2'
-              >
-                QUANT ELSS TAX SAVER
-              </td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-2'
-              >
-                3 YRS
-              </td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-3'
-              >
-                ₹ 20,999
-              </td>
-            </tr>
+            {data.map((child, index) => (
+              <tr key={index}>
+                <td className='p-2 text-md border border-black'>
+                  <input
+                    type='text'
+                    className='text-center w-[150px]'
+                    value={child.folio}
+                    onChange={(e) =>
+                      handleChange(index, 'folio', e.target.value)
+                    }
+                  />
+                </td>
+                <td className='p-2 text-md border border-black' id='cell-1-2'>
+                  <input
+                    type='text'
+                    className='text-center  w-[150px]'
+                    value={child.name}
+                    onChange={(e) =>
+                      handleChange(index, 'name', e.target.value)
+                    }
+                  />
+                </td>
 
+                <td className=' text-md border border-black'>
+                  <input
+                    type='text'
+                    className='text-center'
+                    value={child.date}
+                    onChange={(e) =>
+                      handleChange(index, 'date', e.target.value)
+                    }
+                  />
+                </td>
+                <td className=' text-md border border-black'>
+                  <input
+                    type='text'
+                    className='text-center w-full'
+                    value={child.lock}
+                    onChange={(e) =>
+                      handleChange(index, 'lock', e.target.value)
+                    }
+                  />
+                </td>
+                <td className=' text-md border border-black'>
+                  <input
+                    type='text'
+                    className='text-center w-full'
+                    value={child.other}
+                    onChange={(e) =>
+                      handleChange(index, 'other', e.target.value)
+                    }
+                  />
+                </td>
+                <td className=' text-md border border-black'>
+                  <input
+                    type='number'
+                    className='text-center w-full'
+                    value={child.amount}
+                    onChange={(e) =>
+                      handleChange(index, 'amount', e.target.value)
+                    }
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
             <tr>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-2'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-3'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-2'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-3'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-3'
-              >
-                ₹{' '}
-              </td>
-            </tr>
-
-            <tr>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-2'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-3'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-2'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-3'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-                id='cell-1-3'
-              >
-                ₹{' '}
-              </td>
-            </tr>
-
-            <tr>
-              <td className='p-2' contentEditable='false'></td>
-              <td className='p-2' contentEditable='false' id='cell-1-2'></td>
-              <td className='p-2' contentEditable='false' id='cell-1-2'></td>
-              <td className='p-2' contentEditable='false' id='cell-1-2'></td>
-              <td
-                className='p-2 text-lg border border-black font-bold'
-                contentEditable='false'
-                id='cell-1-3'
-              >
+              <td className='p-2' colSpan='4'></td>
+              <td className='p-2 text-lg border border-black font-bold'>
                 TOTAL
               </td>
-              <td
-                className='p-2 text-lg border border-black font-bold'
-                contentEditable='true'
-              >
-                ₹ 20,999
+              <td className='p-2 text-lg border border-black flex'>
+                ₹{' '}
+                <div className='text-center w-full font-bold'>
+                  {totalMutualFund}
+                </div>
               </td>
             </tr>
-          </tbody>
+          </tfoot>
         </table>
       </div>
     </div>

@@ -144,12 +144,12 @@ const financeSlice = createSlice({
     updateDed: (state, action) => {
       state.form[0].itForm.lessThree.ded = action.payload;
       updatefinDed(state);
-      updategrossTaxableIncome(state)
+      updategrossTaxableIncome(state);
     },
     updateOtherSpf: (state, action) => {
       state.form[0].itForm.lessThree.otherSpf = action.payload;
       otherSpecific(state);
-      updategrossTaxableIncome(state)
+      updategrossTaxableIncome(state);
     },
     updateFourOne: (state, action) => {
       state.form[0].itForm.lessFour.one = action.payload;
@@ -188,6 +188,24 @@ const financeSlice = createSlice({
     updateFourOthers: (state, action) => {
       state.form[0].itForm.lessFour.others = action.payload;
     },
+    updateTuitionFeeDetails: (state, action) => {
+      const { index, field, value } = action.payload;
+      state.form[0].itForm.particularsTutionFee[index][field] = value;
+      state.form[0].itForm.totalTuition =
+        state.form[0].itForm.particularsTutionFee.reduce((total, child) => {
+          const fee = isNaN(Number(child.fee)) ? 0 : Number(child.fee);
+          return total + fee;
+        }, 0);
+    },
+    updateMutualFundDetails: (state, action) => {
+      const { index, field, value } = action.payload;
+      state.form[0].itForm.particularsMutualFund[index][field] = value;
+        state.form[0].itForm.totalMutualFund =
+        state.form[0].itForm.particularsMutualFund.reduce((total, child) => {
+          const amount = isNaN(Number(child.amount)) ? 0 : Number(child.amount);
+          return total + amount;
+        }, 0);
+  },
   },
 });
 
@@ -236,7 +254,7 @@ const updateGrossTotalIncome = (state) => {
     parseFloat(savingBank) +
     parseFloat(other);
   state.form[0].itForm.grossTotalIncome = grossTotalIncome;
-  updategrossTaxableIncome(state)
+  updategrossTaxableIncome(state);
 };
 const updateTotalLessThree = (state) => {
   const {
@@ -275,8 +293,7 @@ const updateTotalLessThree = (state) => {
   state.form[0].itForm.lessThree.total = total;
   updateTotalDeduct(state);
   updateDeduction(state);
-  updategrossTaxableIncome(state)
-  
+  updategrossTaxableIncome(state);
 };
 const updateAnnualPension = (state) => {
   const { annualPe } = state.form[0].itForm.lessThree;
@@ -351,7 +368,7 @@ const otherSpecific = (state) => {
   }
 };
 const updategrossTaxableIncome = (state) => {
-  const { grossTotalIncome } = state.form[0].itForm; 
+  const { grossTotalIncome } = state.form[0].itForm;
   const { deduction, finDed, otherSpecific } = state.form[0].itForm.lessThree;
 
   const newGrossTaxableIncome =
@@ -360,15 +377,15 @@ const updategrossTaxableIncome = (state) => {
   state.form[0].itForm.grossTaxableIncome = newGrossTaxableIncome;
 };
 const updateNhis = (state) => {
-  const {one,two} = state.form[0].itForm.lessFour;
+  const { one, two } = state.form[0].itForm.lessFour;
   const nhis = parseFloat(one) + parseFloat(two);
   state.form[0].itForm.lessFour.nhis = nhis;
-}
+};
 const updateDonation = (state) => {
-  const {cmprf,donn} = state.form[0].itForm.lessFour;
+  const { cmprf, donn } = state.form[0].itForm.lessFour;
   const donation = parseFloat(cmprf) + parseFloat(donn);
   state.form[0].itForm.lessFour.donation = donation;
-}
+};
 
 export const {
   updateGrossSalaryIncome,
@@ -416,6 +433,8 @@ export const {
   updateFourInterest,
   updateFourDisability,
   updateFourOthers,
+  updateTuitionFeeDetails,
+  updateMutualFundDetails
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

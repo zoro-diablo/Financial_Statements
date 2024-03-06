@@ -1,4 +1,7 @@
+import { useSelector } from "react-redux";
+
 const Certificate = () => {
+  const data = useSelector((state) => state.finance.form[0].itForm);
   return (
     <div className='max-w-4xl mx-auto bg-white p-1 my-3 border-2 border-black rounded shadow-md'>
       <div className='max-w-4xl mx-auto bg-white p-8 border-2 border-black rounded shadow-md'>
@@ -11,7 +14,7 @@ const Certificate = () => {
             <span className='font-bold mr-2 text-lg'>1:</span> Certified that I
             am occupying a rental house and paying monthly rent of{' '}
             <span className='font-bold ml-8 border-b-2 border-black'>
-              ₹ 9,100
+              ₹ {data.less.rentPaid}
             </span>
           </p>
           <p className='mb-6'>
