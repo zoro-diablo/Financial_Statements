@@ -133,11 +133,60 @@ const financeSlice = createSlice({
       state.form[0].itForm.lessThree.annualPe = action.payload;
       updateAnnualPension(state);
       updateTotalDeduct(state);
+      updateDeduction(state);
     },
     updateAnnCps: (state, action) => {
       state.form[0].itForm.lessThree.cps = action.payload;
       updateAnnualCps(state);
       updateTotalDeduct(state);
+      updateDeduction(state);
+    },
+    updateDed: (state, action) => {
+      state.form[0].itForm.lessThree.ded = action.payload;
+      updatefinDed(state);
+      updategrossTaxableIncome(state)
+    },
+    updateOtherSpf: (state, action) => {
+      state.form[0].itForm.lessThree.otherSpf = action.payload;
+      otherSpecific(state);
+      updategrossTaxableIncome(state)
+    },
+    updateFourOne: (state, action) => {
+      state.form[0].itForm.lessFour.one = action.payload;
+      updateNhis(state);
+    },
+    updateFourTwo: (state, action) => {
+      state.form[0].itForm.lessFour.two = action.payload;
+      updateNhis(state);
+    },
+    updateFourMaintenance: (state, action) => {
+      state.form[0].itForm.lessFour.maintenance = action.payload;
+    },
+    updateFourMedical: (state, action) => {
+      state.form[0].itForm.lessFour.medical = action.payload;
+    },
+    updateFourRepay: (state, action) => {
+      state.form[0].itForm.lessFour.repay = action.payload;
+    },
+    updateFourHomeLoan: (state, action) => {
+      state.form[0].itForm.lessFour.homeLoan = action.payload;
+    },
+    updateFourCmprf: (state, action) => {
+      state.form[0].itForm.lessFour.cmprf = action.payload;
+      updateDonation(state);
+    },
+    updateFourDonn: (state, action) => {
+      state.form[0].itForm.lessFour.donn = action.payload;
+      updateDonation(state);
+    },
+    updateFourInterest: (state, action) => {
+      state.form[0].itForm.lessFour.interest = action.payload;
+    },
+    updateFourDisability: (state, action) => {
+      state.form[0].itForm.lessFour.disability = action.payload;
+    },
+    updateFourOthers: (state, action) => {
+      state.form[0].itForm.lessFour.others = action.payload;
     },
   },
 });
@@ -187,6 +236,7 @@ const updateGrossTotalIncome = (state) => {
     parseFloat(savingBank) +
     parseFloat(other);
   state.form[0].itForm.grossTotalIncome = grossTotalIncome;
+  updategrossTaxableIncome(state)
 };
 const updateTotalLessThree = (state) => {
   const {
@@ -224,6 +274,9 @@ const updateTotalLessThree = (state) => {
     parseFloat(others);
   state.form[0].itForm.lessThree.total = total;
   updateTotalDeduct(state);
+  updateDeduction(state);
+  updategrossTaxableIncome(state)
+  
 };
 const updateAnnualPension = (state) => {
   const { annualPe } = state.form[0].itForm.lessThree;
@@ -253,17 +306,69 @@ const updateAnnualCps = (state) => {
 };
 const updateTotalDeduct = (state) => {
   const { annualPension, annualCps, total } = state.form[0].itForm.lessThree;
-  const TotalDeduction = annualPension + annualCps + total;
+  const TotalDeduction =
+    parseFloat(annualPension) + parseFloat(annualCps) + parseFloat(total);
   state.form[0].itForm.lessThree.totalDeduct = TotalDeduction;
 };
-// const updateDeduction = (state) => {
-//   const {  annualPension, annualCps, total } = state.form[0].itForm.lessThree;
-//   const { grossTotalIncome } = state.form[0].itForm
+const updateDeduction = (state) => {
+  const { annualPension, annualCps, total } = state.form[0].itForm.lessThree;
+  const { grossTotalIncome } = state.form[0].itForm;
+  const dud =
+    parseFloat(annualCps) + parseFloat(annualPension) + parseFloat(total);
+  if (grossTotalIncome > 0.1) {
+    if (dud < 150000 && dud > 0) {
+      state.form[0].itForm.lessThree.deduction = dud;
+    } else {
+      state.form[0].itForm.lessThree.deduction = 150000;
+    }
+  } else {
+    state.form[0].itForm.lessThree.deduction = 0;
+  }
+};
+const updatefinDed = (state) => {
+  const { ded } = state.form[0].itForm.lessThree;
+  const { grossTotalIncome } = state.form[0].itForm;
+  if (grossTotalIncome > 0.1) {
+    if (ded < 50000) {
+      state.form[0].itForm.lessThree.finDed = ded;
+    } else {
+      state.form[0].itForm.lessThree.finDed = 50000;
+    }
+  } else {
+    state.form[0].itForm.lessThree.finDed = 0;
+  }
+};
+const otherSpecific = (state) => {
+  const { otherSpf } = state.form[0].itForm.lessThree;
+  if (otherSpf > 0) {
+    if (otherSpf < 50000) {
+      state.form[0].itForm.lessThree.otherSpecific = Math.round(otherSpf / 2);
+    } else {
+      state.form[0].itForm.lessThree.otherSpecific = 50000;
+    }
+  } else {
+    state.form[0].itForm.lessThree.otherSpecific = 0;
+  }
+};
+const updategrossTaxableIncome = (state) => {
+  const { grossTotalIncome } = state.form[0].itForm; 
+  const { deduction, finDed, otherSpecific } = state.form[0].itForm.lessThree;
 
-//   if(grossTotalIncome > 0.1){
-//     if()
-//   }
-// }
+  const newGrossTaxableIncome =
+    grossTotalIncome - deduction - finDed - otherSpecific;
+
+  state.form[0].itForm.grossTaxableIncome = newGrossTaxableIncome;
+};
+const updateNhis = (state) => {
+  const {one,two} = state.form[0].itForm.lessFour;
+  const nhis = parseFloat(one) + parseFloat(two);
+  state.form[0].itForm.lessFour.nhis = nhis;
+}
+const updateDonation = (state) => {
+  const {cmprf,donn} = state.form[0].itForm.lessFour;
+  const donation = parseFloat(cmprf) + parseFloat(donn);
+  state.form[0].itForm.lessFour.donation = donation;
+}
 
 export const {
   updateGrossSalaryIncome,
@@ -298,6 +403,19 @@ export const {
   updateAnnualPe,
   updateAnnCps,
   updateRentPaid,
+  updateDed,
+  updateOtherSpf,
+  updateFourOne,
+  updateFourTwo,
+  updateFourMaintenance,
+  updateFourMedical,
+  updateFourRepay,
+  updateFourHomeLoan,
+  updateFourCmprf,
+  updateFourDonn,
+  updateFourInterest,
+  updateFourDisability,
+  updateFourOthers,
 } = financeSlice.actions;
 
 export default financeSlice.reducer;
