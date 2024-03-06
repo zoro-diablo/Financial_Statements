@@ -224,6 +224,15 @@ const financeSlice = createSlice({
           return total + amount;
         }, 0);
   },
+  updateLicDetails : (state,action) => {
+    const {index , field , value} = action.payload;
+    state.form[0].itForm.particularsLic[index][field] = value;
+    state.form[0].itForm.totalLic =
+      state.form[0].itForm.particularsLic.reduce((total, child) => {
+        const paid = isNaN(Number(child.paid)) ? 0 : Number(child.paid);
+        return total + paid;
+      }, 0);
+  }
 },
 });
 
@@ -454,7 +463,8 @@ export const {
   updateTuitionFeeDetails,
   updateMutualFundDetails,
   updateAccuredDetails,
-  updateSavingsDetails
+  updateSavingsDetails,
+  updateLicDetails
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

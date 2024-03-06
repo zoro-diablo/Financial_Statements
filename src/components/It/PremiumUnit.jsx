@@ -1,4 +1,17 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { updateLicDetails } from '../../redux/features/finance';
+
 const PremiumUnit = () => {
+  const dispatch = useDispatch();
+  const data = useSelector(
+    (state) => state.finance.form[0].itForm.particularsLic
+  );
+  const { totalLic } = useSelector((state) => state.finance.form[0].itForm);
+
+  const handleChange = (index, field, value) => {
+    dispatch(updateLicDetails({ index, field, value }));
+  };
+
   return (
     <div className='max-w-4xl mx-auto bg-white p-1 my-3 border-2 border-black rounded shadow-md'>
       <div className='max-w-4xl mx-auto bg-white p-4 border-2 border-black rounded shadow-md'>
@@ -11,85 +24,86 @@ const PremiumUnit = () => {
         >
           <thead>
             <tr>
-              <th className='p-4 border border-black w-[15%]'>Policy No.</th>
+              <th className='p-4 border border-black'>Policy No.</th>
               <th className='p-4 border border-black'>Name of the Company</th>
               <th className='p-4 border border-black'>Name of Policy</th>
-              <th className='p-4 border border-black w-[12%]'>
-                Amount Insured
-              </th>
-              <th className='p-4 border border-black w-[12%]'>
-                Premium paid p.a.
-              </th>
+              <th className='p-4 border border-black'>Amount Insured </th>
+              <th className='p-4 border border-black'>Premium paid p.a. </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              >
-                ₹
-              </td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              >
-                ₹
-              </td>
-            </tr>
-            <tr>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              >
-                ₹
-              </td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              >
-                ₹
-              </td>
-            </tr>
+            {data.map((child, index) => (
+              <tr key={index}>
+                <td className='p-2 text-lg border border-black'>
+                  <input
+                    type='text'
+                    className='text-center w-full'
+                    value={child.no}
+                    onChange={(e) =>
+                      handleChange(index, 'no', e.target.value)
+                    }
+                  />
+                </td>
+                <td className='p-2 text-lg border border-black'>
+                  <input
+                    type='text'
+                    className='text-center'
+                    value={child.company}
+                    onChange={(e) =>
+                      handleChange(index, 'company', e.target.value)
+                    }
+                  />
+                </td>
+                <td className='p-2 text-lg border border-black'>
+                  <input
+                    type='text'
+                    className='text-center'
+                    value={child.policy}
+                    onChange={(e) =>
+                      handleChange(index, 'policy', e.target.value)
+                    }
+                  />
+                </td>
+                <td className='p-1 text-lg border border-black'>
+                  <div className='flex'>
+                    ₹
+                    <input
+                      type='number'
+                      className='text-center w-full'
+                      value={child.amount}
+                      onChange={(e) =>
+                        handleChange(index, 'amount', e.target.value)
+                      }
+                    />
+                  </div>
+                </td>
+                <td className='p-1 text-lg border border-black'>
+                  <div className='flex'>
+                    ₹
+                    <input
+                      type='number'
+                      className='text-center w-full'
+                      value={child.paid}
+                      onChange={(e) =>
+                        handleChange(index, 'paid', e.target.value)
+                      }
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
           <tfoot>
             <tr>
-              <td className='p-2' colSpan='3' contentEditable='false'></td>
-              <td
-                className='p-2 text-lg border border-black font-bold'
-                contentEditable='false'
-              >
+              <td className='p-2' colSpan='3'></td>
+              <td className='p-2 text-lg border border-black font-bold'>
                 TOTAL
               </td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              >
-                ₹
+              <td className='p-2 text-lg border border-black flex'>
+                ₹{' '}
+                <div className='text-center w-full font-bold'>
+                  {totalLic}
+                </div>
               </td>
             </tr>
           </tfoot>

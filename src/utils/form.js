@@ -132,6 +132,24 @@ export const form = [
         },
       ],
       totalSavings: 0,
+      particularsLic: [
+        {
+          no: '',
+          company: '',
+          policy: '',
+          amount: 0,
+          paid: 0,
+        },
+        {
+          no: '',
+          company: '',
+          policy: '',
+          amount: 0,
+          paid: 0,
+        },
+       
+      ],
+      totalLic: 0,
       particularsMutualFund: [
         {
           folio: '39588097',
