@@ -200,12 +200,21 @@ const financeSlice = createSlice({
     updateMutualFundDetails: (state, action) => {
       const { index, field, value } = action.payload;
       state.form[0].itForm.particularsMutualFund[index][field] = value;
-        state.form[0].itForm.totalMutualFund =
+      state.form[0].itForm.totalMutualFund =
         state.form[0].itForm.particularsMutualFund.reduce((total, child) => {
           const amount = isNaN(Number(child.amount)) ? 0 : Number(child.amount);
           return total + amount;
         }, 0);
-  },
+    },
+    updateAccuredDetails : (state, action) => {
+      const { index, field, value } = action.payload;
+      state.form[0].itForm.particularsAccured[index][field] = value;
+      state.form[0].itForm.totalAccured =
+        state.form[0].itForm.particularsAccured.reduce((total, child) => {
+          const amount = isNaN(Number(child.amount)) ? 0 : Number(child.amount);
+          return total + amount;
+        }, 0);
+    }
   },
 });
 
@@ -434,7 +443,8 @@ export const {
   updateFourDisability,
   updateFourOthers,
   updateTuitionFeeDetails,
-  updateMutualFundDetails
+  updateMutualFundDetails,
+  updateAccuredDetails
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

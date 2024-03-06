@@ -102,6 +102,22 @@ export const form = [
         },
       ],
       totalTuition: 36000,
+      particularsAccured: [
+        {
+          post: '',
+          date: '',
+          rate: 0,
+          amount: 0,
+        },
+        {
+          post: '',
+          date: '',
+          rate: 0,
+          amount: 0,
+        },
+       
+      ],
+      totalAccured: 0,
       particularsMutualFund: [
         {
           folio: '39588097',
@@ -109,7 +125,7 @@ export const form = [
           date: '',
           lock: '3 YRS',
           other: '',
-          amount: 20999
+          amount: 20999,
         },
         {
           folio: '',
@@ -117,7 +133,7 @@ export const form = [
           date: '',
           lock: 0,
           other: '',
-          amount: 0
+          amount: 0,
         },
         {
           folio: '',
@@ -125,7 +141,7 @@ export const form = [
           date: '',
           lock: 0,
           other: '',
-          amount: 0
+          amount: 0,
         },
       ],
       totalMutualFund: 36000,
