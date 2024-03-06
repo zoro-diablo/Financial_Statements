@@ -1,4 +1,17 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { updateSavingsDetails } from '../../redux/features/finance';
+
 const NationalSaving = () => {
+  const dispatch = useDispatch();
+  const data = useSelector(
+    (state) => state.finance.form[0].itForm.particularsNationalSaving
+  );
+  const { totalSavings } = useSelector((state) => state.finance.form[0].itForm);
+
+  const handleChange = (index, field, value) => {
+    dispatch(updateSavingsDetails({ index, field, value }));
+  };
+
   return (
     <div className='max-w-4xl mx-auto bg-white p-1 my-3 border-2 border-black rounded shadow-md'>
       <div className='max-w-4xl mx-auto bg-white p-4 border-2 border-black rounded shadow-md'>
@@ -12,75 +25,71 @@ const NationalSaving = () => {
           <thead>
             <tr>
               <th className='p-4 border border-black'>Name of Post Office</th>
-              <th className='p-4 border border-black'>
-                N. S. C. Number
-                <br />
-                (Issue No. in brackets)
-              </th>
-              <th className='p-4 border border-black'>
-                Date of Purchase
-                <br />
-                of the N. S. C.
-              </th>
-              <th className='p-4 border border-black'>Amount</th>
+              <th className='p-4 border border-black'>N. S. C. Number</th>
+              <th className='p-4 border border-black'>Date of Purchase</th>
+              <th className='p-4 border border-black'>Amount </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              >
-                ₹
-              </td>
-            </tr>
-            <tr>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              ></td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              >
-                ₹
-              </td>
-            </tr>
+            {data.map((child, index) => (
+              <tr key={index}>
+                <td className='p-2 text-lg border border-black'>
+                  <input
+                    type='text'
+                    className='text-center w-full'
+                    value={child.office}
+                    onChange={(e) =>
+                      handleChange(index, 'office', e.target.value)
+                    }
+                  />
+                </td>
+                <td className='p-2 text-lg border border-black'>
+                  <input
+                    type='number'
+                    className='text-center'
+                    value={child.number}
+                    onChange={(e) =>
+                      handleChange(index, 'number', e.target.value)
+                    }
+                  />
+                </td>
+                <td className='p-2 text-lg border border-black'>
+                  <input
+                    type='text'
+                    className='text-center'
+                    value={child.date}
+                    onChange={(e) =>
+                      handleChange(index, 'date', e.target.value)
+                    }
+                  />
+                </td>
+                <td className='p-1 text-lg border border-black'>
+                  <div className='flex'>
+                    ₹
+                    <input
+                      type='number'
+                      className='text-center w-full'
+                      value={child.amount}
+                      onChange={(e) =>
+                        handleChange(index, 'amount', e.target.value)
+                      }
+                    />
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
           <tfoot>
             <tr>
-              <td className='p-2' colSpan='2' contentEditable='false'></td>
-              <td
-                className='p-2 text-lg border border-black font-bold'
-                contentEditable='false'
-              >
+              <td className='p-2' colSpan='2'></td>
+              <td className='p-2 text-lg border border-black font-bold'>
                 TOTAL
               </td>
-              <td
-                className='p-2 text-lg border border-black'
-                contentEditable='true'
-              >
-                ₹
+              <td className='p-2 text-lg border border-black flex'>
+                ₹{' '}
+                <div className='text-center w-full font-bold'>
+                  {totalSavings}
+                </div>
               </td>
             </tr>
           </tfoot>

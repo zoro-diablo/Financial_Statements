@@ -115,9 +115,23 @@ export const form = [
           rate: 0,
           amount: 0,
         },
-       
       ],
       totalAccured: 0,
+      particularsNationalSaving: [
+        {
+          office: '',
+          number: 0,
+          date: '',
+          amount: 0,
+        },
+        {
+          office: '',
+          number: 0,
+          date: '',
+          amount: 0,
+        },
+      ],
+      totalSavings: 0,
       particularsMutualFund: [
         {
           folio: '39588097',

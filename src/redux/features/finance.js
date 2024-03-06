@@ -214,8 +214,17 @@ const financeSlice = createSlice({
           const amount = isNaN(Number(child.amount)) ? 0 : Number(child.amount);
           return total + amount;
         }, 0);
-    }
+    },
+    updateSavingsDetails : (state, action) => {
+      const {index , field , value} = action.payload;
+      state.form[0].itForm.particularsNationalSaving[index][field] = value;
+      state.form[0].itForm.totalSavings =
+        state.form[0].itForm.particularsNationalSaving.reduce((total, child) => {
+          const amount = isNaN(Number(child.amount)) ? 0 : Number(child.amount);
+          return total + amount;
+        }, 0);
   },
+},
 });
 
 const updateRentPaidlessOne = (state) => {
@@ -444,7 +453,8 @@ export const {
   updateFourOthers,
   updateTuitionFeeDetails,
   updateMutualFundDetails,
-  updateAccuredDetails
+  updateAccuredDetails,
+  updateSavingsDetails
 } = financeSlice.actions;
 
 export default financeSlice.reducer;
