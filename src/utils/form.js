@@ -3,6 +3,7 @@ export const form = [
     itForm: {
       grossSalaryIncome: 801276,
       less: {
+        rentPaid:9100,
         actualRentPaid: 109200,
         actualAmount: 31800,
         expenditure: 32612,
@@ -46,6 +47,7 @@ export const form = [
         annualPe:0,
         annualPension: 0,
         cps: 76588,
+        annualCps: 76588,
         totalDeduct: 240704,
         deduction: 150000,
         ded: 0,
@@ -79,6 +81,7 @@ export const form = [
       },
       TaxAlreadyDed: 0,
       NetTaxPayable: 22150,
+      
     },
     billDrawn: {},
   },

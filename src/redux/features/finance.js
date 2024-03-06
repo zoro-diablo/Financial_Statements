@@ -12,6 +12,11 @@ const financeSlice = createSlice({
     updateGrossSalaryIncome: (state, action) => {
       state.form[0].itForm.grossSalaryIncome = action.payload;
     },
+    updateRentPaid: (state, action) => {
+      state.form[0].itForm.less.rentPaid = action.payload;
+      updateRentPaidlessOne(state);
+      updateHRA(state);
+    },
     updateActualRentPaid: (state, action) => {
       state.form[0].itForm.less.actualRentPaid = action.payload;
       updateHRA(state);
@@ -127,10 +132,21 @@ const financeSlice = createSlice({
     updateAnnualPe: (state, action) => {
       state.form[0].itForm.lessThree.annualPe = action.payload;
       updateAnnualPension(state);
-    }
+      updateTotalDeduct(state);
+    },
+    updateAnnCps: (state, action) => {
+      state.form[0].itForm.lessThree.cps = action.payload;
+      updateAnnualCps(state);
+      updateTotalDeduct(state);
+    },
   },
 });
 
+const updateRentPaidlessOne = (state) => {
+  const { rentPaid } = state.form[0].itForm.less;
+  const actualRentpaid = rentPaid * 12;
+  state.form[0].itForm.less.actualRentPaid = actualRentpaid;
+};
 const updateHRA = (state) => {
   const { actualRentPaid, actualAmount, expenditure, fortyPercent } =
     state.form[0].itForm.less;
@@ -207,18 +223,47 @@ const updateTotalLessThree = (state) => {
     parseFloat(investInScheme) +
     parseFloat(others);
   state.form[0].itForm.lessThree.total = total;
+  updateTotalDeduct(state);
 };
 const updateAnnualPension = (state) => {
   const { annualPe } = state.form[0].itForm.lessThree;
   if (annualPe > 150000) {
     state.form[0].itForm.lessThree.annualPension = 150000;
+    updateTotalDeduct(state);
   } else if (annualPe > 0) {
     state.form[0].itForm.lessThree.annualPension = annualPe;
+    updateTotalDeduct(state);
   } else {
     state.form[0].itForm.lessThree.annualPension = 0;
+    updateTotalDeduct(state);
   }
 };
+const updateAnnualCps = (state) => {
+  const { cps } = state.form[0].itForm.lessThree;
+  if (cps > 150000) {
+    state.form[0].itForm.lessThree.annualCps = 150000;
+    updateTotalDeduct(state);
+  } else if (cps > 0) {
+    state.form[0].itForm.lessThree.annualCps = cps;
+    updateTotalDeduct(state);
+  } else {
+    state.form[0].itForm.lessThree.annualCps = 0;
+    updateTotalDeduct(state);
+  }
+};
+const updateTotalDeduct = (state) => {
+  const { annualPension, annualCps, total } = state.form[0].itForm.lessThree;
+  const TotalDeduction = annualPension + annualCps + total;
+  state.form[0].itForm.lessThree.totalDeduct = TotalDeduction;
+};
+// const updateDeduction = (state) => {
+//   const {  annualPension, annualCps, total } = state.form[0].itForm.lessThree;
+//   const { grossTotalIncome } = state.form[0].itForm
 
+//   if(grossTotalIncome > 0.1){
+//     if()
+//   }
+// }
 
 export const {
   updateGrossSalaryIncome,
@@ -251,6 +296,8 @@ export const {
   updateInvestInScheme,
   updateLessOthers,
   updateAnnualPe,
+  updateAnnCps,
+  updateRentPaid,
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

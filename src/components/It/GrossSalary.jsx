@@ -30,6 +30,8 @@ import {
   updateInvestInScheme,
   updateLessOthers,
   updateAnnualPe,
+  updateAnnCps,
+  updateRentPaid,
 } from '../../redux/features/finance';
 
 const GrossSalary = () => {
@@ -73,12 +75,18 @@ const GrossSalary = () => {
             />
           </td>
         </tr>
-
         <tr>
           <td className='td1 border-2 border-black'>2</td>
           <td className='td1 border-2 border-black'>
             LESS : HRA exempted under IT Rules u/s 10(13) A<br />
-            a) Actual rent paid in a year : 12 x 9100 ={' '}
+            a) Actual rent paid in a year : 12 x{' '}
+            <input
+              type='number'
+              className='border-1 w-14 border border-gray-300 text-center'
+              value={data.less.rentPaid}
+              onChange={(e) => dispatch(updateRentPaid(e.target.value))}
+            />
+            ={' '}
           </td>
           <td className='crAmount td1 border-2 border-black'>
             <label className='font-bold'>₹</label>
@@ -594,12 +602,15 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             (ii) DED. u/s 80 CCC : Annuity Pension Funds :{' '}
             <label className='font-bold p-1'>₹</label>
-            <input type='number' className='border-2 text-center w-20'  value={data.lessThree.annualPe} 
-            onChange={(e) => dispatch(updateAnnualPe(e.target.value))}
+            <input
+              type='number'
+              className='border-2 text-center w-20'
+              value={data.lessThree.annualPe}
+              onChange={(e) => dispatch(updateAnnualPe(e.target.value))}
             />
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input font-bold'
               type='number'
@@ -611,9 +622,24 @@ const GrossSalary = () => {
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-            (iii) DED. u/s 80 CCD(1) :
+            (iii) DED. u/s 80 CCD(1) :{' '}
+            <label className='font-bold p-1'>₹</label>
+            <input
+              type='number'
+              className='border-2 text-center w-20'
+              value={data.lessThree.cps}
+              onChange={(e) => dispatch(updateAnnCps(e.target.value))}
+            />
           </td>
-          <td className='crAmount4 td1 border-2 border-black'>76588</td>
+          <td className='crAmount4 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.lessThree.annualCps}
+              disabled
+            />
+          </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
@@ -622,8 +648,24 @@ const GrossSalary = () => {
             <br />
             U/s 80CCE : Restricted to a Max. of ₨1,50,000{' '}
           </td>
-          <td className='crAmount4 td1 border-2 border-black'>175383</td>
-          <td className='td1 border-y-2 border-black'>150000</td>
+          <td className='crAmount4 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.lessThree.totalDeduct}
+              disabled
+            />
+          </td>
+          <td className='td1 border-y-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.lessThree.deduction}
+              disabled
+            />
+          </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
