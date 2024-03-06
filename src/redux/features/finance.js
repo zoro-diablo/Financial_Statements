@@ -232,6 +232,15 @@ const financeSlice = createSlice({
         const paid = isNaN(Number(child.paid)) ? 0 : Number(child.paid);
         return total + paid;
       }, 0);
+  },
+  updatePremiumDetails : (state,action) => {
+    const {index , field , value} = action.payload;
+    state.form[0].itForm.particularsPremium[index][field] = value;
+    state.form[0].itForm.totalPremium =
+      state.form[0].itForm.particularsPremium.reduce((total, child) => {
+        const paid = isNaN(Number(child.paid)) ? 0 : Number(child.paid);
+        return total + paid;
+      }, 0);
   }
 },
 });
@@ -464,7 +473,8 @@ export const {
   updateMutualFundDetails,
   updateAccuredDetails,
   updateSavingsDetails,
-  updateLicDetails
+  updateLicDetails,
+  updatePremiumDetails
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

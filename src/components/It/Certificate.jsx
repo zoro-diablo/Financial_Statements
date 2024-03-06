@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 const Certificate = () => {
   const data = useSelector((state) => state.finance.form[0].itForm);
@@ -19,8 +19,12 @@ const Certificate = () => {
           </p>
           <p className='mb-6'>
             <span className='font-bold mr-2 text-lg'>2:</span> Certified that I
-            pay p.a. a sum of ₹ ____________ towards LIC / PLI Premium and the{' '}
-            <br /> <span className='ml-8'>policies are kept alive.</span>
+            pay p.a. a sum of ₹{' '}
+            <span className='underline font-bold m-1'>
+              {data.particularsPremium[0].paid}
+            </span>{' '}
+            towards LIC / PLI Premium and the <br />{' '}
+            <span className='ml-8'>policies are kept alive.</span>
           </p>
           <p className='mb-6'>
             <span className='font-bold mr-2 text-lg'>3:</span> Certified that

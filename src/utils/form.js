@@ -147,9 +147,60 @@ export const form = [
           amount: 0,
           paid: 0,
         },
-       
       ],
       totalLic: 0,
+      particularsPremium: [
+        {
+          no: '308777415',
+          company: 'LIC',
+          policy: 'JEEVAN LABH(PLAN 836)',
+          amount: 1500000,
+          paid: 65321,
+        },
+        {
+          no: '',
+          company: '',
+          policy: ' ',
+          amount: 0,
+          paid: 0,
+        },
+        {
+          no: '',
+          company: '',
+          policy: ' ',
+          amount: 0,
+          paid: 0,
+        },
+        {
+          no: '',
+          company: '',
+          policy: ' ',
+          amount: 0,
+          paid: 0,
+        },
+        {
+          no: '',
+          company: '',
+          policy: ' ',
+          amount: 0,
+          paid: 0,
+        },
+        {
+          no: '',
+          company: '',
+          policy: ' ',
+          amount: 0,
+          paid: 0,
+        },
+        {
+          no: '',
+          company: '',
+          policy: ' ',
+          amount: 0,
+          paid: 0,
+        },
+      ],
+      totalPremium: 65321,
       particularsMutualFund: [
         {
           folio: '39588097',
