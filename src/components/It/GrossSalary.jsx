@@ -366,7 +366,7 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>a) GPF / TPF</td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -379,7 +379,7 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>b) SPF + FBF</td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -394,7 +394,7 @@ const GrossSalary = () => {
             c) PLI / RPLI / LIC Premium - Deducted from salary
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -409,7 +409,7 @@ const GrossSalary = () => {
             d) Repayment of Housing Loan (Principal)
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -424,7 +424,7 @@ const GrossSalary = () => {
             e) LIC / PLI Premium paid
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -437,7 +437,7 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>f) UTI / ULIP</td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -450,7 +450,7 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>g) Investment in NSC</td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -465,7 +465,7 @@ const GrossSalary = () => {
             h) Interst accured on NSC
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -480,7 +480,7 @@ const GrossSalary = () => {
             i) Equity Linked Saving Scheme (ELSS)
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -493,7 +493,7 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>j) Tuition Fees</td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -506,7 +506,7 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>k) PPF / RPF</td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -521,7 +521,7 @@ const GrossSalary = () => {
             l) Subscription to Equity shares / Infrastructure bonds
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -536,7 +536,7 @@ const GrossSalary = () => {
             m) Investment in Term Deposits (Min. 5 years) in Banks
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -551,7 +551,7 @@ const GrossSalary = () => {
             n) Investment in Sukanya Samriddhi Yojana Scheme
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -566,7 +566,7 @@ const GrossSalary = () => {
             o) Others (Please specify)
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -577,9 +577,9 @@ const GrossSalary = () => {
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
-          <td className='td1 border-2 border-black'>TOTAL AMOUNT u/s 80C</td>
+          <td className='td1 border-2 border-black'>TOTAL AMOUNT u/s 80C :</td>
           <td className='crAmount4 td1 border-2 border-black'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input font-bold'
               type='number'
@@ -591,7 +591,8 @@ const GrossSalary = () => {
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-            (ii) DED. u/s 80 CCC : Annuity Pension Funds
+            (ii) DED. u/s 80 CCC : Annuity Pension Funds :{' '}
+            <input type='number' className='border-2 border text-center w-20' />
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
             <i className='fas fa-rupee-sign'></i>0
