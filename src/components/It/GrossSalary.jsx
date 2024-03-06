@@ -4,6 +4,31 @@ import {
   updateActualAmount,
   updateExpenditure,
   updateFortyPercent,
+  updateGrossSalaryIncome,
+  updateTax,
+  updateStandardDeduction,
+  updateInterest,
+  updateConveyance,
+  updateHill,
+  updateOthers,
+  updateHouseProperty,
+  updateSavingBank,
+  updateOther,
+  updateGpf,
+  updateSpf,
+  updatePli,
+  updateRepayment,
+  updateLic,
+  updateUti,
+  updateNsc,
+  updateNscInterest,
+  updateEquity,
+  updateTuition,
+  updatePpf,
+  updateSub,
+  updateInvest,
+  updateInvestInScheme,
+  updateLessOthers,
 } from '../../redux/features/finance';
 
 const GrossSalary = () => {
@@ -34,14 +59,16 @@ const GrossSalary = () => {
           <td
             className='td1 border-l-2 border-black'
             onInput='updateCR_SL1(this)'
-            contentEditable='true'
           ></td>
           <td className='td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
             <input
-              className='input'
+              className='input font-bold'
               type='number'
               value={data.grossSalaryIncome}
-              disabled
+              onChange={(e) =>
+                dispatch(updateGrossSalaryIncome(e.target.value))
+              }
             />
           </td>
         </tr>
@@ -53,6 +80,7 @@ const GrossSalary = () => {
             a) Actual rent paid in a year : 12 x 9100 ={' '}
           </td>
           <td className='crAmount td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -67,6 +95,7 @@ const GrossSalary = () => {
             b) Actual amount of HRA received
           </td>
           <td className='crAmount td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -80,11 +109,8 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             c) Expenditure on rent in excess of 10% of Salary
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount td1 border-2 border-black'
-            onInput='calculateTotalCR()'
-          >
+          <td className='crAmount td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -98,11 +124,8 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             d) 40 % of Salary ( Pay + DA){' '}
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount td1 border-2 border-black'
-            onInput='calculateTotalCR()'
-          >
+          <td className='crAmount td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
             <input
               className='input'
               type='number'
@@ -116,32 +139,31 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             HRA exempted : Least of the above{' '}
           </td>
-          <td className='td1 border-2 border-black'>
-          <input
-              className='input'
+          <td className='td1 border-2 border-black'></td>
+          <td className='td1 border-2 border-black' id='totalCR'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
               type='number'
               value={data.less.hra}
-             
+              disabled
             />
           </td>
-          <td className='td1 border-2 border-black' id='totalCR'></td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'>3</td>
           <td className='td1 border-l-2 border-black'>
-            GROSS SALARY INCOME (1 - 2){' '}
+            GROSS SALARY INCOME (1 - 2)
           </td>
-          <td
-            className='td1 border-l-2 border-black'
-            onInput='updateCR_SL2(this)'
-            contentEditable='true'
-          ></td>
-          <td
-            className='td1 border-2 border-black'
-            id='totalDR_SL2'
-            contentEditable='false'
-          >
-            769476
+          <td className='td1 border-l-2 border-black'></td>
+          <td className='td1 border-2 border-black' id='totalDR_SL2'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.gspOne}
+              disabled
+            />
           </td>
         </tr>
 
@@ -150,12 +172,16 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             LESS : (a) Standard Deduction under IT Rules u/s 16 (ia)
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount2 td1 border-2 border-black'
-            onInput='calculateTotalCR2()'
-          >
-            50000
+          <td className='crAmount2 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessTwo.standardDeduction}
+              onChange={(e) =>
+                dispatch(updateStandardDeduction(e.target.value))
+              }
+            />
           </td>
         </tr>
         <tr>
@@ -163,12 +189,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             (b) Professional Tax u/s 16 (iii)
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount2 td1 border-2 border-black'
-            onInput='calculateTotalCR2()'
-          >
-            2500
+          <td className='crAmount2 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessTwo.tax}
+              onChange={(e) => dispatch(updateTax(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -176,12 +204,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             (c) Interest on Housing Loan u/s 24(b)
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount2 td1 border-2 border-black'
-            onInput='calculateTotalCR2()'
-          >
-            <i className='fas fa-rupee-sign'></i>0
+          <td className='crAmount2 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessTwo.interest}
+              onChange={(e) => dispatch(updateInterest(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -189,12 +219,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             (d) Conveyance Allowance u/s 10(14){' '}
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount2 td1 border-2 border-black'
-            onInput='calculateTotalCR2()'
-          >
-            <i className='fas fa-rupee-sign'></i>0
+          <td className='crAmount2 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessTwo.conveyance}
+              onChange={(e) => dispatch(updateConveyance(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -202,12 +234,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             (e) Hill Allowance u/s 10(14)(ii){' '}
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount2 td1 border-2 border-black'
-            onInput='calculateTotalCR2()'
-          >
-            0
+          <td className='crAmount2 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessTwo.hill}
+              onChange={(e) => dispatch(updateHill(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -215,12 +249,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             (f) Others (Please specify)
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount2 td1 border-2 border-black'
-            onInput='calculateTotalCR2()'
-          >
-            0
+          <td className='crAmount2 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessTwo.others}
+              onChange={(e) => dispatch(updateOthers(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -228,7 +264,13 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>TOTAL</td>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black' id='totalCR2'>
-            52500
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.lessTwo.total}
+              disabled
+            />
           </td>
         </tr>
 
@@ -237,17 +279,19 @@ const GrossSalary = () => {
           <td className='td1 border-l-2 border-black'>
             TAXABLE SALARY INCOME ( 3 - 4 )
           </td>
-          <td
-            className='td1 border-l-2 border-black'
-            onInput='updateCR_SL2(this)'
-            contentEditable='true'
-          ></td>
+          <td className='td1 border-l-2 border-black'></td>
           <td
             className='td1 border-2 border-black'
             id='totalDR_SL2'
             contentEditable='false'
           >
-            716976
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.taxableSalaryIncome}
+              disabled
+            />
           </td>
         </tr>
 
@@ -256,12 +300,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             ADD (a) Income from House property
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount3 td1 border-2 border-black'
-            onInput='calculateTotalCR3()'
-          >
-            0
+          <td className='crAmount3 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.add.houseProperty}
+              onChange={(e) => dispatch(updateHouseProperty(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -269,12 +315,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             (b) Income from Savings Bank Interest
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount3 td1 border-2 border-black'
-            onInput='calculateTotalCR3()'
-          >
-            0
+          <td className='crAmount3 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.add.savingBank}
+              onChange={(e) => dispatch(updateSavingBank(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -282,12 +330,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             (c) Any other Income (FD Interest, Agricultural Income, etc)
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount3 td1 border-2 border-black'
-            onInput='calculateTotalCR3()'
-          >
-            <i className='fas fa-rupee-sign'></i>0
+          <td className='crAmount3 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.add.other}
+              onChange={(e) => dispatch(updateOther(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -295,7 +345,12 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>GROSS TOTAL INCOME</td>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black' id='totalCR2'>
-            716976
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.grossTotalIncome}
+            />
           </td>
         </tr>
 
@@ -305,32 +360,32 @@ const GrossSalary = () => {
             LESS Deduction under Chapter VI A <br />
             (i) DED u/s 80 C
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          ></td>
+          <td className='crAmount4 td1 border-2 border-black'></td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>a) GPF / TPF</td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            0
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.gpf}
+              onChange={(e) => dispatch(updateGpf(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>b) SPF + FBF</td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            <i className='fas fa-rupee-sign'></i>1260
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.spf}
+              onChange={(e) => dispatch(updateSpf(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -338,12 +393,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             c) PLI / RPLI / LIC Premium - Deducted from salary
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            <i className='fas fa-rupee-sign'></i>15636
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.pli}
+              onChange={(e) => dispatch(updatePli(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -351,12 +408,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             d) Repayment of Housing Loan (Principal)
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            0
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.repayment}
+              onChange={(e) => dispatch(updateRepayment(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -364,34 +423,40 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             e) LIC / PLI Premium paid
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            0
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.lic}
+              onChange={(e) => dispatch(updateLic(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>f) UTI / ULIP</td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            0
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.uti}
+              onChange={(e) => dispatch(updateUti(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>g) Investment in NSC</td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            0
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.nsc}
+              onChange={(e) => dispatch(updateNsc(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -399,12 +464,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             h) Interst accured on NSC
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            0
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.nscInterest}
+              onChange={(e) => dispatch(updateNscInterest(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -412,34 +479,40 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             i) Equity Linked Saving Scheme (ELSS)
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            <i className='fas fa-rupee-sign'></i>20999
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.equity}
+              onChange={(e) => dispatch(updateEquity(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>j) Tuition Fees</td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            <i className='fas fa-rupee-sign'></i>36000
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.tuition}
+              onChange={(e) => dispatch(updateTuition(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>k) PPF / RPF</td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            0
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.ppf}
+              onChange={(e) => dispatch(updatePpf(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -447,12 +520,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             l) Subscription to Equity shares / Infrastructure bonds
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            0
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.sub}
+              onChange={(e) => dispatch(updateSub(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -460,12 +535,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             m) Investment in Term Deposits (Min. 5 years) in Banks
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            0
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.invest}
+              onChange={(e) => dispatch(updateInvest(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -473,12 +550,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             n) Investment in Sukanya Samriddhi Yojana Scheme
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            24000
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.investInScheme}
+              onChange={(e) => dispatch(updateInvestInScheme(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
@@ -486,23 +565,27 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             o) Others (Please specify)
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            0
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.lessThree.others}
+              onChange={(e) => dispatch(updateLessOthers(e.target.value))}
+            />
           </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>TOTAL AMOUNT u/s 80C</td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            <i className='fas fa-rupee-sign'></i>98795
+          <td className='crAmount4 td1 border-2 border-black'>
+          <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.lessThree.total}
+              disabled
+            />
           </td>
         </tr>
         <tr>
@@ -510,11 +593,7 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             (ii) DED. u/s 80 CCC : Annuity Pension Funds
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
+          <td className='crAmount4 td1 border-2 border-black'>
             <i className='fas fa-rupee-sign'></i>0
           </td>
         </tr>
@@ -523,13 +602,7 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             (iii) DED. u/s 80 CCD(1) :
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            76588
-          </td>
+          <td className='crAmount4 td1 border-2 border-black'>76588</td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
@@ -538,13 +611,7 @@ const GrossSalary = () => {
             <br />
             U/s 80CCE : Restricted to a Max. of ₨1,50,000{' '}
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          >
-            175383
-          </td>
+          <td className='crAmount4 td1 border-2 border-black'>175383</td>
           <td className='td1 border-y-2 border-black'>150000</td>
         </tr>
         <tr>
@@ -552,22 +619,14 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             (iv) DED u/s 80-CCD(1B): Voluntary Contribution to NPS / CPS
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          ></td>
+          <td className='crAmount4 td1 border-2 border-black'></td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
             (v) Others (Please specify)
           </td>
-          <td
-            contentEditable='true'
-            className='crAmount4 td1 border-2 border-black'
-            onInput='calculateTotalCR4()'
-          ></td>
+          <td className='crAmount4 td1 border-2 border-black'></td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'>9</td>
@@ -589,7 +648,6 @@ const GrossSalary = () => {
             <span className='border border-black p-1'>19364</span>
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
@@ -603,7 +661,6 @@ const GrossSalary = () => {
             (vii) DED u/s 80 DD : Maintenance / Treatment of Dependant
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           ></td>
@@ -614,7 +671,6 @@ const GrossSalary = () => {
             (viii) DED u/s 80 DDB : Medical Treatment of Chronic Illness
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
@@ -627,7 +683,6 @@ const GrossSalary = () => {
             (ix) DED u/s 80 E : Repayment of Interest on Educational Loan
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
@@ -640,7 +695,6 @@ const GrossSalary = () => {
             (x) DED u/s 80 EE / 80 EEA : Interest on Specific Home Loans
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           ></td>
@@ -651,7 +705,6 @@ const GrossSalary = () => {
             (xi) DED u/s 80 G : CMPRF
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           ></td>
@@ -662,7 +715,6 @@ const GrossSalary = () => {
             (xii) DED u/s 80TTA: Interest from Savings Accounts of Banks/PO
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           ></td>
@@ -673,7 +725,6 @@ const GrossSalary = () => {
             (xiii) DED u/s 80 U : Permanent physical disability (Self)
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           ></td>
@@ -684,7 +735,6 @@ const GrossSalary = () => {
             (xiv) Others (Please specify)
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           ></td>
@@ -716,7 +766,6 @@ const GrossSalary = () => {
             a) Upto ₹ 2,50,000 Nil Tax on ₹ 2,50,000
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
@@ -730,7 +779,6 @@ const GrossSalary = () => {
             b) ₹ 2,50,001 to Rs . ₹ 5,00,000 @ 5% on ₹ 2,50,00
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
@@ -746,7 +794,6 @@ const GrossSalary = () => {
             5,00,00
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
@@ -759,7 +806,6 @@ const GrossSalary = () => {
             c) ₹ 5,00,001 to Rs . ₹ 10,00,000 @ 20% on ₹ 44,010
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
@@ -772,7 +818,6 @@ const GrossSalary = () => {
             d) Exceeding Rs. ₹ 10,00,000 @ 30% on ₹{' '}
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           ></td>
@@ -781,7 +826,6 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>TAX PAYABLE</td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
@@ -794,7 +838,6 @@ const GrossSalary = () => {
             ADD : Surcharge on Income Tax : @ 0% on ₹{' '}
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
@@ -807,7 +850,6 @@ const GrossSalary = () => {
             ADD : Health and Education CESS @ 4% on ₹ 21,302
           </td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
@@ -819,7 +861,6 @@ const GrossSalary = () => {
           <td className='td1 border-b-2 border-black'>TOTAL TAX PAYABLE</td>
           <td className='td1 border-y-2 border-black'></td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
@@ -833,7 +874,6 @@ const GrossSalary = () => {
           </td>
           <td className='td1 border-y-2 border-black'></td>
           <td
-            contentEditable='true'
             className='crAmount5 td1 border-2 border-black'
             onInput='calculateTotalCR5()'
           >
