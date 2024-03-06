@@ -123,7 +123,11 @@ const financeSlice = createSlice({
     updateLessOthers: (state, action) => {
       state.form[0].itForm.lessThree.others = action.payload;
       updateTotalLessThree(state);
-    }, 
+    },
+    updateAnnualPe: (state, action) => {
+      state.form[0].itForm.lessThree.annualPe = action.payload;
+      updateAnnualPension(state);
+    }
   },
 });
 
@@ -203,7 +207,18 @@ const updateTotalLessThree = (state) => {
     parseFloat(investInScheme) +
     parseFloat(others);
   state.form[0].itForm.lessThree.total = total;
-}
+};
+const updateAnnualPension = (state) => {
+  const { annualPe } = state.form[0].itForm.lessThree;
+  if (annualPe > 150000) {
+    state.form[0].itForm.lessThree.annualPension = 150000;
+  } else if (annualPe > 0) {
+    state.form[0].itForm.lessThree.annualPension = annualPe;
+  } else {
+    state.form[0].itForm.lessThree.annualPension = 0;
+  }
+};
+
 
 export const {
   updateGrossSalaryIncome,
@@ -235,6 +250,7 @@ export const {
   updateInvest,
   updateInvestInScheme,
   updateLessOthers,
+  updateAnnualPe,
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

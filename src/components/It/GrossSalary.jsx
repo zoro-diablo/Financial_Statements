@@ -29,6 +29,7 @@ import {
   updateInvest,
   updateInvestInScheme,
   updateLessOthers,
+  updateAnnualPe,
 } from '../../redux/features/finance';
 
 const GrossSalary = () => {
@@ -592,10 +593,19 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
             (ii) DED. u/s 80 CCC : Annuity Pension Funds :{' '}
-            <input type='number' className='border-2 border text-center w-20' />
+            <label className='font-bold p-1'>₹</label>
+            <input type='number' className='border-2 text-center w-20'  value={data.lessThree.annualPe} 
+            onChange={(e) => dispatch(updateAnnualPe(e.target.value))}
+            />
           </td>
           <td className='crAmount4 td1 border-2 border-black'>
-            <i className='fas fa-rupee-sign'></i>0
+          <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.lessThree.annualPension}
+              disabled
+            />
           </td>
         </tr>
         <tr>

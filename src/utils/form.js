@@ -43,6 +43,7 @@ export const form = [
         investInScheme: 24000,
         others: 0,
         total: 164116,
+        annualPe:0,
         annualPension: 0,
         cps: 76588,
         totalDeduct: 240704,
