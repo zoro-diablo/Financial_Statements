@@ -1048,13 +1048,31 @@ const GrossSalary = () => {
               disabled
             />
           </td>
-          <td className='crAmount5 td1 border-2 border-black'>0</td>
+          <td className='crAmount5 td1 border-2 border-black'></td>
           <td className='td1 border-black'></td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-            b) ₹ 2,50,001 to Rs . ₹ 5,00,000 @ 5% on ₹ 2,50,00
+            b) <span className='font-bold'>₹</span>{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.plusOne}
+              disabled
+            />{' '} to Rs . <span className='font-bold'>₹</span>{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.value}
+              disabled
+            />{' '} @ 5% on <span className='font-bold'>₹</span>{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.minValue}
+              disabled
+            />{' '}
           </td>
           <td className='crAmount5 td1 border-2 border-black'>12500</td>
         </tr>
