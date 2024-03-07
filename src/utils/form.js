@@ -73,6 +73,7 @@ export const form = [
         totalDed: 22964,
       },
       netTaxableIncome: 544012,
+      roundedNetTaxableIncome: 544010,
       taxOnTotalIncome: {
         upto: 0,
         fivePer: 12500,

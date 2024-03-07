@@ -999,7 +999,13 @@ const GrossSalary = () => {
           </td>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black' id='totalCR5'>
-            22964
+          <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.lessFour.totalDed}
+              disabled
+            />
           </td>
         </tr>
         <tr>
@@ -1007,9 +1013,22 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>
             NET TAXABLE INCOME (Rounded off to nearest ten Rupees) u/s 288A
           </td>
-          <td className='td1 border-2 border-black'>544012</td>
+          <td className='td1 border-2 border-black'>
+          <input
+              className='input'
+              type='number'
+              value={data.netTaxableIncome}
+              disabled
+            />
+          </td>
           <td className='td1 border-2 border-black' id='totalCR2'>
-            544010
+          <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.roundedNetTaxableIncome}
+              disabled
+            />
           </td>
         </tr>
         <tr>
