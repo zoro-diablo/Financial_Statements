@@ -45,6 +45,7 @@ import {
   updateFourDisability,
   updateFourOthers,
 } from '../../redux/features/finance';
+import { FaGreaterThan } from "react-icons/fa6";
 
 const GrossSalary = () => {
   const dispatch = useDispatch();
@@ -171,6 +172,16 @@ const GrossSalary = () => {
             />
           </td>
         </tr>
+
+        <div className='absolute top-[760px] right-10  h-32 '>
+            <div className='flex'>
+              <input className='mx-4 w-4 mt-2 h-4' type="checkbox" /> <span className='mr-3 font-bold text-xl text-blue-700'>50%</span>
+              <div className='text-red-800 font-bold'>
+                Tick here for Metro City
+              </div>
+            </div>
+          </div>
+
         <tr>
           <td className='td1 border-2 border-black'>3</td>
           <td className='td1 border-l-2 border-black'>
@@ -745,6 +756,57 @@ const GrossSalary = () => {
           </td>
         </tr>
 
+        <div className='absolute right-0 w-[310px] h-32 '>
+      <table className="w-full border-collapse">
+        <thead>
+          <tr>
+            <th className="border-b-4 border-red-500 p-2"></th>
+            <th className="bg-yellow-200 border-4 border-red-500 text-xs p-2">Medical Insurance premium paid :</th>
+            <th className="bg-yellow-200 border-x-4 border-t-4 border-red-500 p-2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            
+            <td className="border-b-4 bg-yellow-200 border-red-500 w-[20%] p-2">80D</td>
+            
+            
+            <td className="border-4 bg-yellow-200 border-red-500 w-[60%] p-2">Self/Spouse/Child<br/> ₹<input type="text" className="ml-2 mr-4 w-24 mb-2 h-6 mt-2 p-1 border border-gray-400" /><br/> <input className='mx-4' type="checkbox" />Age <FaGreaterThan className='text-xs absolute left-32 ml-2 bottom-[-18px]' /> <span className='ml-4'>60</span></td>
+                
+            
+            <td className="border-r-4 bg-yellow-200 border-red-500 w-[20%] p-2">Preventive Health Checkup</td>
+          </tr>
+          <tr>
+            
+            <td className=" w-[20%] p-2"></td>
+            
+            
+            <td className="border-4 bg-yellow-200 border-red-500 w-[60%] p-2">Father/Mother/Both<br/> ₹<input type="text" className="ml-2 mr-4 w-24 mb-2 h-6 mt-2 p-1 border border-gray-400" /><br/> <input className='mx-4' type="checkbox" />Age <FaGreaterThan className='text-xs absolute left-32 ml-2 bottom-[-127px]' /> <span className='ml-4'>60</span></td>
+            
+            
+            
+            <td className="border-r-4 bg-yellow-200 border-b-4 border-red-500 w-[20%] p-2"><input type="text" className="ml-2 mr-4 w-14 mb-2 h-6 mt-2 p-1 border border-gray-400" /></td>
+          </tr>
+        </tbody>
+      </table>
+      <table className="w-full mt-10 border-y-4 border-r-4 border-red-500 border-collapse">
+        
+        <tbody>
+          <tr>
+            
+            <td className="border-b-4 bg-yellow-200 border-red-500 w-[10%] p-2">80D</td>
+            
+            
+            <td className="border-4 bg-yellow-200 border-red-500 w-[45%] p-2">To Govt.<br/> ₹<input type="text" className="ml-2 mr-4 w-16 mb-2 h-6 mt-2 p-1 border border-gray-400" /></td>
+                
+            
+            <td className="border-r-4 bg-yellow-200 border-red-500 w-[45%] p-2">To Govt.<br/> ₹<input type="text" className="ml-2 mr-4 w-16 mb-2 h-6 mt-2 p-1 border border-gray-400" /></td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+
         <tr>
           <td className='td1 border-2 border-black'>10</td>
           <td className='td1 border-2 border-black'>
@@ -1172,3 +1234,6 @@ const GrossSalary = () => {
   );
 };
 export default GrossSalary;
+
+
+
