@@ -75,7 +75,12 @@ export const form = [
       netTaxableIncome: 544012,
       roundedNetTaxableIncome: 544010,
       taxOnTotalIncome: {
+        tax: 250000,
+        nilTaxOn: 250000,
         upto: 0,
+        plusOne: 250001,
+        value: 500000,
+        minValue: 250000,
         fivePer: 12500,
         less: 0,
         twentyPer: 8802,

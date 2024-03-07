@@ -892,8 +892,7 @@ const GrossSalary = () => {
               value={data.lessFour.cmprf}
               onChange={(e) => dispatch(updateFourCmprf(e.target.value))}
             />{' '}
-            Donation :
-            <label className='font-bold px-1'>₹</label>
+            Donation :<label className='font-bold px-1'>₹</label>
             <input
               type='number'
               className='border-1 w-20 border border-gray-300 text-center'
@@ -999,7 +998,7 @@ const GrossSalary = () => {
           </td>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black' id='totalCR5'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input font-bold'
               type='number'
@@ -1014,7 +1013,7 @@ const GrossSalary = () => {
             NET TAXABLE INCOME (Rounded off to nearest ten Rupees) u/s 288A
           </td>
           <td className='td1 border-2 border-black'>
-          <input
+            <input
               className='input'
               type='number'
               value={data.netTaxableIncome}
@@ -1022,7 +1021,7 @@ const GrossSalary = () => {
             />
           </td>
           <td className='td1 border-2 border-black' id='totalCR2'>
-          <label className='font-bold'>₹</label>
+            <label className='font-bold'>₹</label>
             <input
               className='input font-bold'
               type='number'
@@ -1035,7 +1034,19 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>12</td>
           <td className='td1 border-2 border-black'>
             TAX ON TOTAL INCOME :<br />
-            a) Upto ₹ 2,50,000 Nil Tax on ₹ 2,50,000
+            a) Upto <span className='font-bold'>₹</span>{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.tax}
+              disabled
+            />{' '}
+            Nil Tax on <span className='font-bold'>₹</span>{' '}<input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.nilTaxOn}
+              disabled
+            />
           </td>
           <td className='crAmount5 td1 border-2 border-black'>0</td>
           <td className='td1 border-black'></td>

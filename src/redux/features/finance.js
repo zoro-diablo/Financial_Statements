@@ -462,6 +462,7 @@ const updateTotalDeduction = (state) => {
     parseFloat(others);
   state.form[0].itForm.lessFour.totalDed = total;
   updateNextTaxIncome(state);
+  updateNilTaxOn(state);
 };
 const updateNextTaxIncome = (state) => {
   const { grossTaxableIncome } = state.form[0].itForm;
@@ -469,6 +470,7 @@ const updateNextTaxIncome = (state) => {
   const nextTaxIncome = grossTaxableIncome - totalDed;
   state.form[0].itForm.netTaxableIncome = nextTaxIncome;
   updateRoundedNetTaxableIncome(state);
+  updateNilTaxOn(state);
 };
 const updateRoundedNetTaxableIncome = (state) => {
   const { netTaxableIncome } = state.form[0].itForm;
@@ -478,7 +480,16 @@ const updateRoundedNetTaxableIncome = (state) => {
   } else {
     state.form[0].itForm.roundedNetTaxableIncome = 0;
   }
+  updateNilTaxOn(state);
 };
+const updateNilTaxOn = (state) =>{
+  const {roundedNetTaxableIncome} = state.form[0].itForm;
+  if(roundedNetTaxableIncome <= 250000){
+    state.form[0].itForm.taxOnTotalIncome.nilTaxOn = roundedNetTaxableIncome 
+  }else{
+    state.form[0].itForm.taxOnTotalIncome.nilTaxOn = 250000;
+  }
+}
 
 
 export const {
