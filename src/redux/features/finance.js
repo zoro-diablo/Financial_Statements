@@ -11,6 +11,8 @@ const financeSlice = createSlice({
   reducers: {
     updateGrossSalaryIncome: (state, action) => {
       state.form[0].itForm.grossSalaryIncome = action.payload;
+      updateTotalTaxPayable(state);
+      updateLessTaxRelief(state);
     },
     updateRentPaid: (state, action) => {
       state.form[0].itForm.less.rentPaid = action.payload;
@@ -199,6 +201,17 @@ const financeSlice = createSlice({
       state.form[0].itForm.lessFour.others = action.payload;
       updateTotalDeduction(state);
     },
+    updateFiveValue: (state, action) => {
+      state.form[0].itForm.taxOnTotalIncome.value = action.payload;
+      updateMinValue(state);
+      updateFivePer(state);
+      updateValueOne(state);
+    },
+    updateFiveValueTwo: (state, action) => {
+      state.form[0].itForm.taxOnTotalIncome.valueTwo = action.payload;
+      updateROne(state);
+    },
+
     updateTuitionFeeDetails: (state, action) => {
       const { index, field, value } = action.payload;
       state.form[0].itForm.particularsTutionFee[index][field] = value;
@@ -463,7 +476,8 @@ const updateTotalDeduction = (state) => {
   state.form[0].itForm.lessFour.totalDed = total;
   updateNextTaxIncome(state);
   updateNilTaxOn(state);
-  updatePlusOne(state)
+  updatePlusOne(state);
+  updateMinValue(state);
 };
 const updateNextTaxIncome = (state) => {
   const { grossTaxableIncome } = state.form[0].itForm;
@@ -472,31 +486,193 @@ const updateNextTaxIncome = (state) => {
   state.form[0].itForm.netTaxableIncome = nextTaxIncome;
   updateRoundedNetTaxableIncome(state);
   updateNilTaxOn(state);
-  updatePlusOne(state)
+  updatePlusOne(state);
 };
 const updateRoundedNetTaxableIncome = (state) => {
   const { netTaxableIncome } = state.form[0].itForm;
   const { grossSalaryIncome } = state.form[0].itForm;
   if (grossSalaryIncome > 0.1) {
-    state.form[0].itForm.roundedNetTaxableIncome = Math.round(netTaxableIncome / 10) * 10;
+    state.form[0].itForm.roundedNetTaxableIncome =
+      Math.round(netTaxableIncome / 10) * 10;
   } else {
     state.form[0].itForm.roundedNetTaxableIncome = 0;
   }
   updateNilTaxOn(state);
+  updateLess(state);
+  updateValueThree(state);
+  updateRTwo(state);
+  updateSurPercentage(state);
+  updateSurTax(state);
 };
-const updateNilTaxOn = (state) =>{
-  const {roundedNetTaxableIncome} = state.form[0].itForm;
-  if(roundedNetTaxableIncome <= 250000){
-    state.form[0].itForm.taxOnTotalIncome.nilTaxOn = roundedNetTaxableIncome 
-  }else{
+const updateNilTaxOn = (state) => {
+  const { roundedNetTaxableIncome } = state.form[0].itForm;
+  if (roundedNetTaxableIncome <= 250000) {
+    state.form[0].itForm.taxOnTotalIncome.nilTaxOn = roundedNetTaxableIncome;
+  } else {
     state.form[0].itForm.taxOnTotalIncome.nilTaxOn = 250000;
   }
-}
-const updatePlusOne = (state) =>{
-  const {tax} = state.form[0].itForm.taxOnTotalIncome;
+  updateValueThree(state);
+};
+const updatePlusOne = (state) => {
+  const { tax } = state.form[0].itForm.taxOnTotalIncome;
   state.form[0].itForm.taxOnTotalIncome.plusOne = parseFloat(tax) + 1;
-}
+};
+const updateMinValue = (state) => {
+  const { value, nilTaxOn } = state.form[0].itForm.taxOnTotalIncome;
+  if (value > nilTaxOn) {
+    state.form[0].itForm.taxOnTotalIncome.minValue = nilTaxOn;
+  } else {
+    state.form[0].itForm.taxOnTotalIncome.minValue = value;
+  }
+  updateFivePer(state);
+  updateLess(state);
+  updateValueThree(state);
+};
+const updateFivePer = (state) => {
+  const { minValue } = state.form[0].itForm.taxOnTotalIncome;
+  state.form[0].itForm.taxOnTotalIncome.fivePer = Math.round(
+    parseFloat(minValue) * 0.05
+  );
+  updateTaxPayable(state);
+};
+const updateLess = (state) => {
+  const { roundedNetTaxableIncome } = state.form[0].itForm;
+  const { nilTaxOn } = state.form[0].itForm.taxOnTotalIncome;
+  if (roundedNetTaxableIncome <= nilTaxOn) {
+    state.form[0].itForm.less = 0;
+  } else if (roundedNetTaxableIncome <= 500000) {
+    state.form[0].itForm.taxOnTotalIncome.less =
+      state.form[0].itForm.taxOnTotalIncome.fivePer;
+  } else {
+    state.form[0].itForm.taxOnTotalIncome.less = 0;
+  }
+  updateTaxPayable(state);
+};
+const updateValueOne = (state) => {
+  const { value } = state.form[0].itForm.taxOnTotalIncome;
+  state.form[0].itForm.taxOnTotalIncome.valueOne = parseFloat(value) + 1;
+};
+const updateValueThree = (state) => {
+  const { nilTaxOn, minValue } = state.form[0].itForm.taxOnTotalIncome;
+  const { roundedNetTaxableIncome } = state.form[0].itForm;
 
+  if (roundedNetTaxableIncome <= 500000) {
+    state.form[0].itForm.taxOnTotalIncome.valueThree = 0;
+  } else if (roundedNetTaxableIncome <= 1000000) {
+    state.form[0].itForm.taxOnTotalIncome.valueThree =
+      roundedNetTaxableIncome - parseFloat(nilTaxOn) - parseFloat(minValue);
+  } else {
+    state.form[0].itForm.taxOnTotalIncome.valueThree =
+      1000000 - parseFloat(nilTaxOn) - parseFloat(minValue);
+  }
+  updateTwentyPer(state);
+};
+const updateTwentyPer = (state) => {
+  const { valueThree } = state.form[0].itForm.taxOnTotalIncome;
+  state.form[0].itForm.taxOnTotalIncome.twentyPer = Math.round(
+    parseFloat(valueThree) * 0.2
+  );
+  updateTaxPayable(state);
+};
+const updateROne = (state) => {
+  const { valueTwo } = state.form[0].itForm.taxOnTotalIncome;
+  state.form[0].itForm.taxOnTotalIncome.rOne = parseFloat(valueTwo);
+};
+const updateRTwo = (state) => {
+  const { roundedNetTaxableIncome } = state.form[0].itForm;
+  if (roundedNetTaxableIncome > 1000000) {
+    state.form[0].itForm.taxOnTotalIncome.rTwo =
+      parseFloat(roundedNetTaxableIncome) - 1000000;
+  } else {
+    state.form[0].itForm.taxOnTotalIncome.rTwo = 0;
+  }
+  updateThirtyPer(state);
+};
+const updateThirtyPer = (state) => {
+  const { rTwo } = state.form[0].itForm.taxOnTotalIncome;
+  state.form[0].itForm.taxOnTotalIncome.thirtyPer = Math.round(
+    parseFloat(rTwo) * 0.3
+  );
+  updateTaxPayable(state);
+};
+const updateTaxPayable = (state) => {
+  const { fivePer, less, twentyPer, thirtyPer } =
+    state.form[0].itForm.taxOnTotalIncome;
+  state.form[0].itForm.taxOnTotalIncome.taxPayable =
+    parseFloat(fivePer) +
+    parseFloat(less) +
+    parseFloat(twentyPer) +
+    parseFloat(thirtyPer);
+  updateSurTax(state);
+  updateTotalTaxPayable(state);
+};
+const updateSurPercentage = (state) => {
+  const { roundedNetTaxableIncome } = state.form[0].itForm;
+  let surPercentage;
+  if (roundedNetTaxableIncome <= 5000000) {
+    surPercentage = 0;
+  } else if (roundedNetTaxableIncome <= 10000000) {
+    surPercentage = 0.1;
+  } else if (roundedNetTaxableIncome <= 20000000) {
+    surPercentage = 0.15;
+  } else if (roundedNetTaxableIncome <= 50000000) {
+    surPercentage = 0.25;
+  } else {
+    surPercentage = 0.37;
+  }
+  state.form[0].itForm.taxOnTotalIncome.surPer = surPercentage;
+  updateCess(state);
+};
+const updateSurTax = (state) => {
+  const { roundedNetTaxableIncome } = state.form[0].itForm;
+  const { taxPayable } = state.form[0].itForm.taxOnTotalIncome;
+  if (roundedNetTaxableIncome > 5000000) {
+    state.form[0].itForm.taxOnTotalIncome.surTax = 0;
+  } else {
+    state.form[0].itForm.taxOnTotalIncome.surTax = parseFloat(taxPayable);
+  }
+  updateSurcharge(state);
+};
+const updateSurcharge = (state) => {
+  const { surTax } = state.form[0].itForm.taxOnTotalIncome;
+  const { surPer } = state.form[0].itForm.taxOnTotalIncome;
+  state.form[0].itForm.taxOnTotalIncome.surcharge =
+    parseFloat(surTax) * parseFloat(surPer);
+  updateCess(state);
+  updateTotalTaxPayable(state);
+};
+const updateCess = (state) => {
+  const { taxPayable, surcharge } = state.form[0].itForm.taxOnTotalIncome;
+  state.form[0].itForm.taxOnTotalIncome.cess =
+    parseFloat(taxPayable) + parseFloat(surcharge);
+  updateTotalCess(state);
+};
+const updateTotalCess = (state) => {
+  const { cess } = state.form[0].itForm.taxOnTotalIncome;
+  state.form[0].itForm.taxOnTotalIncome.cessTotal = Math.round(
+    parseFloat(cess) * 0.04
+  );
+  updateTotalTaxPayable(state);
+};
+const updateTotalTaxPayable = (state) => {
+  const { taxPayable, surcharge, cessTotal } =
+    state.form[0].itForm.taxOnTotalIncome;
+  const { grossSalaryIncome } = state.form[0].itForm;
+  if (grossSalaryIncome > 0) {
+    state.form[0].itForm.taxOnTotalIncome.totalTaxPayable =
+      parseFloat(taxPayable) + parseFloat(surcharge) + parseFloat(cessTotal);
+  } else {
+    state.form[0].itForm.taxOnTotalIncome.totalTaxPayable = 0;
+  }
+};
+const updateLessTaxRelief = (state) => {
+  const { grossSalaryIncome } = state.form[0].itForm;
+  if (grossSalaryIncome === 0) {
+    state.form[0].itForm.taxOnTotalIncome.lessTaxRelief = 0;
+  } else {
+    state.form[0].itForm.taxOnTotalIncome.lessTaxRelief = 0.000001;
+  }
+};
 
 export const {
   updateGrossSalaryIncome,
@@ -550,6 +726,8 @@ export const {
   updateSavingsDetails,
   updateLicDetails,
   updatePremiumDetails,
+  updateFiveValue,
+  updateFiveValueTwo,
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

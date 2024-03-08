@@ -44,8 +44,10 @@ import {
   updateFourInterest,
   updateFourDisability,
   updateFourOthers,
+  updateFiveValue,
+  updateFiveValueTwo,
 } from '../../redux/features/finance';
-import { FaGreaterThan } from "react-icons/fa6";
+import { FaGreaterThan } from 'react-icons/fa6';
 
 const GrossSalary = () => {
   const dispatch = useDispatch();
@@ -174,13 +176,14 @@ const GrossSalary = () => {
         </tr>
 
         <div className='absolute top-[760px] right-10  h-32 '>
-            <div className='flex'>
-              <input className='mx-4 w-4 mt-2 h-4' type="checkbox" /> <span className='mr-3 font-bold text-xl text-blue-700'>50%</span>
-              <div className='text-red-800 font-bold'>
-                Tick here for Metro City
-              </div>
+          <div className='flex'>
+            <input className='mx-4 w-4 mt-2 h-4' type='checkbox' />{' '}
+            <span className='mr-3 font-bold text-xl text-blue-700'>50%</span>
+            <div className='text-red-800 font-bold'>
+              Tick here for Metro City
             </div>
           </div>
+        </div>
 
         <tr>
           <td className='td1 border-2 border-black'>3</td>
@@ -757,55 +760,92 @@ const GrossSalary = () => {
         </tr>
 
         <div className='absolute right-0 w-[310px] h-32 '>
-      <table className="w-full border-collapse">
-        <thead>
-          <tr>
-            <th className="border-b-4 border-red-500 p-2"></th>
-            <th className="bg-yellow-200 border-4 border-red-500 text-xs p-2">Medical Insurance premium paid :</th>
-            <th className="bg-yellow-200 border-x-4 border-t-4 border-red-500 p-2"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            
-            <td className="border-b-4 bg-yellow-200 border-red-500 w-[20%] p-2">80D</td>
-            
-            
-            <td className="border-4 bg-yellow-200 border-red-500 w-[60%] p-2">Self/Spouse/Child<br/> ₹<input type="text" className="ml-2 mr-4 w-24 mb-2 h-6 mt-2 p-1 border border-gray-400" /><br/> <input className='mx-4' type="checkbox" />Age <FaGreaterThan className='text-xs absolute left-32 ml-2 bottom-[-18px]' /> <span className='ml-4'>60</span></td>
-                
-            
-            <td className="border-r-4 bg-yellow-200 border-red-500 w-[20%] p-2">Preventive Health Checkup</td>
-          </tr>
-          <tr>
-            
-            <td className=" w-[20%] p-2"></td>
-            
-            
-            <td className="border-4 bg-yellow-200 border-red-500 w-[60%] p-2">Father/Mother/Both<br/> ₹<input type="text" className="ml-2 mr-4 w-24 mb-2 h-6 mt-2 p-1 border border-gray-400" /><br/> <input className='mx-4' type="checkbox" />Age <FaGreaterThan className='text-xs absolute left-32 ml-2 bottom-[-127px]' /> <span className='ml-4'>60</span></td>
-            
-            
-            
-            <td className="border-r-4 bg-yellow-200 border-b-4 border-red-500 w-[20%] p-2"><input type="text" className="ml-2 mr-4 w-14 mb-2 h-6 mt-2 p-1 border border-gray-400" /></td>
-          </tr>
-        </tbody>
-      </table>
-      <table className="w-full mt-10 border-y-4 border-r-4 border-red-500 border-collapse">
-        
-        <tbody>
-          <tr>
-            
-            <td className="border-b-4 bg-yellow-200 border-red-500 w-[10%] p-2">80D</td>
-            
-            
-            <td className="border-4 bg-yellow-200 border-red-500 w-[45%] p-2">To Govt.<br/> ₹<input type="text" className="ml-2 mr-4 w-16 mb-2 h-6 mt-2 p-1 border border-gray-400" /></td>
-                
-            
-            <td className="border-r-4 bg-yellow-200 border-red-500 w-[45%] p-2">To Govt.<br/> ₹<input type="text" className="ml-2 mr-4 w-16 mb-2 h-6 mt-2 p-1 border border-gray-400" /></td>
-          </tr>
-          
-        </tbody>
-      </table>
-    </div>
+          <table className='w-full border-collapse'>
+            <thead>
+              <tr>
+                <th className='border-b-4 border-red-500 p-2'></th>
+                <th className='bg-yellow-200 border-4 border-red-500 text-xs p-2'>
+                  Medical Insurance premium paid :
+                </th>
+                <th className='bg-yellow-200 border-x-4 border-t-4 border-red-500 p-2'></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className='border-b-4 bg-yellow-200 border-red-500 w-[20%] p-2'>
+                  80D
+                </td>
+
+                <td className='border-4 bg-yellow-200 border-red-500 w-[60%] p-2'>
+                  Self/Spouse/Child
+                  <br /> ₹
+                  <input
+                    type='text'
+                    className='ml-2 mr-4 w-24 mb-2 h-6 mt-2 p-1 border border-gray-400'
+                  />
+                  <br /> <input className='mx-4' type='checkbox' />
+                  Age{' '}
+                  <FaGreaterThan className='text-xs absolute left-32 ml-2 bottom-[-18px]' />{' '}
+                  <span className='ml-4'>60</span>
+                </td>
+
+                <td className='border-r-4 bg-yellow-200 border-red-500 w-[20%] p-2'>
+                  Preventive Health Checkup
+                </td>
+              </tr>
+              <tr>
+                <td className=' w-[20%] p-2'></td>
+
+                <td className='border-4 bg-yellow-200 border-red-500 w-[60%] p-2'>
+                  Father/Mother/Both
+                  <br /> ₹
+                  <input
+                    type='text'
+                    className='ml-2 mr-4 w-24 mb-2 h-6 mt-2 p-1 border border-gray-400'
+                  />
+                  <br /> <input className='mx-4' type='checkbox' />
+                  Age{' '}
+                  <FaGreaterThan className='text-xs absolute left-32 ml-2 bottom-[-127px]' />{' '}
+                  <span className='ml-4'>60</span>
+                </td>
+
+                <td className='border-r-4 bg-yellow-200 border-b-4 border-red-500 w-[20%] p-2'>
+                  <input
+                    type='text'
+                    className='ml-2 mr-4 w-14 mb-2 h-6 mt-2 p-1 border border-gray-400'
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table className='w-full mt-10 border-y-4 border-r-4 border-red-500 border-collapse'>
+            <tbody>
+              <tr>
+                <td className='border-b-4 bg-yellow-200 border-red-500 w-[10%] p-2'>
+                  80D
+                </td>
+
+                <td className='border-4 bg-yellow-200 border-red-500 w-[45%] p-2'>
+                  To Govt.
+                  <br /> ₹
+                  <input
+                    type='text'
+                    className='ml-2 mr-4 w-16 mb-2 h-6 mt-2 p-1 border border-gray-400'
+                  />
+                </td>
+
+                <td className='border-r-4 bg-yellow-200 border-red-500 w-[45%] p-2'>
+                  To Govt.
+                  <br /> ₹
+                  <input
+                    type='text'
+                    className='ml-2 mr-4 w-16 mb-2 h-6 mt-2 p-1 border border-gray-400'
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <tr>
           <td className='td1 border-2 border-black'>10</td>
@@ -1103,7 +1143,8 @@ const GrossSalary = () => {
               value={data.taxOnTotalIncome.tax}
               disabled
             />{' '}
-            Nil Tax on <span className='font-bold'>₹</span>{' '}<input
+            Nil Tax on <span className='font-bold'>₹</span>{' '}
+            <input
               type='number'
               className='border-1 w-20 border border-gray-300 text-center'
               value={data.taxOnTotalIncome.nilTaxOn}
@@ -1122,13 +1163,15 @@ const GrossSalary = () => {
               className='border-1 w-20 border border-gray-300 text-center'
               value={data.taxOnTotalIncome.plusOne}
               disabled
-            />{' '} to Rs . <span className='font-bold'>₹</span>{' '}
+            />{' '}
+            to Rs . <span className='font-bold'>₹</span>{' '}
             <input
               type='number'
               className='border-1 w-20 border border-gray-300 text-center'
               value={data.taxOnTotalIncome.value}
-              disabled
-            />{' '} @ 5% on <span className='font-bold'>₹</span>{' '}
+              onChange={(e) => dispatch(updateFiveValue(e.target.value))}
+            />{' '}
+            @ 5% on <span className='font-bold'>₹</span>{' '}
             <input
               type='number'
               className='border-1 w-20 border border-gray-300 text-center'
@@ -1136,7 +1179,15 @@ const GrossSalary = () => {
               disabled
             />{' '}
           </td>
-          <td className='crAmount5 td1 border-2 border-black'>12500</td>
+          <td className='crAmount5 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.taxOnTotalIncome.fivePer}
+              disabled
+            />
+          </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
@@ -1147,49 +1198,154 @@ const GrossSalary = () => {
             5,00,00
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
-            <i className='fas fa-rupee-sign'></i>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.taxOnTotalIncome.less}
+              disabled
+            />
           </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-            c) ₹ 5,00,001 to Rs . ₹ 10,00,000 @ 20% on ₹ 44,010
+            c) <span className='font-bold'>₹</span>{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.valueOne}
+              disabled
+            />{' '}
+            to Rs . <span className='font-bold'>₹</span>{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.valueTwo}
+              onChange={(e) => dispatch(updateFiveValueTwo(e.target.value))}
+            />{' '}
+            @ 20% on <span className='font-bold'>₹</span>{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.valueThree}
+              disabled
+            />{' '}
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
-            <i className='fas fa-rupee-sign'></i>8802
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.taxOnTotalIncome.twentyPer}
+              disabled
+            />
           </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-            d) Exceeding Rs. ₹ 10,00,000 @ 30% on ₹{' '}
+            d) Exceeding Rs. <span className='font-bold'>₹</span>{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.rOne}
+              disabled
+            />{' '}
+            @ 30% on <span className='font-bold'>₹</span>{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.rTwo}
+              disabled
+            />{' '}
           </td>
-          <td className='crAmount5 td1 border-2 border-black'></td>
+          <td className='crAmount5 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.taxOnTotalIncome.thirtyPer}
+              disabled
+            />
+          </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>TAX PAYABLE</td>
-          <td className='crAmount5 td1 border-2 border-black'>21302</td>
+          <td className='crAmount5 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.taxOnTotalIncome.taxPayable}
+              disabled
+            />
+          </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-            ADD : Surcharge on Income Tax : @ 0% on ₹{' '}
+            ADD : Surcharge on Income Tax : @{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.surPer}
+              disabled
+            />{' '}
+            % on <span className='font-bold'>₹</span>{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.surTax}
+              disabled
+            />{' '}
           </td>
-          <td className='crAmount5 td1 border-2 border-black'>0</td>
+          <td className='crAmount5 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.taxOnTotalIncome.surcharge}
+              disabled
+            />
+          </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-            ADD : Health and Education CESS @ 4% on ₹ 21,302
+            ADD : Health and Education CESS @ 4% on % on{' '}
+            <span className='font-bold'>₹</span>{' '}
+            <input
+              type='number'
+              className='border-1 w-20 border border-gray-300 text-center'
+              value={data.taxOnTotalIncome.cess}
+              disabled
+            />{' '}
           </td>
-          <td className='crAmount5 td1 border-2 border-black'>852</td>
+          <td className='crAmount5 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.taxOnTotalIncome.cessTotal}
+              disabled
+            />
+          </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-b-2 border-black'>TOTAL TAX PAYABLE</td>
           <td className='td1 border-y-2 border-black'></td>
-          <td className='crAmount5 td1 border-2 border-black'>22154</td>
+          <td className='crAmount5 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.taxOnTotalIncome.totalTaxPayable}
+              disabled
+            />
+          </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
@@ -1197,7 +1353,16 @@ const GrossSalary = () => {
             LESS : TAX RELIEF u/s 89
           </td>
           <td className='td1 border-y-2 border-black'></td>
-          <td className='crAmount5 td1 border-2 border-black'>0</td>
+          <td className='crAmount5 td1 border-2 border-black'>
+            {' '}
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.taxOnTotalIncome.lessTaxRelief}
+              disabled
+            />
+          </td>
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
@@ -1234,6 +1399,3 @@ const GrossSalary = () => {
   );
 };
 export default GrossSalary;
-
-
-
