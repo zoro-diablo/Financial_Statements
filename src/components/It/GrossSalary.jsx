@@ -46,6 +46,7 @@ import {
   updateFourOthers,
   updateFiveValue,
   updateFiveValueTwo,
+  updateCheckBoxTaxPayable,
 } from '../../redux/features/finance';
 import { FaGreaterThan } from 'react-icons/fa6';
 
@@ -1367,11 +1368,25 @@ const GrossSalary = () => {
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-b-2 border-black'>
-            TAX PAYABLE (Rounded off to nearest 10 Rupees) u/s 288B 21,298 + 852
+            TAX PAYABLE{' '}
+            <input
+              type='checkbox'
+              checked={data.taxOnTotalIncome.checkBox}
+              onChange={(e) =>
+                dispatch(updateCheckBoxTaxPayable(e.target.checked))
+              }
+            />{' '}
+            (Rounded off to nearest 10 Rupees) u/s 288B 21,298 + 852
           </td>
           <td className='td1 border-y-2 border-black'></td>
           <td className='td1 border-2 border-black' id='totalCR5'>
-            22150{' '}
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.taxOnTotalIncome.lastTaxPayable}
+              disabled
+            />{' '}
           </td>
         </tr>
         <tr>
@@ -1381,7 +1396,13 @@ const GrossSalary = () => {
           </td>
           <td className='td1 border-y-2 border-black'></td>
           <td className='td1 border-2 border-black' id='totalCR2'>
-            0
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.taxAlreadyDed}
+              disabled
+            />
           </td>
         </tr>
         <tr>
@@ -1391,7 +1412,13 @@ const GrossSalary = () => {
           </td>
           <td className='td1 '></td>
           <td className='td1 border-x-2 border-black' id='totalCR2'>
-            22150
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.netTaxPayable}
+              disabled
+            />
           </td>
         </tr>
       </tbody>

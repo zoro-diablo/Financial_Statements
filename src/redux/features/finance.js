@@ -211,6 +211,10 @@ const financeSlice = createSlice({
       state.form[0].itForm.taxOnTotalIncome.valueTwo = action.payload;
       updateROne(state);
     },
+    updateCheckBoxTaxPayable: (state, action) => {
+      state.form[0].itForm.taxOnTotalIncome.checkBox = action.payload;
+      updateLastTaxPayable(state);
+    },
 
     updateTuitionFeeDetails: (state, action) => {
       const { index, field, value } = action.payload;
@@ -664,6 +668,7 @@ const updateTotalTaxPayable = (state) => {
   } else {
     state.form[0].itForm.taxOnTotalIncome.totalTaxPayable = 0;
   }
+  updateLastTaxPayable(state);
 };
 const updateLessTaxRelief = (state) => {
   const { grossSalaryIncome } = state.form[0].itForm;
@@ -672,7 +677,28 @@ const updateLessTaxRelief = (state) => {
   } else {
     state.form[0].itForm.taxOnTotalIncome.lessTaxRelief = 0.000001;
   }
+  updateLastTaxPayable(state);
 };
+const updateLastTaxPayable = (state) => {
+  const { grossSalaryIncome } = state.form[0].itForm;
+  const { totalTaxPayable, lessTaxRelief, checkBox } =
+    state.form[0].itForm.taxOnTotalIncome;
+  let result = 0;
+  if (checkBox === true) {
+    result =
+      Math.round(
+        (parseFloat(totalTaxPayable) - parseFloat(lessTaxRelief)) / 10
+      ) * 10;
+  } else {
+    result = parseFloat(totalTaxPayable) - parseFloat(lessTaxRelief);
+  }
+  if (grossSalaryIncome > 0) {
+    state.form[0].itForm.taxOnTotalIncome.lastTaxPayable = result + 0.000001;
+  }
+};
+const updateLastNetTaxPayable = (state) => {
+  const {}
+}
 
 export const {
   updateGrossSalaryIncome,
@@ -728,6 +754,7 @@ export const {
   updatePremiumDetails,
   updateFiveValue,
   updateFiveValueTwo,
+  updateCheckBoxTaxPayable,
 } = financeSlice.actions;
 
 export default financeSlice.reducer;
