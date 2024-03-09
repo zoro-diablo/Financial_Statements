@@ -345,10 +345,9 @@ const financeSlice = createSlice({
     },
     updateMasterDOB: (state, action) => {
       state.form[0].master.dob = action.payload;
+      updateMasterAge(state);
     },
-    updateMasterAge: (state, action) => {
-      state.form[0].master.age = action.payload;
-    }
+   
      // <------------------- Master ---------------------->
   },
 });
@@ -874,7 +873,19 @@ const updateFiftyPercentSal = (state) => {
 
 // <------------------- Master ---------------------->
 
+const updateMasterAge = (state) => {
+  const dob = state.form[0].master.dob; 
+  const dobDate = new Date(dob); 
+  const currentDate = new Date(); 
+  let age = currentDate.getFullYear() - dobDate.getFullYear();
+  if (currentDate.getMonth() < dobDate.getMonth() || 
+      (currentDate.getMonth() === dobDate.getMonth() && currentDate.getDate() < dobDate.getDate())) {
+    age--;
+  }
+  state.form[0].master.age = age;
 
+  return state; 
+};
 
 // <------------------- Master ---------------------->
 
@@ -950,7 +961,6 @@ export const {
   updateSchoolOfficeName,
   updateMasterTAN,
   updateMasterDOB,
-  updateMasterAge
 
 } = financeSlice.actions;
 
