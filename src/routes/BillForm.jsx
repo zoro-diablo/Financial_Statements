@@ -5,6 +5,7 @@ import TotalBill from '../components/bill/TotalBill';
 const BillForm = () => {
   return (
     <div className='bg-gray-100 py-8 pr-1'>
+      <div className='flex items-center justify-center space-x-32'>
       <h1 className='text-center'>
         Click here for :
         <Link
@@ -14,6 +15,16 @@ const BillForm = () => {
           IT Form
         </Link>
       </h1>
+      <h1 className='text-center'>
+            Click here for :
+            <Link
+              to='/master'
+              className='flex items-center justify-center mb-8 underline hover:text-red-600 cursor-pointer'
+            >
+              Master
+            </Link>
+          </h1>
+      </div>
 
       <div className='container-fluid'>
         <div className='row'>

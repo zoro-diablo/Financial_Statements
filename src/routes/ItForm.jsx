@@ -17,9 +17,17 @@ const ItForm = () => {
           Click here for :
           <Link
             to='/billform'
-            className='flex items-center justify-center mb-8 underline hover:text-red-600 cursor-pointer'
+            className='flex items-center justify-center mb-2 mt-4 underline hover:text-red-600 cursor-pointer'
           >
             Bill Drawn
+          </Link>
+        </h1>
+        <h1>
+          <Link
+            to='/master'
+            className='flex items-center justify-center mb-8 underline hover:text-red-600 cursor-pointer'
+          >
+            Master
           </Link>
         </h1>
 

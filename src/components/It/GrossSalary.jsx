@@ -47,6 +47,14 @@ import {
   updateFiveValue,
   updateFiveValueTwo,
   updateCheckBoxTaxPayable,
+  updateSelfSpouseChild,
+  updateFatherMother,
+  updateCheckAgeSelf,
+  updateCheckAgeFather,
+  updatePrivateHealth,
+  updateFourGovOne,
+  updateFourGovTwo,
+  updateTicketMetro,
 } from '../../redux/features/finance';
 import { FaGreaterThan } from 'react-icons/fa6';
 
@@ -147,7 +155,7 @@ const GrossSalary = () => {
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-            d) 40 % of Salary ( Pay + DA){' '}
+            d) {data.less.percentage} % of Salary ( Pay + DA){' '}
           </td>
           <td className='crAmount td1 border-2 border-black'>
             <label className='font-bold'>₹</label>
@@ -176,9 +184,9 @@ const GrossSalary = () => {
           </td>
         </tr>
 
-        <div className='absolute top-[760px] right-10  h-32 '>
+        <div className='absolute top-[760px] right-8  h-32  '>
           <div className='flex'>
-            <input className='mx-4 w-4 mt-2 h-4' type='checkbox' />{' '}
+            <input className='mx-4 w-4 mt-2 h-4' type='checkbox' checked={data.less.checkSal} onChange={(e)=>dispatch(updateTicketMetro(e.target.checked))}  />{' '}
             <span className='mr-3 font-bold text-xl text-blue-700'>50%</span>
             <div className='text-red-800 font-bold'>
               Tick here for Metro City
@@ -783,8 +791,20 @@ const GrossSalary = () => {
                   <input
                     type='text'
                     className='ml-2 mr-4 w-24 mb-2 h-6 mt-2 p-1 border border-gray-400'
+                    value={data.lessFour.selfSpouseChild}
+                    onChange={(e) =>
+                      dispatch(updateSelfSpouseChild(e.target.value))
+                    }
                   />
-                  <br /> <input className='mx-4' type='checkbox' />
+                  <br />{' '}
+                  <input
+                    className='mx-4'
+                    type='checkbox'
+                    checked={data.lessFour.checkAgeSelf}
+                    onChange={(e) =>
+                      dispatch(updateCheckAgeSelf(e.target.checked))
+                    }
+                  />
                   Age{' '}
                   <FaGreaterThan className='text-xs absolute left-32 ml-2 bottom-[-18px]' />{' '}
                   <span className='ml-4'>60</span>
@@ -803,8 +823,20 @@ const GrossSalary = () => {
                   <input
                     type='text'
                     className='ml-2 mr-4 w-24 mb-2 h-6 mt-2 p-1 border border-gray-400'
+                    value={data.lessFour.fatherMother}
+                    onChange={(e) =>
+                      dispatch(updateFatherMother(e.target.value))
+                    }
                   />
-                  <br /> <input className='mx-4' type='checkbox' />
+                  <br />{' '}
+                  <input
+                    className='mx-4'
+                    type='checkbox'
+                    checked={data.lessFour.checkAgeFather}
+                    onChange={(e) =>
+                      dispatch(updateCheckAgeFather(e.target.checked))
+                    }
+                  />
                   Age{' '}
                   <FaGreaterThan className='text-xs absolute left-32 ml-2 bottom-[-127px]' />{' '}
                   <span className='ml-4'>60</span>
@@ -814,6 +846,10 @@ const GrossSalary = () => {
                   <input
                     type='text'
                     className='ml-2 mr-4 w-14 mb-2 h-6 mt-2 p-1 border border-gray-400'
+                    value={data.lessFour.privateHealth}
+                    onChange={
+                      (e) => dispatch(updatePrivateHealth(e.target.value))
+                    }
                   />
                 </td>
               </tr>
@@ -832,6 +868,8 @@ const GrossSalary = () => {
                   <input
                     type='text'
                     className='ml-2 mr-4 w-16 mb-2 h-6 mt-2 p-1 border border-gray-400'
+                    value={data.lessFour.govOne}
+                    onChange={(e) => dispatch(updateFourGovOne(e.target.value))}
                   />
                 </td>
 
@@ -841,6 +879,8 @@ const GrossSalary = () => {
                   <input
                     type='text'
                     className='ml-2 mr-4 w-16 mb-2 h-6 mt-2 p-1 border border-gray-400'
+                    value={data.lessFour.govTwo}
+                    onChange={(e) => dispatch(updateFourGovTwo(e.target.value))}
                   />
                 </td>
               </tr>
@@ -883,7 +923,7 @@ const GrossSalary = () => {
             <input
               className='input font-bold'
               type='number'
-              value={data.lessFour.nhis}
+              value={data.lessFour.nhisTwo}
               disabled
             />
           </td>
@@ -907,7 +947,7 @@ const GrossSalary = () => {
             <input
               className='input font-bold'
               type='number'
-              value={data.lessFour.maintenance}
+              value={data.lessFour.maintenanceTwo}
               disabled
             />
           </td>
@@ -931,7 +971,7 @@ const GrossSalary = () => {
             <input
               className='input font-bold'
               type='number'
-              value={data.lessFour.medical}
+              value={data.lessFour.medicalTwo}
               disabled
             />
           </td>
@@ -955,7 +995,7 @@ const GrossSalary = () => {
             <input
               className='input font-bold'
               type='number'
-              value={data.lessFour.repay}
+              value={data.lessFour.repayTwo}
               disabled
             />
           </td>
@@ -979,7 +1019,7 @@ const GrossSalary = () => {
             <input
               className='input font-bold'
               type='number'
-              value={data.lessFour.homeLoan}
+              value={data.lessFour.homeLoanTwo}
               disabled
             />
           </td>
@@ -1017,7 +1057,7 @@ const GrossSalary = () => {
             <input
               className='input font-bold'
               type='number'
-              value={data.lessFour.donation}
+              value={data.lessFour.donationTwo}
               disabled
             />
           </td>
@@ -1041,7 +1081,7 @@ const GrossSalary = () => {
             <input
               className='input font-bold'
               type='number'
-              value={data.lessFour.interest}
+              value={data.lessFour.interestTwo}
               disabled
             />
           </td>
@@ -1065,7 +1105,7 @@ const GrossSalary = () => {
             <input
               className='input font-bold'
               type='number'
-              value={data.lessFour.disability}
+              value={data.lessFour.disabilityTwo}
               disabled
             />
           </td>
@@ -1089,7 +1129,7 @@ const GrossSalary = () => {
             <input
               className='input font-bold'
               type='number'
-              value={data.lessFour.others}
+              value={data.lessFour.othersTwo}
               disabled
             />
           </td>
