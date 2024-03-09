@@ -32,8 +32,8 @@ const financeSlice = createSlice({
       state.form[0].itForm.less.expenditure = action.payload;
       updateHRA(state);
     },
-    updateTicketMetro:(state, action) => {
-      state.form[0].itForm.less.checkSal=action.payload;
+    updateTicketMetro: (state, action) => {
+      state.form[0].itForm.less.checkSal = action.payload;
       updateFiftyPercentSal(state);
       updateHRA(state);
     },
@@ -43,14 +43,6 @@ const financeSlice = createSlice({
     },
     updateStandardDeduction: (state, action) => {
       state.form[0].itForm.lessTwo.standardDeduction = action.payload;
-      updateTotalLessTwo(state);
-    },
-    updateTax: (state, action) => {
-      state.form[0].itForm.lessTwo.tax = action.payload;
-      updateTotalLessTwo(state);
-    },
-    updateInterest: (state, action) => {
-      state.form[0].itForm.lessTwo.interest = action.payload;
       updateTotalLessTwo(state);
     },
     updateConveyance: (state, action) => {
@@ -72,7 +64,7 @@ const financeSlice = createSlice({
     updateSavingBank: (state, action) => {
       state.form[0].itForm.add.savingBank = action.payload;
       updateGrossTotalIncome(state);
-      updateInterestLast(state)
+      updateInterestLast(state);
     },
     updateOther: (state, action) => {
       state.form[0].itForm.add.other = action.payload;
@@ -88,10 +80,6 @@ const financeSlice = createSlice({
     },
     updatePli: (state, action) => {
       state.form[0].itForm.lessThree.pli = action.payload;
-      updateTotalLessThree(state);
-    },
-    updateRepayment: (state, action) => {
-      state.form[0].itForm.lessThree.repayment = action.payload;
       updateTotalLessThree(state);
     },
     updateLic: (state, action) => {
@@ -347,12 +335,34 @@ const financeSlice = createSlice({
       state.form[0].master.dob = action.payload;
       updateMasterAge(state);
     },
-   
-     // <------------------- Master ---------------------->
+    updateMasterHouseRent: (state, action) => {
+      state.form[0].master.monthlyHouseRentPaid = action.payload;
+    },
+    updateMasterProfessionalTax: (state, action) => {
+      state.form[0].master.professionalTax = action.payload;
+      updateTotalLessTwo(state);
+    },
+    updateInterestOfHousingLoan: (state, action) => {
+      state.form[0].master.interestOnHousingLoan = action.payload;
+      updateInterestOnHousingLoan(state);
+      updateTotalLessTwo(state);
+    },
+    updateRepaymentOfHousingLoan: (state, action) => {
+      state.form[0].master.repaymentOfHousingLoan = action.payload;
+      updateTotalLessThree(state);
+    },
+    updateMasterTuitionFee: (state, action) => {
+      state.form[0].master.tuitionFee = action.payload;
+    },
+    updateMasterTuition: (state, action) => {
+      state.form[0].master.tuition = action.payload;
+    }
+
+    // <------------------- Master ---------------------->
   },
 });
 
- // <------------------- It form ---------------------->
+// <------------------- It form ---------------------->
 const updateRentPaidlessOne = (state) => {
   const { rentPaid } = state.form[0].itForm.less;
   const actualRentpaid = rentPaid * 12;
@@ -371,12 +381,13 @@ const updateGrossSalary = (state) => {
   state.form[0].itForm.gspOne = gspOne;
 };
 const updateTotalLessTwo = (state) => {
-  const { standardDeduction, tax, interest, conveyance, hill, others } =
+  const { standardDeduction, conveyance, hill, others } =
     state.form[0].itForm.lessTwo;
+  const { professionalTax,interestOnHousingLoan } = state.form[0].master;
   const total =
     parseFloat(standardDeduction) +
-    parseFloat(tax) +
-    parseFloat(interest) +
+    parseFloat(professionalTax) +
+    parseFloat(interestOnHousingLoan) +
     parseFloat(conveyance) +
     parseFloat(hill) +
     parseFloat(others);
@@ -830,7 +841,7 @@ const updateReplyTwo = (state) => {
 };
 const updateHomeLoanTwo = (state) => {
   const { homeLoan } = state.form[0].itForm.lessFour;
-  if(homeLoan > 150000){
+  if (homeLoan > 150000) {
     state.form[0].itForm.lessFour.homeLoanTwo = 150000;
   } else {
     state.form[0].itForm.lessFour.homeLoanTwo = homeLoan;
@@ -838,15 +849,15 @@ const updateHomeLoanTwo = (state) => {
 };
 const updateFourDonationLast = (state) => {
   const { govOne, govTwo, cmprf } = state.form[0].itForm.lessFour;
-  const govOneValue = govOne === "" ? 0 : parseFloat(govOne);
-  const govTwoValue = govTwo === "" ? 0 : Math.round(parseFloat(govTwo) / 2);
+  const govOneValue = govOne === '' ? 0 : parseFloat(govOne);
+  const govTwoValue = govTwo === '' ? 0 : Math.round(parseFloat(govTwo) / 2);
   const donationTwo = cmprf + govOneValue + govTwoValue;
   state.form[0].itForm.lessFour.donationTwo = donationTwo;
-  return state; 
+  return state;
 };
 const updateInterestLast = (state) => {
-  const interest = state.form[0].itForm.lessFour.interest
-  const savingBank = state.form[0].itForm.add.savingBank
+  const interest = state.form[0].itForm.lessFour.interest;
+  const savingBank = state.form[0].itForm.add.savingBank;
   if (interest <= 0) {
     state.form[0].itForm.lessFour.interestTwo = 0;
   } else {
@@ -854,43 +865,53 @@ const updateInterestLast = (state) => {
     state.form[0].itForm.lessFour.interestTwo = minVal;
   }
 };
-const updateOthersTwo= (state) => {
+const updateOthersTwo = (state) => {
   const { others } = state.form[0].itForm.lessFour;
-  state.form[0].itForm.lessFour.othersTwo=parseFloat(others)
-}
+  state.form[0].itForm.lessFour.othersTwo = parseFloat(others);
+};
 const updateFiftyPercentSal = (state) => {
   const { checkSal } = state.form[0].itForm.less;
-  
+
   if (checkSal === true) {
-    state.form[0].itForm.less.fortyPercent = Math.round(state.form[0].itForm.less.fortyPercent * 1.1);
-    state.form[0].itForm.less.percentage = 50
+    state.form[0].itForm.less.fortyPercent = Math.round(
+      state.form[0].itForm.less.fortyPercent * 1.1
+    );
+    state.form[0].itForm.less.percentage = 50;
   } else {
-    state.form[0].itForm.less.fortyPercent = Math.round(state.form[0].itForm.less.fortyPercent / 1.1);
-    state.form[0].itForm.less.percentage = 40
+    state.form[0].itForm.less.fortyPercent = Math.round(
+      state.form[0].itForm.less.fortyPercent / 1.1
+    );
+    state.form[0].itForm.less.percentage = 40;
   }
-}
+};
 // <------------------- It form ---------------------->
 
 // <------------------- Master ---------------------->
 
 const updateMasterAge = (state) => {
-  const dob = state.form[0].master.dob; 
-  const dobDate = new Date(dob); 
-  const currentDate = new Date(); 
+  const dob = state.form[0].master.dob;
+  const dobDate = new Date(dob);
+  const currentDate = new Date();
   let age = currentDate.getFullYear() - dobDate.getFullYear();
-  if (currentDate.getMonth() < dobDate.getMonth() || 
-      (currentDate.getMonth() === dobDate.getMonth() && currentDate.getDate() < dobDate.getDate())) {
+  if (
+    currentDate.getMonth() < dobDate.getMonth() ||
+    (currentDate.getMonth() === dobDate.getMonth() &&
+      currentDate.getDate() < dobDate.getDate())
+  ) {
     age--;
   }
   state.form[0].master.age = age;
-
-  return state; 
+  return state;
+};
+const updateInterestOnHousingLoan = (state) => {
+  const { interestOnHousingLoan } = state.form[0].master;
+  if (interestOnHousingLoan > 200000) {
+    state.form[0].master.interestOnHousingLoan = 200000;
+  }
+  return state;
 };
 
 // <------------------- Master ---------------------->
-
-
-
 
 export const {
   updateGrossSalaryIncome,
@@ -899,8 +920,6 @@ export const {
   updateExpenditure,
   updateFortyPercent,
   updateStandardDeduction,
-  updateTax,
-  updateInterest,
   updateConveyance,
   updateHill,
   updateOthers,
@@ -910,7 +929,6 @@ export const {
   updateGpf,
   updateSpf,
   updatePli,
-  updateRepayment,
   updateLic,
   updateUti,
   updateNsc,
@@ -961,7 +979,12 @@ export const {
   updateSchoolOfficeName,
   updateMasterTAN,
   updateMasterDOB,
-
+  updateMasterProfessionalTax,
+  updateMasterHouseRent,
+  updateInterestOfHousingLoan,
+  updateRepaymentOfHousingLoan,
+  updateMasterTuitionFee,
+  updateMasterTuition
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

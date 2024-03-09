@@ -8,6 +8,12 @@ export const form = [
       tan: 'MRIC01323A',
       dob: '1986-07-27',
       age: 37,
+      monthlyHouseRentPaid:9100,
+      professionalTax:2500,
+      interestOnHousingLoan:0,
+      repaymentOfHousingLoan:0,
+      tuitionFee:0,
+      tuition:false,
     },
     itForm: {
       grossSalaryIncome: 801276,
@@ -24,8 +30,6 @@ export const form = [
       gspOne: 769476,
       lessTwo: {
         standardDeduction: 50000,
-        tax: 2500,
-        interest: 0,
         conveyance: 0,
         hill: 0,
         others: 0,

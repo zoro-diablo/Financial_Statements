@@ -4,9 +4,6 @@ import {
   updateExpenditure,
   updateFortyPercent,
   updateGrossSalaryIncome,
-  updateTax,
-  updateStandardDeduction,
-  updateInterest,
   updateConveyance,
   updateHill,
   updateOthers,
@@ -16,7 +13,6 @@ import {
   updateGpf,
   updateSpf,
   updatePli,
-  updateRepayment,
   updateLic,
   updateUti,
   updateNsc,
@@ -55,6 +51,7 @@ import {
   updateFourGovOne,
   updateFourGovTwo,
   updateTicketMetro,
+  
 } from '../../redux/features/finance';
 import { FaGreaterThan } from 'react-icons/fa6';
 
@@ -62,6 +59,7 @@ const GrossSalary = () => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.finance.form[0].itForm);
+  const { master } = useSelector((state) => state.finance.form[0]);
 
   return (
     <table
@@ -186,7 +184,12 @@ const GrossSalary = () => {
 
         <div className='absolute top-[760px] right-8  h-32  '>
           <div className='flex'>
-            <input className='mx-4 w-4 mt-2 h-4' type='checkbox' checked={data.less.checkSal} onChange={(e)=>dispatch(updateTicketMetro(e.target.checked))}  />{' '}
+            <input
+              className='mx-4 w-4 mt-2 h-4'
+              type='checkbox'
+              checked={data.less.checkSal}
+              onChange={(e) => dispatch(updateTicketMetro(e.target.checked))}
+            />{' '}
             <span className='mr-3 font-bold text-xl text-blue-700'>50%</span>
             <div className='text-red-800 font-bold'>
               Tick here for Metro City
@@ -222,9 +225,7 @@ const GrossSalary = () => {
               className='input'
               type='number'
               value={data.lessTwo.standardDeduction}
-              onChange={(e) =>
-                dispatch(updateStandardDeduction(e.target.value))
-              }
+              disabled
             />
           </td>
         </tr>
@@ -238,8 +239,8 @@ const GrossSalary = () => {
             <input
               className='input'
               type='number'
-              value={data.lessTwo.tax}
-              onChange={(e) => dispatch(updateTax(e.target.value))}
+              value={master.professionalTax}
+              disabled
             />
           </td>
         </tr>
@@ -253,8 +254,8 @@ const GrossSalary = () => {
             <input
               className='input'
               type='number'
-              value={data.lessTwo.interest}
-              onChange={(e) => dispatch(updateInterest(e.target.value))}
+              value={master.interestOnHousingLoan}
+              disabled
             />
           </td>
         </tr>
@@ -458,8 +459,8 @@ const GrossSalary = () => {
             <input
               className='input'
               type='number'
-              value={data.lessThree.repayment}
-              onChange={(e) => dispatch(updateRepayment(e.target.value))}
+              value={master.repaymentOfHousingLoan}
+             disabled
             />
           </td>
         </tr>
@@ -847,8 +848,8 @@ const GrossSalary = () => {
                     type='text'
                     className='ml-2 mr-4 w-14 mb-2 h-6 mt-2 p-1 border border-gray-400'
                     value={data.lessFour.privateHealth}
-                    onChange={
-                      (e) => dispatch(updatePrivateHealth(e.target.value))
+                    onChange={(e) =>
+                      dispatch(updatePrivateHealth(e.target.value))
                     }
                   />
                 </td>

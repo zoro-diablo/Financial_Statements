@@ -1,4 +1,7 @@
+import { useSelector } from "react-redux";
+
 const ItHead = () => {
+  const data = useSelector((state) => state.finance.form[0].master);
   return (
     <div >
       <header className='mb-1 text-center border-2 border-black py-2'>
@@ -21,7 +24,7 @@ const ItHead = () => {
           <p className='text-center text-lg font-medium'>:</p>
         </div>
         <div className=' text-start'>
-          <p className=''>M P ARUN JEYAHAR</p>
+          <p className=''>{data.name}</p>
         </div>
 
         <div className='col-span-1'>
@@ -33,7 +36,7 @@ const ItHead = () => {
           <p className='text-center text-lg font-medium'>:</p>
         </div>
         <div className='col-span-1 text-start'>
-          <p className=''>DEPUTY STATE TAX OFFICER</p>
+          <p className=''>{data.designation}</p>
         </div>
 
         <div className='col-span-1'>
@@ -46,8 +49,8 @@ const ItHead = () => {
         </div>
         <div className='col-span-1 text-start'>
           <p className=''>
-            <strong>BFOPA6244Q</strong> &amp; <strong>Date of Birth:</strong>{' '}
-            27-07-1986
+            <strong>{data.pan}</strong> &amp; <strong>Date of Birth:</strong>{' '}
+            {data.dob}
           </p>
         </div>
 
@@ -60,7 +63,7 @@ const ItHead = () => {
           <p className='text-center text-lg font-medium'>:</p>
         </div>
         <div className='col-span-1 text-start'>
-          <p className=''>STATE TAX OFFICE NAGERCOIL 1 ( MRIC01323A )</p>
+          <p className=''>{data.schoolOfficeName} ( {data.tan} )</p>
         </div>
       </div>
     </div>
