@@ -367,10 +367,8 @@ const financeSlice = createSlice({
       const { formIndex, itemIndex, propName, value } = action.payload;
       let item = state.form[formIndex].billData[itemIndex];
     
-      // Update the value for the propName
       item[propName] = value;
     
-      // If one of the fields that contribute to gross or deductions changes, recalculate them
       if (['basicPay', 'pp', 'da', 'hra', 'cca', 'ma', 'spla', 'ha', 'wa', 'convAllow', 'bonus', 'others'].includes(propName)) {
         item.gross = calculateTotalGross(item);
       }
@@ -379,9 +377,8 @@ const financeSlice = createSlice({
       }
       item.net = calculateNet(item.gross, item.totalDedn);
     
-      // Calculate column totals after any update
       const columnTotals = calculateColumnTotals(state.form[formIndex].billData);
-      const totalsItemIndex = state.form[formIndex].billData.length - 1; // Assuming last item is for totals
+      const totalsItemIndex = state.form[formIndex].billData.length - 1; 
       state.form[formIndex].billData[totalsItemIndex] = columnTotals;
     },
 
@@ -394,13 +391,12 @@ const financeSlice = createSlice({
 function calculateTotalGross(item) {
   const { basicPay, pp, da, hra, cca, ma, spla, ha, wa, convAllow, bonus, others } = item;
   return [basicPay, pp, da, hra, cca, ma, spla, ha, wa, convAllow, bonus, others].reduce((total, current) => {
-    // Ensure each value is a number; replace with 0 if not
     const value = parseFloat(current) || 0;
     return total + value;
   }, 0);
 }
 
-// Helper function to calculate total deductions, included from previous example for completeness
+
 function calculateTotalDedn(item) {
   const { cps, spf, fbf, nhis, lic_pli, it_cess, hba_others } = item;
   return [cps, spf, fbf, nhis, lic_pli, it_cess, hba_others].reduce((total, current) => {

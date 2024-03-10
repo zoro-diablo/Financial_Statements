@@ -1,14 +1,20 @@
-
-import { useSelector,useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { updateBillDataCell } from '../../redux/features/finance';
 
 const TableData = () => {
-
   const dispatch = useDispatch();
   const { billData } = useSelector((state) => state.finance.form[0]);
 
   const handleCellChange = (index, propName, value) => {
-    dispatch(updateBillDataCell({ formIndex: 0, itemIndex: index, propName, value }));
+    const parsedValue = isNaN(value) ? value : parseFloat(value) || 0;
+    dispatch(
+      updateBillDataCell({
+        formIndex: 0,
+        itemIndex: index,
+        propName,
+        value: parsedValue,
+      })
+    );
   };
 
   return (
@@ -41,181 +47,231 @@ const TableData = () => {
           <th className='p-2 text-xs w-[6%] border-2 border-black'>NHIS</th>
           <th className='p-2 text-xs w-[6%] border-2 border-black'>LIC/PLI</th>
           <th className='p-2 text-xs w-[6%] border-2 border-black'>IT+Cess</th>
-          <th className='p-2 text-xs w-[6%] border-2 border-black'>
-            HBA/Others
-          </th>
+          <th className='p-2 text-xs w-[6%] border-2 border-black'>HBA/Ot</th>
           <th className='p-2 text-xs w-[6%] border-2 border-black'>
             Total
             <br />
             Dedn.
           </th>
-          <th className='p-2 text-xs w-[6%] border-2 border-black'>NET</th>
+          <th className='p-3 text-xs w-[6%] border-2 border-black'>
+            NET Total
+          </th>
         </tr>
       </thead>
 
       <tbody>
         {billData.map((data, index) => (
           <tr className='w-full' key={index}>
-            <td
-              className='p-2 text-xs w-[6%] border-2 font-bold border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'month', e.target.innerText)}
-            >
-              {data.month}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.month}
+                onChange={(e) =>
+                  handleCellChange(index, 'month', e.target.value)
+                }
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[5.1%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'basicPay', e.target.innerText)}
-            >
-              {data.basicPay}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.basicPay}
+                onChange={(e) =>
+                  handleCellChange(index, 'basicPay', e.target.value)
+                }
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[4.8%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'pp', e.target.innerText)}
-            >
-              {data.pp}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.pp}
+                onChange={(e) => handleCellChange(index, 'pp', e.target.value)}
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[6%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'da', e.target.innerText)}
-            >
-              {data.da}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.da}
+                onChange={(e) => handleCellChange(index, 'da', e.target.value)}
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[5.1%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'hra', e.target.innerText)}
-            >
-              {data.hra}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.hra}
+                onChange={(e) => handleCellChange(index, 'hra', e.target.value)}
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[4.8%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'cca', e.target.innerText)}
-            >
-              {data.cca}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.cca}
+                onChange={(e) => handleCellChange(index, 'cca', e.target.value)}
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[6%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'ma', e.target.innerText)}
-            >
-              {data.ma}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.ma}
+                onChange={(e) => handleCellChange(index, 'ma', e.target.value)}
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[5.1%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'spla', e.target.innerText)}
-            >
-              {data.spla}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.spla}
+                onChange={(e) =>
+                  handleCellChange(index, 'spla', e.target.value)
+                }
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[4.8%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'ha', e.target.innerText)}
-            >
-              {data.ha}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.ha}
+                onChange={(e) => handleCellChange(index, 'ha', e.target.value)}
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[4.8%] border-2 border-black '
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'wa', e.target.innerText)}
-            >
-              {data.wa}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.wa}
+                onChange={(e) => handleCellChange(index, 'wa', e.target.value)}
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[6%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'convAllow', e.target.innerText)}
-            >
-              {data.convAllow}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.convAllow}
+                onChange={(e) =>
+                  handleCellChange(index, 'convAllow', e.target.value)
+                }
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[5.1%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'bonus', e.target.innerText)}
-            >
-              {data.bonus}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.bonus}
+                onChange={(e) =>
+                  handleCellChange(index, 'bonus', e.target.value)
+                }
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[4.8%] border-2 border-black '
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'others', e.target.innerText)}
-            >
-              {data.others}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.others}
+                onChange={(e) =>
+                  handleCellChange(index, 'others', e.target.value)
+                }
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[6%] border-2 border-black'
-              contentEditable='false'
-              onBlur={(e) => handleCellChange(index, 'gross', e.target.innerText)}
-            >
-              {data.gross}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.gross}
+                onChange={(e) =>
+                  handleCellChange(index, 'gross', e.target.value)
+                }
+                disabled
+                className='w-full h-full text-xs font-bold text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[5.1%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'cps', e.target.innerText)}
-            >
-              {data.cps}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.cps}
+                onChange={(e) => handleCellChange(index, 'cps', e.target.value)}
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[4.8%] border-2 border-black '
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'spf', e.target.innerText)}
-            >
-              {data.spf}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.spf}
+                onChange={(e) => handleCellChange(index, 'spf', e.target.value)}
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[4.8%] border-2 border-black '
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'fbf', e.target.innerText)}
-            >
-              {data.fbf}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.fbf}
+                onChange={(e) => handleCellChange(index, 'fbf', e.target.value)}
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[6%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'nhis', e.target.innerText)}
-            >
-              {data.nhis}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.nhis}
+                onChange={(e) =>
+                  handleCellChange(index, 'nhis', e.target.value)
+                }
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[5.1%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'lic_pli', e.target.innerText)}
-            >
-              {data.lic_pli}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.lic_pli}
+                onChange={(e) =>
+                  handleCellChange(index, 'lic_pli', e.target.value)
+                }
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[4.8%] border-2 border-black '
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'it_cess', e.target.innerText)}
-            >
-              {data.it_cess}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.it_cess}
+                onChange={(e) =>
+                  handleCellChange(index, 'it_cess', e.target.value)
+                }
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[6%] border-2 border-black'
-              contentEditable='true'
-              onBlur={(e) => handleCellChange(index, 'hba_others', e.target.innerText)}
-            >
-              {data.hba_others}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.hba_others}
+                onChange={(e) =>
+                  handleCellChange(index, 'hba_others', e.target.value)
+                }
+                className='w-full h-full text-xs font-normal text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[5.1%] border-2 border-black text-blue-500'
-              contentEditable='false'
-              onBlur={(e) => handleCellChange(index, 'totalDedn', e.target.innerText)}
-            >
-              {data.totalDedn}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.totalDedn}
+                onChange={(e) =>
+                  handleCellChange(index, 'totalDedn', e.target.value)
+                }
+                disabled
+                className='w-full h-full text-xs font-bold text-black outline-none border-none'
+              />
             </td>
-            <td
-              className='p-2 text-xs w-[4.8%] border-2 border-black text-blue-500'
-              contentEditable='false'
-              onBlur={(e) => handleCellChange(index, 'net', e.target.innerText)}
-            >
-              {data.net}
+            <td className='p-2 text-xs w-[5.1%] border-2 border-black'>
+              <input
+                type='text'
+                value={data.net}
+                onChange={(e) => handleCellChange(index, 'net', e.target.value)}
+                disabled
+                className='w-full h-full text-xs font-bold text-black outline-none border-none'
+              />
             </td>
           </tr>
         ))}
