@@ -104,7 +104,7 @@ const DataEntering = () => {
             />
           </div>
         </div>
-        <div>
+        {/* <div>
           <div className=' border-2 p-2 px-4 bg-white border-black'>
             <div className='flex items-center mt-1 justify-center'>
               <img
@@ -128,7 +128,7 @@ const DataEntering = () => {
               Scan QR - Join WA Group
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
