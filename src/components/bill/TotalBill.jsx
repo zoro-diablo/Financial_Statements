@@ -1,8 +1,11 @@
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { updateCheckPp } from "../../redux/features/finance";
 
 const TotalBill = () => {
 
+  const dispatch = useDispatch();
   const { billTotal } = useSelector((state) => state.finance.form[0]);
+  const { master } = useSelector((state) => state.finance.form[0]);
 
   return (
     <div>
@@ -23,7 +26,7 @@ const TotalBill = () => {
               
               id='cell-1-2'
             >
-              Actual house rent paid : 12 x 9100
+              Actual house rent paid : 12 x {master.monthlyHouseRentPaid}
             </td>
             <td
               className='p-2 font-medium w-[30%] border-2 text-center border-black'
@@ -45,7 +48,7 @@ const TotalBill = () => {
               
               id='cell-1-2'
             >
-              10 % of PAY + DA
+              10 % of PAY + DA +{' '}PP{' '}<input type='checkbox' checked={billTotal.checkPp} onChange={(e)=>dispatch(updateCheckPp(e.target.checked))} />
             </td>
             <td
               className='p-2 font-medium w-[30%] border-2 text-center border-black'

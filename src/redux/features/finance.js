@@ -337,6 +337,7 @@ const financeSlice = createSlice({
     },
     updateMasterHouseRent: (state, action) => {
       state.form[0].master.monthlyHouseRentPaid = action.payload;
+      updateActualHouseRentPaid(state);
     },
     updateMasterProfessionalTax: (state, action) => {
       state.form[0].master.professionalTax = action.payload;
@@ -366,43 +367,110 @@ const financeSlice = createSlice({
     updateBillDataCell: (state, action) => {
       const { formIndex, itemIndex, propName, value } = action.payload;
       let item = state.form[formIndex].billData[itemIndex];
-    
+
       item[propName] = value;
-    
-      if (['basicPay', 'pp', 'da', 'hra', 'cca', 'ma', 'spla', 'ha', 'wa', 'convAllow', 'bonus', 'others'].includes(propName)) {
+
+      if (
+        [
+          'basicPay',
+          'pp',
+          'da',
+          'hra',
+          'cca',
+          'ma',
+          'spla',
+          'ha',
+          'wa',
+          'convAllow',
+          'bonus',
+          'others',
+        ].includes(propName)
+      ) {
         item.gross = calculateTotalGross(item);
       }
-      if (['cps', 'spf', 'fbf', 'nhis', 'lic_pli', 'it_cess', 'hba_others'].includes(propName)) {
+      if (
+        [
+          'cps',
+          'spf',
+          'fbf',
+          'nhis',
+          'lic_pli',
+          'it_cess',
+          'hba_others',
+        ].includes(propName)
+      ) {
         item.totalDedn = calculateTotalDedn(item);
       }
       item.net = calculateNet(item.gross, item.totalDedn);
-    
-      const columnTotals = calculateColumnTotals(state.form[formIndex].billData);
-      const totalsItemIndex = state.form[formIndex].billData.length - 1; 
+
+      const columnTotals = calculateColumnTotals(
+        state.form[formIndex].billData
+      );
+      const totalsItemIndex = state.form[formIndex].billData.length - 1;
       state.form[formIndex].billData[totalsItemIndex] = columnTotals;
+      updateTenPerPayDaPp(state);
+      updateBillTotalHra(state);
+      updateBillTotalIncome(state);
+      updateBillTotalNetIncome(state);
     },
 
     // <------------------- Bill Drawn ---------------------->
+    // <------------------- Bill Total ---------------------->
+
+    updateCheckPp: (state, action) => {
+      state.form[0].billTotal.checkPp = action.payload;
+      updateTenPerPayDaPp(state);
+    },
+
+    // <------------------- Bill Total ---------------------->
   },
 });
 
 // <------------------- Bill Drawn ---------------------->
 
 function calculateTotalGross(item) {
-  const { basicPay, pp, da, hra, cca, ma, spla, ha, wa, convAllow, bonus, others } = item;
-  return [basicPay, pp, da, hra, cca, ma, spla, ha, wa, convAllow, bonus, others].reduce((total, current) => {
+  const {
+    basicPay,
+    pp,
+    da,
+    hra,
+    cca,
+    ma,
+    spla,
+    ha,
+    wa,
+    convAllow,
+    bonus,
+    others,
+  } = item;
+  return [
+    basicPay,
+    pp,
+    da,
+    hra,
+    cca,
+    ma,
+    spla,
+    ha,
+    wa,
+    convAllow,
+    bonus,
+    others,
+  ].reduce((total, current) => {
     const value = parseFloat(current) || 0;
     return total + value;
   }, 0);
 }
 
-
 function calculateTotalDedn(item) {
   const { cps, spf, fbf, nhis, lic_pli, it_cess, hba_others } = item;
-  return [cps, spf, fbf, nhis, lic_pli, it_cess, hba_others].reduce((total, current) => {
-    const value = parseFloat(current) || 0;
-    return total + value;
-  }, 0);
+  return [cps, spf, fbf, nhis, lic_pli, it_cess, hba_others].reduce(
+    (total, current) => {
+      const value = parseFloat(current) || 0;
+      return total + value;
+    },
+    0
+  );
 }
 
 function calculateNet(gross, totalDedn) {
@@ -410,7 +478,30 @@ function calculateNet(gross, totalDedn) {
 }
 
 function calculateColumnTotals(billData) {
-  const columnNames = ['basicPay', 'pp', 'da', 'hra', 'cca', 'ma', 'spla', 'ha', 'wa', 'convAllow', 'bonus', 'others', 'gross', 'cps', 'spf', 'fbf', 'nhis', 'lic_pli', 'it_cess', 'hba_others', 'totalDedn', 'net'];
+  const columnNames = [
+    'basicPay',
+    'pp',
+    'da',
+    'hra',
+    'cca',
+    'ma',
+    'spla',
+    'ha',
+    'wa',
+    'convAllow',
+    'bonus',
+    'others',
+    'gross',
+    'cps',
+    'spf',
+    'fbf',
+    'nhis',
+    'lic_pli',
+    'it_cess',
+    'hba_others',
+    'totalDedn',
+    'net',
+  ];
   let totals = columnNames.reduce((acc, columnName) => {
     acc[columnName] = billData.slice(0, -1).reduce((total, item) => {
       let value = parseFloat(item[columnName]) || 0;
@@ -419,7 +510,7 @@ function calculateColumnTotals(billData) {
     return acc;
   }, {});
 
-  totals.month = 'Grand Total'; 
+  totals.month = 'Grand Total';
 
   return totals;
 }
@@ -428,7 +519,59 @@ function calculateColumnTotals(billData) {
 
 // <------------------- Bill Total ---------------------->
 
-// Nothing
+const updateActualHouseRentPaid = (state) => {
+  const { monthlyHouseRentPaid } = state.form[0].master;
+  state.form[0].billTotal.ActRentPaid = 12 * parseFloat(monthlyHouseRentPaid);
+  updateRentPaidOverTenPer(state);
+};
+
+const updateTenPerPayDaPp = (state) => {
+  const { basicPay, pp, da } = state.form[0].billData[18];
+  const { checkPp } = state.form[0].billTotal;
+  let sum =
+    parseFloat(basicPay) +
+    parseFloat(da) +
+    (checkPp === true ? parseFloat(pp) : 0);
+  state.form[0].billTotal.TenPerPayDa = parseFloat((sum * 0.1).toFixed(2));
+  updateRentPaidOverTenPer(state);
+};
+
+const updateRentPaidOverTenPer = (state) => {
+  const { ActRentPaid, TenPerPayDa } = state.form[0].billTotal;
+  const difference = parseFloat(ActRentPaid) - parseFloat(TenPerPayDa);
+  if (difference < 0) {
+    state.form[0].billTotal.RentPaidOverTenPer = 0.000001;
+  } else {
+    state.form[0].billTotal.RentPaidOverTenPer = difference.toFixed(2);
+  }
+};
+
+const updateBillTotalHra = (state) => {
+  const accHra = state.form[0].billData[12].hra;
+  const totHra = state.form[0].billData[18].hra;
+  if (accHra > 0) {
+    state.form[0].billTotal.hra = parseFloat(totHra) - parseFloat(accHra);
+  } else {
+    state.form[0].billTotal.hra = parseFloat(totHra);
+  }
+};
+
+const updateBillTotalIncome = (state) => {
+  const { gross } = state.form[0].billData[18];
+  state.form[0].billTotal.totalIncome = parseFloat(gross);
+  updateBillTotalNetIncome(state);
+};
+
+const updateBillTotalLessHra = (state) => {
+  const { hra } = state.form[0].itForm.less
+  state.form[0].billTotal.LessHRA = parseFloat(hra);
+  updateBillTotalNetIncome(state);
+};
+
+const updateBillTotalNetIncome = (state) =>{
+  const {totalIncome,LessHRA} =  state.form[0].billTotal
+  state.form[0].billTotal.NetIncome = parseFloat(totalIncome) - parseFloat(LessHRA);
+}
 
 // <------------------- Bill Total ---------------------->
 
@@ -444,6 +587,7 @@ const updateHRA = (state) => {
   const hra = Math.min(actualRentPaid, actualAmount, expenditure, fortyPercent);
   state.form[0].itForm.less.hra = hra;
   updateGrossSalary(state);
+  updateBillTotalLessHra(state);
 };
 const updateGrossSalary = (state) => {
   const { grossSalaryIncome } = state.form[0].itForm;
@@ -1055,6 +1199,7 @@ export const {
   updateMasterTuitionFee,
   updateMasterTuition,
   updateBillDataCell,
+  updateCheckPp,
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

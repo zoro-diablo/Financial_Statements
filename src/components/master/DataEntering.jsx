@@ -1,5 +1,4 @@
-import QRcode from '/qrcode.png';
-import ITlogo from '/ITlogo.png';
+
 import { useSelector, useDispatch } from 'react-redux';
 import {
   updateMasterDOB,
@@ -104,31 +103,7 @@ const DataEntering = () => {
             />
           </div>
         </div>
-        {/* <div>
-          <div className=' border-2 p-2 px-4 bg-white border-black'>
-            <div className='flex items-center mt-1 justify-center'>
-              <img
-                src={ITlogo}
-                alt='Image Description'
-                className='w-10 h-10 text-center'
-              />
-            </div>
-            <h1 className='text-center my-1 text-lg font-bold'>
-              Income Tax TN
-            </h1>
-            <p className='text-center my-1 text-gray-600 text-lg font-medium'>
-              WhatsApp group
-            </p>
-            <img src={QRcode} alt='Image Description' className='w-40 h-40' />
-          </div>
-          <div className='border-t-4 border-green-800 mt-[1px]'>
-            <p className='text-md text-center text-blue-700 font-bold'>
-              To clarify doubts, if any,
-              <br />
-              Scan QR - Join WA Group
-            </p>
-          </div>
-        </div> */}
+      
       </div>
     </div>
   );

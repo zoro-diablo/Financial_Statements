@@ -5,8 +5,6 @@ const TableBill = () => {
 
   const { master } = useSelector((state) => state.finance.form[0]);
 
-
-
   return (
     <div>
       <table className='w-full border-collapse border-2 border-black'>

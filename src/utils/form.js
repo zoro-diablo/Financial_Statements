@@ -582,7 +582,7 @@ export const form = [
           basicPay: '',
           pp: '',
           da: 1760,
-          hra: '',
+          hra: 0,
           cca: '',
           ma: '',
           spla: '',
@@ -730,7 +730,7 @@ export const form = [
         {
           month: 'Grand Total',
           basicPay: 530600,
-          pp: '',
+          pp: 0,
           da: 235276,
           hra: 31800,
           cca: '',
@@ -755,6 +755,7 @@ export const form = [
     ],
     billTotal:{
       ActRentPaid: 109200,
+      checkPp: false,
       TenPerPayDa:76588,
       RentPaidOverTenPer:32612,
       hra:31800,
