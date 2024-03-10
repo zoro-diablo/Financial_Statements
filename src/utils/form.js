@@ -752,6 +752,15 @@ export const form = [
           totalDedn: 97984,
           net: 703292,
         },
-    ]
+    ],
+    billTotal:{
+      ActRentPaid: 109200,
+      TenPerPayDa:76588,
+      RentPaidOverTenPer:32612,
+      hra:31800,
+      totalIncome:801276,
+      LessHRA:31800,
+      NetIncome:769476,
+    }
   },
 ];

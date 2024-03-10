@@ -419,12 +419,18 @@ function calculateColumnTotals(billData) {
     return acc;
   }, {});
 
-  totals.month = 'Grand Total'; // Set the label for the totals row
+  totals.month = 'Grand Total'; 
 
   return totals;
 }
 
 // <------------------- Bill Drawn ---------------------->
+
+// <------------------- Bill Total ---------------------->
+
+// Nothing
+
+// <------------------- Bill Total ---------------------->
 
 // <------------------- It form ---------------------->
 const updateRentPaidlessOne = (state) => {
