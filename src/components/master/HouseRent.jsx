@@ -132,9 +132,10 @@ const HouseRent = () => {
         />
         <input
           type='checkbox'
-          value={master.tuition}
+          checked={master.tuition}
           onChange={(e) => dispatch(updateMasterTuition(e.target.checked))}
         />
+
         <p className='font-bold text-lg text-red-800'>Yes or No</p>
       </div>
       <div className='flex py-4 space-x-20 ml-14 items-center justify-center'>

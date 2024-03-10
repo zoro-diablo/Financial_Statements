@@ -353,14 +353,82 @@ const financeSlice = createSlice({
     },
     updateMasterTuitionFee: (state, action) => {
       state.form[0].master.tuitionFee = action.payload;
+      updateTotalDeduction(state);
     },
     updateMasterTuition: (state, action) => {
       state.form[0].master.tuition = action.payload;
-    }
-
+      updateTotalDeduction(state);
+    },
     // <------------------- Master ---------------------->
+
+    // <------------------- Bill Drawn ---------------------->
+
+    updateBillDataCell: (state, action) => {
+      const { formIndex, itemIndex, propName, value } = action.payload;
+      let item = state.form[formIndex].billData[itemIndex];
+    
+      // Update the value for the propName
+      item[propName] = value;
+    
+      // If one of the fields that contribute to gross or deductions changes, recalculate them
+      if (['basicPay', 'pp', 'da', 'hra', 'cca', 'ma', 'spla', 'ha', 'wa', 'convAllow', 'bonus', 'others'].includes(propName)) {
+        item.gross = calculateTotalGross(item);
+      }
+      if (['cps', 'spf', 'fbf', 'nhis', 'lic_pli', 'it_cess', 'hba_others'].includes(propName)) {
+        item.totalDedn = calculateTotalDedn(item);
+      }
+      item.net = calculateNet(item.gross, item.totalDedn);
+    
+      // Calculate column totals after any update
+      const columnTotals = calculateColumnTotals(state.form[formIndex].billData);
+      const totalsItemIndex = state.form[formIndex].billData.length - 1; // Assuming last item is for totals
+      state.form[formIndex].billData[totalsItemIndex] = columnTotals;
+    },
+
+    // <------------------- Bill Drawn ---------------------->
   },
 });
+
+// <------------------- Bill Drawn ---------------------->
+
+function calculateTotalGross(item) {
+  const { basicPay, pp, da, hra, cca, ma, spla, ha, wa, convAllow, bonus, others } = item;
+  return [basicPay, pp, da, hra, cca, ma, spla, ha, wa, convAllow, bonus, others].reduce((total, current) => {
+    // Ensure each value is a number; replace with 0 if not
+    const value = parseFloat(current) || 0;
+    return total + value;
+  }, 0);
+}
+
+// Helper function to calculate total deductions, included from previous example for completeness
+function calculateTotalDedn(item) {
+  const { cps, spf, fbf, nhis, lic_pli, it_cess, hba_others } = item;
+  return [cps, spf, fbf, nhis, lic_pli, it_cess, hba_others].reduce((total, current) => {
+    const value = parseFloat(current) || 0;
+    return total + value;
+  }, 0);
+}
+
+function calculateNet(gross, totalDedn) {
+  return gross - totalDedn;
+}
+
+function calculateColumnTotals(billData) {
+  const columnNames = ['basicPay', 'pp', 'da', 'hra', 'cca', 'ma', 'spla', 'ha', 'wa', 'convAllow', 'bonus', 'others', 'gross', 'cps', 'spf', 'fbf', 'nhis', 'lic_pli', 'it_cess', 'hba_others', 'totalDedn', 'net'];
+  let totals = columnNames.reduce((acc, columnName) => {
+    acc[columnName] = billData.slice(0, -1).reduce((total, item) => {
+      let value = parseFloat(item[columnName]) || 0;
+      return total + value;
+    }, 0);
+    return acc;
+  }, {});
+
+  totals.month = 'Grand Total'; // Set the label for the totals row
+
+  return totals;
+}
+
+// <------------------- Bill Drawn ---------------------->
 
 // <------------------- It form ---------------------->
 const updateRentPaidlessOne = (state) => {
@@ -383,7 +451,7 @@ const updateGrossSalary = (state) => {
 const updateTotalLessTwo = (state) => {
   const { standardDeduction, conveyance, hill, others } =
     state.form[0].itForm.lessTwo;
-  const { professionalTax,interestOnHousingLoan } = state.form[0].master;
+  const { professionalTax, interestOnHousingLoan } = state.form[0].master;
   const total =
     parseFloat(standardDeduction) +
     parseFloat(professionalTax) +
@@ -871,7 +939,6 @@ const updateOthersTwo = (state) => {
 };
 const updateFiftyPercentSal = (state) => {
   const { checkSal } = state.form[0].itForm.less;
-
   if (checkSal === true) {
     state.form[0].itForm.less.fortyPercent = Math.round(
       state.form[0].itForm.less.fortyPercent * 1.1
@@ -984,7 +1051,8 @@ export const {
   updateInterestOfHousingLoan,
   updateRepaymentOfHousingLoan,
   updateMasterTuitionFee,
-  updateMasterTuition
+  updateMasterTuition,
+  updateBillDataCell,
 } = financeSlice.actions;
 
 export default financeSlice.reducer;
