@@ -10,11 +10,7 @@ const financeSlice = createSlice({
   initialState,
   reducers: {
     // <------------------- It form ---------------------->
-    updateGrossSalaryIncome: (state, action) => {
-      state.form[0].itForm.grossSalaryIncome = action.payload;
-      updateTotalTaxPayable(state);
-      updateLessTaxRelief(state);
-    },
+   
     updateRentPaid: (state, action) => {
       state.form[0].itForm.less.rentPaid = action.payload;
       updateRentPaidlessOne(state);
@@ -560,22 +556,32 @@ const updateBillTotalIncome = (state) => {
   const { gross } = state.form[0].billData[18];
   state.form[0].billTotal.totalIncome = parseFloat(gross);
   updateBillTotalNetIncome(state);
+  updateItFOrmTotalIncome(state);
 };
 
 const updateBillTotalLessHra = (state) => {
-  const { hra } = state.form[0].itForm.less
+  const { hra } = state.form[0].itForm.less;
   state.form[0].billTotal.LessHRA = parseFloat(hra);
   updateBillTotalNetIncome(state);
 };
 
-const updateBillTotalNetIncome = (state) =>{
-  const {totalIncome,LessHRA} =  state.form[0].billTotal
-  state.form[0].billTotal.NetIncome = parseFloat(totalIncome) - parseFloat(LessHRA);
-}
+const updateBillTotalNetIncome = (state) => {
+  const { totalIncome, LessHRA } = state.form[0].billTotal;
+  state.form[0].billTotal.NetIncome =
+    parseFloat(totalIncome) - parseFloat(LessHRA);
+};
 
 // <------------------- Bill Total ---------------------->
 
 // <------------------- It form ---------------------->
+
+const updateItFOrmTotalIncome = (state) => {
+  const { totalIncome } = state.form[0].billTotal;
+  state.form[0].itForm.grossSalaryIncome = parseFloat(totalIncome);
+  updateTotalTaxPayable(state);
+  updateLessTaxRelief(state);
+};
+
 const updateRentPaidlessOne = (state) => {
   const { rentPaid } = state.form[0].itForm.less;
   const actualRentpaid = rentPaid * 12;
@@ -1127,7 +1133,6 @@ const updateInterestOnHousingLoan = (state) => {
 // <------------------- Master ---------------------->
 
 export const {
-  updateGrossSalaryIncome,
   updateActualRentPaid,
   updateActualAmount,
   updateExpenditure,

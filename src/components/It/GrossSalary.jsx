@@ -3,7 +3,6 @@ import {
   updateActualAmount,
   updateExpenditure,
   updateFortyPercent,
-  updateGrossSalaryIncome,
   updateConveyance,
   updateHill,
   updateOthers,
@@ -91,9 +90,8 @@ const GrossSalary = () => {
               className='input font-bold'
               type='number'
               value={data.grossSalaryIncome}
-              onChange={(e) =>
-                dispatch(updateGrossSalaryIncome(e.target.value))
-              }
+              
+              disabled
             />
           </td>
         </tr>
