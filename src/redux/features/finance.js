@@ -149,34 +149,34 @@ const financeSlice = createSlice({
     },
     updateSelfSpouseChild: (state, action) => {
       state.form[0].itForm.lessFour.selfSpouseChild = action.payload;
-      updateTotalDeduction(state);
       updateNhisTwo(state);
+      updateTotalDeduction(state);
     },
     updateFatherMother: (state, action) => {
       state.form[0].itForm.lessFour.fatherMother = action.payload;
-      updateTotalDeduction(state);
       updateNhisTwo(state);
+      updateTotalDeduction(state);
     },
     updateCheckAgeSelf: (state, action) => {
       state.form[0].itForm.lessFour.checkAgeSelf = action.payload;
-      updateTotalDeduction(state);
       updateNhisTwo(state);
+      updateTotalDeduction(state);
     },
     updateCheckAgeFather: (state, action) => {
       state.form[0].itForm.lessFour.checkAgeFather = action.payload;
-      updateTotalDeduction(state);
       updateNhisTwo(state);
+      updateTotalDeduction(state);
     },
     updatePrivateHealth: (state, action) => {
       state.form[0].itForm.lessFour.privateHealth = action.payload;
-      updateTotalDeduction(state);
       updateNhisTwo(state);
+      updateTotalDeduction(state);
     },
     updateFourOne: (state, action) => {
       state.form[0].itForm.lessFour.one = action.payload;
       updateNhis(state);
-      updateTotalDeduction(state);
       updateNhisTwo(state);
+      updateTotalDeduction(state);
     },
     updateFourTwo: (state, action) => {
       state.form[0].itForm.lessFour.two = action.payload;
@@ -204,30 +204,34 @@ const financeSlice = createSlice({
     },
     updateFourGovOne: (state, action) => {
       state.form[0].itForm.lessFour.govOne = action.payload;
-      updateTotalDeduction(state);
       updateFourDonationLast(state);
+      updateTotalDeduction(state);
     },
     updateFourGovTwo: (state, action) => {
       state.form[0].itForm.lessFour.govTwo = action.payload;
-      updateTotalDeduction(state);
       updateFourDonationLast(state);
+      updateTotalDeduction(state);
     },
     updateFourCmprf: (state, action) => {
-      state.form[0].itForm.lessFour.cmprf = action.payload;
+      const newValue = action.payload < 0 ? 0 : action.payload;
+      state.form[0].itForm.lessFour.cmprf = newValue;
       updateDonation(state);
-      updateTotalDeduction(state);
       updateFourDonationLast(state);
+      updateTotalDeduction(state);
     },
+
     updateFourDonn: (state, action) => {
-      state.form[0].itForm.lessFour.donn = action.payload;
+      const newValue = action.payload < 0 ? 0 : action.payload;
+      state.form[0].itForm.lessFour.donn = newValue;
       updateDonation(state);
-      updateTotalDeduction(state);
       updateFourDonationLast(state);
+      updateTotalDeduction(state);
     },
+
     updateFourInterest: (state, action) => {
       state.form[0].itForm.lessFour.interest = action.payload;
-      updateTotalDeduction(state);
       updateInterestLast(state);
+      updateTotalDeduction(state);
     },
     updateFourDisability: (state, action) => {
       state.form[0].itForm.lessFour.disability = action.payload;
@@ -602,7 +606,7 @@ const updateGrossSalary = (state) => {
   const { grossSalaryIncome } = state.form[0].itForm;
   const gspOne = grossSalaryIncome - state.form[0].itForm.less.hra;
   state.form[0].itForm.gspOne = gspOne;
-  updateTaxableIncome(state)
+  updateTaxableIncome(state);
 };
 const updateTotalLessTwo = (state) => {
   const { standardDeduction, conveyance, hill, others } =
@@ -794,10 +798,20 @@ const updateTotalDeduction = (state) => {
     parseFloat(disabilityTwo) +
     parseFloat(othersTwo);
   state.form[0].itForm.lessFour.totalDed = total;
-  updateNextTaxIncome(state);
+  updateFourDonationLast(state);
   updateNilTaxOn(state);
   updatePlusOne(state);
   updateMinValue(state);
+  updateNextTaxIncome(state);
+  console.log( nhisTwo,
+    maintenanceTwo,
+    medicalTwo,
+    repayTwo,
+    homeLoanTwo,
+    donationTwo,
+    interestTwo,
+    disabilityTwo,
+    othersTwo,)
 };
 const updateNextTaxIncome = (state) => {
   const { grossTaxableIncome } = state.form[0].itForm;
@@ -1078,12 +1092,19 @@ const updateHomeLoanTwo = (state) => {
 };
 const updateFourDonationLast = (state) => {
   const { govOne, govTwo, cmprf } = state.form[0].itForm.lessFour;
-  const govOneValue = govOne === '' ? 0 : parseFloat(govOne);
-  const govTwoValue = govTwo === '' ? 0 : Math.round(parseFloat(govTwo) / 2);
-  const donationTwo = cmprf + govOneValue + govTwoValue;
+  let govOneValue = parseFloat(govOne);
+  let govTwoValue = parseFloat(govTwo);
+
+  govOneValue = isNaN(govOneValue) ? 0 : govOneValue;
+  govTwoValue = isNaN(govTwoValue) ? 0 : Math.round(govTwoValue / 2);
+
+  const cmprfValue = parseFloat(cmprf); 
+  const donationTwo = isNaN(cmprfValue) ? 0 : cmprfValue + govOneValue + govTwoValue;
+
   state.form[0].itForm.lessFour.donationTwo = donationTwo;
   return state;
 };
+
 const updateInterestLast = (state) => {
   const interest = state.form[0].itForm.lessFour.interest;
   const savingBank = state.form[0].itForm.add.savingBank;

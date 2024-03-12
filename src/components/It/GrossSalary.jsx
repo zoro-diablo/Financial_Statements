@@ -788,7 +788,7 @@ const GrossSalary = () => {
                   Self/Spouse/Child
                   <br /> ₹
                   <input
-                    type='text'
+                    type='number'
                     className='ml-2 mr-4 w-24 mb-2 h-6 mt-2 p-1 border border-gray-400'
                     value={data.lessFour.selfSpouseChild}
                     onChange={(e) =>
@@ -820,7 +820,7 @@ const GrossSalary = () => {
                   Father/Mother/Both
                   <br /> ₹
                   <input
-                    type='text'
+                    type='number'
                     className='ml-2 mr-4 w-24 mb-2 h-6 mt-2 p-1 border border-gray-400'
                     value={data.lessFour.fatherMother}
                     onChange={(e) =>
@@ -843,7 +843,7 @@ const GrossSalary = () => {
 
                 <td className='border-r-4 bg-yellow-200 border-b-4 border-red-500 w-[20%] p-2'>
                   <input
-                    type='text'
+                    type='number'
                     className='ml-2 mr-4 w-14 mb-2 h-6 mt-2 p-1 border border-gray-400'
                     value={data.lessFour.privateHealth}
                     onChange={(e) =>
@@ -865,7 +865,7 @@ const GrossSalary = () => {
                   To Govt.
                   <br /> ₹
                   <input
-                    type='text'
+                    type='number'
                     className='ml-2 mr-4 w-16 mb-2 h-6 mt-2 p-1 border border-gray-400'
                     value={data.lessFour.govOne}
                     onChange={(e) => dispatch(updateFourGovOne(e.target.value))}
@@ -876,7 +876,7 @@ const GrossSalary = () => {
                   To Govt.
                   <br /> ₹
                   <input
-                    type='text'
+                    type='number'
                     className='ml-2 mr-4 w-16 mb-2 h-6 mt-2 p-1 border border-gray-400'
                     value={data.lessFour.govTwo}
                     onChange={(e) => dispatch(updateFourGovTwo(e.target.value))}
