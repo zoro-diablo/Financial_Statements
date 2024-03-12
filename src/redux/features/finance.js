@@ -750,7 +750,7 @@ const updategrossTaxableIncome = (state) => {
   const { deduction, finDed, otherSpecific } = state.form[0].itForm.lessThree;
 
   const newGrossTaxableIncome =
-    grossTotalIncome - deduction - finDed - otherSpecific;
+    parseFloat(grossTotalIncome) - parseFloat(deduction) - parseFloat(finDed) - parseFloat(otherSpecific);
 
   state.form[0].itForm.grossTaxableIncome = newGrossTaxableIncome;
 };
