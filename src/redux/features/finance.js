@@ -706,6 +706,7 @@ const updateTotalDeduct = (state) => {
   const TotalDeduction =
     parseFloat(annualPension) + parseFloat(annualCps) + parseFloat(total);
   state.form[0].itForm.lessThree.totalDeduct = TotalDeduction;
+  updategrossTaxableIncome(state);
 };
 const updateDeduction = (state) => {
   const { annualPension, annualCps, total } = state.form[0].itForm.lessThree;
@@ -717,6 +718,7 @@ const updateDeduction = (state) => {
   } else {
     state.form[0].itForm.lessThree.deduction = 0;
   }
+  updategrossTaxableIncome(state);
 };
 
 const updatefinDed = (state) => {
@@ -731,6 +733,7 @@ const updatefinDed = (state) => {
   } else {
     state.form[0].itForm.lessThree.finDed = 0;
   }
+  updategrossTaxableIncome(state);
 };
 const otherSpecific = (state) => {
   const { otherSpf } = state.form[0].itForm.lessThree;
@@ -743,6 +746,7 @@ const otherSpecific = (state) => {
   } else {
     state.form[0].itForm.lessThree.otherSpecific = 0;
   }
+  updategrossTaxableIncome(state);
 };
 const updategrossTaxableIncome = (state) => {
   const { grossTotalIncome } = state.form[0].itForm;
