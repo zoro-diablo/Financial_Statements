@@ -11,6 +11,9 @@ const financeSlice = createSlice({
   reducers: {
     // <------------------- It form ---------------------->
    
+    updateGrossSalaryIncome: (state,action) =>{
+      state.form[0].itForm.grossSalaryIncome = action.payload;
+    },
     updateRentPaid: (state, action) => {
       state.form[0].itForm.less.rentPaid = action.payload;
       updateRentPaidlessOne(state);
@@ -1205,6 +1208,7 @@ export const {
   updateMasterTuition,
   updateBillDataCell,
   updateCheckPp,
+  updateGrossSalaryIncome
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

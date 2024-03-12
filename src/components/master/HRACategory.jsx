@@ -1,12 +1,16 @@
 import  { useState } from 'react';
 import LevelDropDown from './LevelDropDown';
 import MonthDropDown from './MonthDropDown';
-import { InputNumber, Checkbox } from 'antd';
+import { Checkbox } from 'antd';
 import CityCategory from './CityCategory';
 import CCAType from './CCAType';
 import Section3 from './Section3';
+import { updateGrossSalaryIncome } from '../../redux/features/finance';
+import { useSelector,useDispatch } from 'react-redux';
 
 const HRACategory = () => {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.finance.form[0].itForm);
   const [selectedLevel, setSelectedLevel] = useState(1); 
   const [selectedMonth, setSelectedMonth] = useState('January'); 
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
@@ -89,7 +93,9 @@ const HRACategory = () => {
               <span className='text-blue-600'>Increment</span>
             </h1>
             <div className='ml-auto'>
-              <InputNumber placeholder="Enter salary after increment" className="border p-2 rounded" />
+              <input type='number' placeholder="Enter salary after increment" className="border p-2 rounded"
+              value={data.grossSalaryIncome}
+              onChange={(e)=>dispatch(updateGrossSalaryIncome(e.target.value))} />
             </div>
           </div>
           <div className='flex text-end my-10'>
