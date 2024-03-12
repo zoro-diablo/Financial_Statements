@@ -602,6 +602,7 @@ const updateGrossSalary = (state) => {
   const { grossSalaryIncome } = state.form[0].itForm;
   const gspOne = grossSalaryIncome - state.form[0].itForm.less.hra;
   state.form[0].itForm.gspOne = gspOne;
+  updateTaxableIncome(state)
 };
 const updateTotalLessTwo = (state) => {
   const { standardDeduction, conveyance, hill, others } =
