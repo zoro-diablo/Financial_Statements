@@ -837,6 +837,7 @@ const updateRoundedNetTaxableIncome = (state) => {
   updateRTwo(state);
   updateSurPercentage(state);
   updateSurTax(state);
+  updateMinValue(state);
 };
 const updateNilTaxOn = (state) => {
   const { roundedNetTaxableIncome } = state.form[0].itForm;
@@ -846,22 +847,24 @@ const updateNilTaxOn = (state) => {
     state.form[0].itForm.taxOnTotalIncome.nilTaxOn = 250000;
   }
   updateValueThree(state);
+  updateMinValue(state);
 };
 const updatePlusOne = (state) => {
   const { tax } = state.form[0].itForm.taxOnTotalIncome;
   state.form[0].itForm.taxOnTotalIncome.plusOne = parseFloat(tax) + 1;
 };
 const updateMinValue = (state) => {
-  const { value, nilTaxOn } = state.form[0].itForm.taxOnTotalIncome;
-  if (value > nilTaxOn) {
-    state.form[0].itForm.taxOnTotalIncome.minValue = nilTaxOn;
-  } else {
-    state.form[0].itForm.taxOnTotalIncome.minValue = value;
-  }
+  const { value, nilTaxOn} = state.form[0].itForm.taxOnTotalIncome;
+  const {roundedNetTaxableIncome} = state.form[0].itForm;
+  const minValue = Math.min(value, roundedNetTaxableIncome) - nilTaxOn;
+
+  state.form[0].itForm.taxOnTotalIncome.minValue = minValue;
+
   updateFivePer(state);
   updateLess(state);
   updateValueThree(state);
 };
+
 const updateFivePer = (state) => {
   const { minValue } = state.form[0].itForm.taxOnTotalIncome;
   state.form[0].itForm.taxOnTotalIncome.fivePer = Math.round(
