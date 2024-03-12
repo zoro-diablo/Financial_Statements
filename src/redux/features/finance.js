@@ -713,15 +713,12 @@ const updateDeduction = (state) => {
   const dud =
     parseFloat(annualCps) + parseFloat(annualPension) + parseFloat(total);
   if (grossTotalIncome > 0.1) {
-    if (dud < 150000 && dud > 0) {
-      state.form[0].itForm.lessThree.deduction = dud;
-    } else {
-      state.form[0].itForm.lessThree.deduction = 150000;
-    }
+    state.form[0].itForm.lessThree.deduction = Math.min(150000, dud);
   } else {
     state.form[0].itForm.lessThree.deduction = 0;
   }
 };
+
 const updatefinDed = (state) => {
   const { ded } = state.form[0].itForm.lessThree;
   const { grossTotalIncome } = state.form[0].itForm;
