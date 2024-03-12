@@ -10,8 +10,8 @@ const financeSlice = createSlice({
   initialState,
   reducers: {
     // <------------------- It form ---------------------->
-   
-    updateGrossSalaryIncome: (state,action) =>{
+
+    updateGrossSalaryIncome: (state, action) => {
       state.form[0].itForm.grossSalaryIncome = action.payload;
     },
     updateRentPaid: (state, action) => {
@@ -619,8 +619,9 @@ const updateTotalLessTwo = (state) => {
 };
 const updateTaxableIncome = (state) => {
   const { gspOne } = state.form[0].itForm;
-  const taxableSalaryIncome = gspOne - state.form[0].itForm.lessTwo.total;
-  state.form[0].itForm.taxableSalaryIncome = taxableSalaryIncome;
+  const { total } = state.form[0].itForm.lessTwo;
+  state.form[0].itForm.taxableSalaryIncome =
+    parseFloat(gspOne) - parseFloat(total);
   updateGrossTotalIncome(state);
 };
 const updateGrossTotalIncome = (state) => {
@@ -750,7 +751,10 @@ const updategrossTaxableIncome = (state) => {
   const { deduction, finDed, otherSpecific } = state.form[0].itForm.lessThree;
 
   const newGrossTaxableIncome =
-    parseFloat(grossTotalIncome) - parseFloat(deduction) - parseFloat(finDed) - parseFloat(otherSpecific);
+    parseFloat(grossTotalIncome) -
+    parseFloat(deduction) -
+    parseFloat(finDed) -
+    parseFloat(otherSpecific);
 
   state.form[0].itForm.grossTaxableIncome = newGrossTaxableIncome;
 };
@@ -1208,7 +1212,7 @@ export const {
   updateMasterTuition,
   updateBillDataCell,
   updateCheckPp,
-  updateGrossSalaryIncome
+  updateGrossSalaryIncome,
 } = financeSlice.actions;
 
 export default financeSlice.reducer;
