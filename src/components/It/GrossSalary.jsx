@@ -1415,7 +1415,7 @@ const GrossSalary = () => {
                 dispatch(updateCheckBoxTaxPayable(e.target.checked))
               }
             />{' '}
-            (Rounded off to nearest 10 Rupees) u/s 288B 21,298 + 852
+            (Rounded off to nearest 10 Rupees) u/s 288B
           </td>
           <td className='td1 border-y-2 border-black'></td>
           <td className='td1 border-2 border-black' id='totalCR5'>
@@ -1447,7 +1447,7 @@ const GrossSalary = () => {
         <tr>
           <td className='td1 border-2 border-black'>14</td>
           <td className='td1 border-l-2 border-black'>
-            NET TAX Payable / Refundable 21,298 + 852
+            NET TAX Payable / Refundable 
           </td>
           <td className='td1 '></td>
           <td className='td1 border-x-2 border-black' id='totalCR2'>
