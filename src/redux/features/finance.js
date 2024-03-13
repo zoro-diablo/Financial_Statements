@@ -938,9 +938,9 @@ const updateTaxPayable = (state) => {
     state.form[0].itForm.taxOnTotalIncome;
   state.form[0].itForm.taxOnTotalIncome.taxPayable =
     parseFloat(fivePer) +
-    parseFloat(less) +
     parseFloat(twentyPer) +
-    parseFloat(thirtyPer);
+    parseFloat(thirtyPer) -
+    parseFloat(less) 
   updateSurTax(state);
   updateTotalTaxPayable(state);
 };
