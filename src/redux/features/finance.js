@@ -803,7 +803,8 @@ const updateTotalDeduction = (state) => {
   updatePlusOne(state);
   updateMinValue(state);
   updateNextTaxIncome(state);
-  console.log( nhisTwo,
+  console.log(
+    nhisTwo,
     maintenanceTwo,
     medicalTwo,
     repayTwo,
@@ -811,7 +812,8 @@ const updateTotalDeduction = (state) => {
     donationTwo,
     interestTwo,
     disabilityTwo,
-    othersTwo,)
+    othersTwo
+  );
 };
 const updateNextTaxIncome = (state) => {
   const { grossTaxableIncome } = state.form[0].itForm;
@@ -854,8 +856,8 @@ const updatePlusOne = (state) => {
   state.form[0].itForm.taxOnTotalIncome.plusOne = parseFloat(tax) + 1;
 };
 const updateMinValue = (state) => {
-  const { value, nilTaxOn} = state.form[0].itForm.taxOnTotalIncome;
-  const {roundedNetTaxableIncome} = state.form[0].itForm;
+  const { value, nilTaxOn } = state.form[0].itForm.taxOnTotalIncome;
+  const { roundedNetTaxableIncome } = state.form[0].itForm;
   const minValue = Math.min(value, roundedNetTaxableIncome) - nilTaxOn;
 
   state.form[0].itForm.taxOnTotalIncome.minValue = minValue;
@@ -876,15 +878,14 @@ const updateLess = (state) => {
   const { roundedNetTaxableIncome } = state.form[0].itForm;
   const { nilTaxOn } = state.form[0].itForm.taxOnTotalIncome;
   if (roundedNetTaxableIncome <= nilTaxOn) {
-    state.form[0].itForm.less = 0;
+    state.form[0].itForm.taxOnTotalIncome.less = 0;
   } else if (roundedNetTaxableIncome <= 500000) {
     state.form[0].itForm.taxOnTotalIncome.less =
       state.form[0].itForm.taxOnTotalIncome.fivePer;
-  } else {
-    state.form[0].itForm.taxOnTotalIncome.less = 0;
-  }
+  } 
   updateTaxPayable(state);
 };
+
 const updateValueOne = (state) => {
   const { value } = state.form[0].itForm.taxOnTotalIncome;
   state.form[0].itForm.taxOnTotalIncome.valueOne = parseFloat(value) + 1;
@@ -1101,8 +1102,10 @@ const updateFourDonationLast = (state) => {
   govOneValue = isNaN(govOneValue) ? 0 : govOneValue;
   govTwoValue = isNaN(govTwoValue) ? 0 : Math.round(govTwoValue / 2);
 
-  const cmprfValue = parseFloat(cmprf); 
-  const donationTwo = isNaN(cmprfValue) ? 0 : cmprfValue + govOneValue + govTwoValue;
+  const cmprfValue = parseFloat(cmprf);
+  const donationTwo = isNaN(cmprfValue)
+    ? 0
+    : cmprfValue + govOneValue + govTwoValue;
 
   state.form[0].itForm.lessFour.donationTwo = donationTwo;
   return state;
