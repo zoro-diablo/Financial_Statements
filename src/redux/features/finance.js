@@ -874,17 +874,25 @@ const updateFivePer = (state) => {
   );
   updateTaxPayable(state);
 };
+
 const updateLess = (state) => {
   const { roundedNetTaxableIncome } = state.form[0].itForm;
   const { nilTaxOn } = state.form[0].itForm.taxOnTotalIncome;
+
   if (roundedNetTaxableIncome <= nilTaxOn) {
     state.form[0].itForm.taxOnTotalIncome.less = 0;
-  } else if (roundedNetTaxableIncome <= 500000) {
-    state.form[0].itForm.taxOnTotalIncome.less =
-      state.form[0].itForm.taxOnTotalIncome.fivePer;
   } 
+  else if (roundedNetTaxableIncome <= 500000) {
+    state.form[0].itForm.taxOnTotalIncome.less = 
+      state.form[0].itForm.taxOnTotalIncome.fivePer;
+  }
+  else {
+    state.form[0].itForm.taxOnTotalIncome.less = 0;
+  }
+
   updateTaxPayable(state);
 };
+
 
 const updateValueOne = (state) => {
   const { value } = state.form[0].itForm.taxOnTotalIncome;
