@@ -763,6 +763,8 @@ const updategrossTaxableIncome = (state) => {
     parseFloat(otherSpecific);
 
   state.form[0].itForm.grossTaxableIncome = newGrossTaxableIncome;
+  updateNextTaxIncome(state)
+  updateRoundedNetTaxableIncome(state);
 };
 const updateNhis = (state) => {
   const { one, two } = state.form[0].itForm.lessFour;
