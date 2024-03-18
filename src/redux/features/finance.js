@@ -235,6 +235,7 @@ const financeSlice = createSlice({
     },
     updateFourDisability: (state, action) => {
       state.form[0].itForm.lessFour.disability = action.payload;
+      updateDisabilityTwo(state);
       updateTotalDeduction(state);
     },
     updateFourOthers: (state, action) => {
@@ -777,6 +778,10 @@ const updateDonation = (state) => {
   state.form[0].itForm.lessFour.donation = donation;
   updateFourDonationLast(state);
 };
+const updateDisabilityTwo = (state) =>{
+  const {disability} = state.form[0].itForm.lessFour;
+  state.form[0].itForm.lessFour.disabilityTwo= parseFloat(disability)
+}
 const updateTotalDeduction = (state) => {
   const {
     nhisTwo,
@@ -800,22 +805,12 @@ const updateTotalDeduction = (state) => {
     parseFloat(disabilityTwo) +
     parseFloat(othersTwo);
   state.form[0].itForm.lessFour.totalDed = total;
+  updateDisabilityTwo(state);
   updateFourDonationLast(state);
   updateNilTaxOn(state);
   updatePlusOne(state);
   updateMinValue(state);
   updateNextTaxIncome(state);
-  console.log(
-    nhisTwo,
-    maintenanceTwo,
-    medicalTwo,
-    repayTwo,
-    homeLoanTwo,
-    donationTwo,
-    interestTwo,
-    disabilityTwo,
-    othersTwo
-  );
 };
 const updateNextTaxIncome = (state) => {
   const { grossTaxableIncome } = state.form[0].itForm;
