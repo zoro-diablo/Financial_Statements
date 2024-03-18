@@ -162,7 +162,7 @@ const HouseRent = () => {
           className='rounded-full'
         >
           {' '}
-          <span className='font-bold text-lg text-blue-600'>80%</span>
+          <span className='font-bold text-lg text-blue-600'> {'<='} 80%</span>
         </Checkbox>
         <Checkbox
           checked={isCheckboxChecked8}
@@ -170,7 +170,7 @@ const HouseRent = () => {
           className='rounded-full'
         >
           {' '}
-          <span className='font-bold text-lg text-blue-600'>80%</span>
+          <span className='font-bold text-lg text-blue-600'> {'>'} 80%</span>
         </Checkbox>
       </div>
       <div className='flex py-4 space-x-20 items-center justify-center'>
@@ -197,7 +197,7 @@ const HouseRent = () => {
           className='rounded-full'
         >
           {' '}
-          <span className='font-bold text-lg text-blue-600'>80%</span>
+          <span className='font-bold text-lg text-blue-600'> {'<='} 80%</span>
         </Checkbox>
         <Checkbox
           checked={isCheckboxChecked12}
@@ -205,7 +205,7 @@ const HouseRent = () => {
           className='rounded-full'
         >
           {' '}
-          <span className='font-bold text-lg text-blue-600'>80%</span>
+          <span className='font-bold text-lg text-blue-600'>  {'>'} 80%</span>
         </Checkbox>
       </div>
     </div>
