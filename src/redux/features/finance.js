@@ -234,10 +234,18 @@ const financeSlice = createSlice({
       updateTotalDeduction(state);
     },
     updateFourDisability: (state, action) => {
-      state.form[0].itForm.lessFour.disability = action.payload;
+      const newDisabilityValue = action.payload;
+      const maxDisabilityValue = 125000;
+            if (newDisabilityValue > maxDisabilityValue) {
+        state.form[0].itForm.lessFour.disability = maxDisabilityValue;
+      } else {
+        state.form[0].itForm.lessFour.disability = newDisabilityValue;
+      }
+    
       updateDisabilityTwo(state);
       updateTotalDeduction(state);
     },
+    
     updateFourOthers: (state, action) => {
       state.form[0].itForm.lessFour.others = action.payload;
       updateOthersTwo(state);
