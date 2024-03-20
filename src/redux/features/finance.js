@@ -1113,23 +1113,33 @@ const updateFourDonationLast = (state) => {
   let govTwoValue = parseFloat(govTwo);
 
   govOneValue = isNaN(govOneValue) ? 0 : govOneValue;
-  
+  govTwoValue = isNaN(govTwoValue) ? 0 : govTwoValue;
+
   const calculateCappedValue = (value, taxableIncome) => {
     const cap = taxableIncome * 0.1;
+    return Math.min(value, cap);
+  };
+  const calculateCappedValueTwo = (value, taxableIncome) => {
+    const cap = (taxableIncome * 0.1) / 2; 
     return Math.min(value, cap); 
   };
   
   const taxableIncome = state.form[0].itForm.grossTaxableIncome;
-  govTwoValue = isNaN(govTwoValue) ? 0 : calculateCappedValue(Math.round(govTwoValue / 2), taxableIncome);
+  
+  govOneValue = calculateCappedValue(govOneValue, taxableIncome);
+
+  govTwoValue = calculateCappedValueTwo(Math.round(govTwoValue / 2), taxableIncome);
 
   const cmprfValue = parseFloat(cmprf);
   const donationTwo = isNaN(cmprfValue)
     ? 0
     : cmprfValue + govOneValue + govTwoValue;
 
-    state.form[0].itForm.lessFour.donationTwo = parseFloat(donationTwo.toFixed(2));
+  state.form[0].itForm.lessFour.donationTwo = parseFloat(donationTwo.toFixed(2));
+  
   return state;
 };
+
 
 
 const updateInterestLast = (state) => {
