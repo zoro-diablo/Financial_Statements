@@ -36,7 +36,6 @@ import {
   updateFourHomeLoan,
   updateFourDonn,
   updateFourCmprf,
-  updateFourInterest,
   updateFourDisability,
   updateFourOthers,
   updateFiveValue,
@@ -1065,13 +1064,8 @@ const GrossSalary = () => {
             (xii) DED u/s 80TTA: Interest from Savings Accounts of Banks/PO
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
-            <label className='font-bold'>₹</label>
-            <input
-              className='input '
-              type='number'
-              value={data.lessFour.interest}
-              onChange={(e) => dispatch(updateFourInterest(e.target.value))}
-            />
+            <label className='font-bold'></label>
+            
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
             <label className='font-bold'>₹</label>

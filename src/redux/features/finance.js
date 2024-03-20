@@ -62,13 +62,14 @@ const financeSlice = createSlice({
     },
     updateSavingBank: (state, action) => {
       state.form[0].itForm.add.savingBank = action.payload;
-      updateTtb(state)
-      updateGrossTotalIncome(state);
       updateInterestLast(state);
+      updateTtb(state);
+      updateTotalDeduction(state);
+      updateGrossTotalIncome(state);
     },
     updateOther: (state, action) => {
       state.form[0].itForm.add.other = action.payload;
-      updateTtb(state)
+      updateTtb(state);
       updateGrossTotalIncome(state);
     },
     updateGpf: (state, action) => {
@@ -227,12 +228,6 @@ const financeSlice = createSlice({
       state.form[0].itForm.lessFour.donn = newValue;
       updateDonation(state);
       updateFourDonationLast(state);
-      updateTotalDeduction(state);
-    },
-
-    updateFourInterest: (state, action) => {
-      state.form[0].itForm.lessFour.interest = action.payload;
-      updateInterestLast(state);
       updateTotalDeduction(state);
     },
     updateFourDisability: (state, action) => {
@@ -821,6 +816,7 @@ const updateTotalDeduction = (state) => {
   updateFourDonationLast(state);
   updateNilTaxOn(state);
   updatePlusOne(state);
+  updateInterestLast(state);
   updateTtb(state);
   updateMinValue(state);
   updateNextTaxIncome(state);
@@ -885,7 +881,7 @@ const updateTtb = (state) => {
       50000,
       parseFloat(savingBank) + parseFloat(other)
     );
-  }else{
+  } else {
     state.form[0].itForm.lessFour.ttbValue = 0;
   }
 };
@@ -1161,13 +1157,15 @@ const updateFourDonationLast = (state) => {
 };
 
 const updateInterestLast = (state) => {
-  const interest = state.form[0].itForm.lessFour.interest;
-  const savingBank = state.form[0].itForm.add.savingBank;
-  if (interest <= 0) {
-    state.form[0].itForm.lessFour.interestTwo = 0;
+  const { age } = state.form[0].master;
+  const { savingBank } = state.form[0].itForm.add;
+  if (age < 60) {
+    state.form[0].itForm.lessFour.interestTwo = Math.min(
+      parseFloat(savingBank),
+      10000
+    );
   } else {
-    const minVal = Math.min(interest, savingBank, 10000);
-    state.form[0].itForm.lessFour.interestTwo = minVal;
+    state.form[0].itForm.lessFour.interestTwo = 0;
   }
 };
 const updateOthersTwo = (state) => {
@@ -1205,7 +1203,8 @@ const updateMasterAge = (state) => {
     age--;
   }
   state.form[0].master.age = age;
-  updateTtb(state)
+  updateInterestLast(state);
+  updateTtb(state);
   return state;
 };
 const updateInterestOnHousingLoan = (state) => {
@@ -1257,7 +1256,6 @@ export const {
   updateFourHomeLoan,
   updateFourCmprf,
   updateFourDonn,
-  updateFourInterest,
   updateFourDisability,
   updateFourOthers,
   updateTuitionFeeDetails,
