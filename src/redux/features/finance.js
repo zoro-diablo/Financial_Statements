@@ -62,11 +62,13 @@ const financeSlice = createSlice({
     },
     updateSavingBank: (state, action) => {
       state.form[0].itForm.add.savingBank = action.payload;
+      updateTtb(state)
       updateGrossTotalIncome(state);
       updateInterestLast(state);
     },
     updateOther: (state, action) => {
       state.form[0].itForm.add.other = action.payload;
+      updateTtb(state)
       updateGrossTotalIncome(state);
     },
     updateGpf: (state, action) => {
@@ -236,16 +238,16 @@ const financeSlice = createSlice({
     updateFourDisability: (state, action) => {
       const newDisabilityValue = action.payload;
       const maxDisabilityValue = 125000;
-             if (newDisabilityValue > maxDisabilityValue) {
+      if (newDisabilityValue > maxDisabilityValue) {
         state.form[0].itForm.lessFour.disability = maxDisabilityValue;
       } else {
         state.form[0].itForm.lessFour.disability = newDisabilityValue;
       }
-    
+
       updateDisabilityTwo(state);
       updateTotalDeduction(state);
     },
-    
+
     updateFourOthers: (state, action) => {
       state.form[0].itForm.lessFour.others = action.payload;
       updateOthersTwo(state);
@@ -772,7 +774,7 @@ const updategrossTaxableIncome = (state) => {
     parseFloat(otherSpecific);
 
   state.form[0].itForm.grossTaxableIncome = newGrossTaxableIncome;
-  updateNextTaxIncome(state)
+  updateNextTaxIncome(state);
   updateRoundedNetTaxableIncome(state);
 };
 const updateNhis = (state) => {
@@ -786,10 +788,10 @@ const updateDonation = (state) => {
   state.form[0].itForm.lessFour.donation = donation;
   updateFourDonationLast(state);
 };
-const updateDisabilityTwo = (state) =>{
-  const {disability} = state.form[0].itForm.lessFour;
-  state.form[0].itForm.lessFour.disabilityTwo= parseFloat(disability)
-}
+const updateDisabilityTwo = (state) => {
+  const { disability } = state.form[0].itForm.lessFour;
+  state.form[0].itForm.lessFour.disabilityTwo = parseFloat(disability);
+};
 const updateTotalDeduction = (state) => {
   const {
     nhisTwo,
@@ -799,6 +801,7 @@ const updateTotalDeduction = (state) => {
     homeLoanTwo,
     donationTwo,
     interestTwo,
+    ttbValue,
     disabilityTwo,
     othersTwo,
   } = state.form[0].itForm.lessFour;
@@ -810,6 +813,7 @@ const updateTotalDeduction = (state) => {
     parseFloat(homeLoanTwo) +
     parseFloat(donationTwo) +
     parseFloat(interestTwo) +
+    parseFloat(ttbValue) +
     parseFloat(disabilityTwo) +
     parseFloat(othersTwo);
   state.form[0].itForm.lessFour.totalDed = total;
@@ -817,6 +821,7 @@ const updateTotalDeduction = (state) => {
   updateFourDonationLast(state);
   updateNilTaxOn(state);
   updatePlusOne(state);
+  updateTtb(state);
   updateMinValue(state);
   updateNextTaxIncome(state);
 };
@@ -872,6 +877,19 @@ const updateMinValue = (state) => {
   updateValueThree(state);
 };
 
+const updateTtb = (state) => {
+  const { age } = state.form[0].master;
+  const { savingBank, other } = state.form[0].itForm.add;
+  if (age > 60) {
+    state.form[0].itForm.lessFour.ttbValue = Math.min(
+      50000,
+      parseFloat(savingBank) + parseFloat(other)
+    );
+  }else{
+    state.form[0].itForm.lessFour.ttbValue = 0;
+  }
+};
+
 const updateFivePer = (state) => {
   const { minValue } = state.form[0].itForm.taxOnTotalIncome;
   state.form[0].itForm.taxOnTotalIncome.fivePer = Math.round(
@@ -886,18 +904,15 @@ const updateLess = (state) => {
 
   if (roundedNetTaxableIncome <= nilTaxOn) {
     state.form[0].itForm.taxOnTotalIncome.less = 0;
-  } 
-  else if (roundedNetTaxableIncome <= 500000) {
-    state.form[0].itForm.taxOnTotalIncome.less = 
+  } else if (roundedNetTaxableIncome <= 500000) {
+    state.form[0].itForm.taxOnTotalIncome.less =
       state.form[0].itForm.taxOnTotalIncome.fivePer;
-  }
-  else {
+  } else {
     state.form[0].itForm.taxOnTotalIncome.less = 0;
   }
 
   updateTaxPayable(state);
 };
-
 
 const updateValueOne = (state) => {
   const { value } = state.form[0].itForm.taxOnTotalIncome;
@@ -953,7 +968,7 @@ const updateTaxPayable = (state) => {
     parseFloat(fivePer) +
     parseFloat(twentyPer) +
     parseFloat(thirtyPer) -
-    parseFloat(less) 
+    parseFloat(less);
   updateSurTax(state);
   updateTotalTaxPayable(state);
 };
@@ -1120,27 +1135,30 @@ const updateFourDonationLast = (state) => {
     return Math.min(value, cap);
   };
   const calculateCappedValueTwo = (value, taxableIncome) => {
-    const cap = (taxableIncome * 0.1) / 2; 
-    return Math.min(value, cap); 
+    const cap = (taxableIncome * 0.1) / 2;
+    return Math.min(value, cap);
   };
-  
+
   const taxableIncome = state.form[0].itForm.grossTaxableIncome;
-  
+
   govOneValue = calculateCappedValue(govOneValue, taxableIncome);
 
-  govTwoValue = calculateCappedValueTwo(Math.round(govTwoValue / 2), taxableIncome);
+  govTwoValue = calculateCappedValueTwo(
+    Math.round(govTwoValue / 2),
+    taxableIncome
+  );
 
   const cmprfValue = parseFloat(cmprf);
   const donationTwo = isNaN(cmprfValue)
     ? 0
     : cmprfValue + govOneValue + govTwoValue;
 
-  state.form[0].itForm.lessFour.donationTwo = parseFloat(donationTwo.toFixed(2));
-  
+  state.form[0].itForm.lessFour.donationTwo = parseFloat(
+    donationTwo.toFixed(2)
+  );
+
   return state;
 };
-
-
 
 const updateInterestLast = (state) => {
   const interest = state.form[0].itForm.lessFour.interest;
@@ -1187,6 +1205,7 @@ const updateMasterAge = (state) => {
     age--;
   }
   state.form[0].master.age = age;
+  updateTtb(state)
   return state;
 };
 const updateInterestOnHousingLoan = (state) => {

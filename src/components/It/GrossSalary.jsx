@@ -50,7 +50,6 @@ import {
   updateFourGovOne,
   updateFourGovTwo,
   updateTicketMetro,
-  
 } from '../../redux/features/finance';
 import { FaGreaterThan } from 'react-icons/fa6';
 
@@ -90,7 +89,6 @@ const GrossSalary = () => {
               className='input font-bold'
               type='number'
               value={data.grossSalaryIncome}
-              
               disabled
             />
           </td>
@@ -458,7 +456,7 @@ const GrossSalary = () => {
               className='input'
               type='number'
               value={master.repaymentOfHousingLoan}
-             disabled
+              disabled
             />
           </td>
         </tr>
@@ -1087,8 +1085,29 @@ const GrossSalary = () => {
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
+          <td className='td1 border-2 border-black'>(xiii) DED u/s 80TTB</td>
+          <td className='crAmount5 td1 border-2 border-black'>
+            <label className='font-bold'></label>
+            <input
+              className='input '
+              type='number'
+              disabled
+            />
+          </td>
+          <td className='crAmount5 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.lessFour.ttbValue}
+              disabled
+            />
+          </td>
+        </tr>
+        <tr>
+          <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-            (xiii) DED u/s 80 U : Permanent physical disability (Self)
+            (xiv) DED u/s 80 U : Permanent physical disability (Self)
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
             <label className='font-bold'>₹</label>
@@ -1447,7 +1466,7 @@ const GrossSalary = () => {
         <tr>
           <td className='td1 border-2 border-black'>14</td>
           <td className='td1 border-l-2 border-black'>
-            NET TAX Payable / Refundable 
+            NET TAX Payable / Refundable
           </td>
           <td className='td1 '></td>
           <td className='td1 border-x-2 border-black' id='totalCR2'>

@@ -97,6 +97,8 @@ export const form = [
         donationTwo: 0,
         interest: 0,
         interestTwo: 0,
+       
+        ttbValue:0,
         disability: 0,
         disabilityTwo: 0,
         others: 0,
