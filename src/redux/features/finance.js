@@ -236,7 +236,7 @@ const financeSlice = createSlice({
     updateFourDisability: (state, action) => {
       const newDisabilityValue = action.payload;
       const maxDisabilityValue = 125000;
-            if (newDisabilityValue > maxDisabilityValue) {
+             if (newDisabilityValue > maxDisabilityValue) {
         state.form[0].itForm.lessFour.disability = maxDisabilityValue;
       } else {
         state.form[0].itForm.lessFour.disability = newDisabilityValue;
@@ -1113,16 +1113,24 @@ const updateFourDonationLast = (state) => {
   let govTwoValue = parseFloat(govTwo);
 
   govOneValue = isNaN(govOneValue) ? 0 : govOneValue;
-  govTwoValue = isNaN(govTwoValue) ? 0 : Math.round(govTwoValue / 2);
+  
+  const calculateCappedValue = (value, taxableIncome) => {
+    const cap = taxableIncome * 0.1;
+    return Math.min(value, cap); 
+  };
+  
+  const taxableIncome = state.form[0].itForm.grossTaxableIncome;
+  govTwoValue = isNaN(govTwoValue) ? 0 : calculateCappedValue(Math.round(govTwoValue / 2), taxableIncome);
 
   const cmprfValue = parseFloat(cmprf);
   const donationTwo = isNaN(cmprfValue)
     ? 0
     : cmprfValue + govOneValue + govTwoValue;
 
-  state.form[0].itForm.lessFour.donationTwo = donationTwo;
+    state.form[0].itForm.lessFour.donationTwo = parseFloat(donationTwo.toFixed(2));
   return state;
 };
+
 
 const updateInterestLast = (state) => {
   const interest = state.form[0].itForm.lessFour.interest;
