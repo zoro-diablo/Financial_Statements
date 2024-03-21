@@ -1100,10 +1100,17 @@ const updateNhisTwo = (state) => {
 };
 const updateMedicalTwo = (state) => {
   const { medical } = state.form[0].itForm.lessFour;
-  if (medical > 100000) {
-    state.form[0].itForm.lessFour.medicalTwo = 100000;
+  const { age } = state.form[0].master;
+  if (age < 60) {
+    state.form[0].itForm.lessFour.medicalTwo = Math.min(
+      40000,
+      parseFloat(medical)
+    );
   } else {
-    state.form[0].itForm.lessFour.medicalTwo = medical;
+    state.form[0].itForm.lessFour.medicalTwo = Math.min(
+      100000,
+      parseFloat(medical)
+    );
   }
 };
 const updateReplyTwo = (state) => {
