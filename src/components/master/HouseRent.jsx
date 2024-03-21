@@ -148,14 +148,22 @@ const HouseRent = () => {
           {' '}
           <span className='font-bold text-lg text-blue-600'>Yes</span>
         </Checkbox>
-        <div type='checkbox' className='rounded-full'>
-          <input type='checkbox' checked={master.disability_self_less} onChange={(e)=>dispatch(updateMasterDisability_self_less(e.target.checked))} />{' '}
-          <span className='font-bold text-lg text-blue-600'> {''} 40%</span>
-        </div>
-        <div type='checkbox' className='rounded-full'>
-          <input type='checkbox' checked={master.disability_self_greater} onChange={(e)=>dispatch(updateMasterDisability_self_greater(e.target.checked))} />{' '}
-          <span className='font-bold text-lg text-blue-600'> {''} 80%</span>
-        </div>
+        <Checkbox
+          checked={isCheckboxChecked11}
+          onChange={handleCheckboxChange11}
+          className='rounded-full'
+        >
+          {' '}
+          <span className='font-bold text-lg text-blue-600'> {'<='} 80%</span>
+        </Checkbox>
+        <Checkbox
+          checked={isCheckboxChecked12}
+          onChange={handleCheckboxChange12}
+          className='rounded-full'
+        >
+          {' '}
+          <span className='font-bold text-lg text-blue-600'> {'>'} 80%</span>
+        </Checkbox>
       </div>
       <div className='flex py-4 space-x-20 items-center justify-center'>
         <h1 className='font-bold text-lg'>Permanent Disability (Dependant)</h1>
@@ -175,22 +183,15 @@ const HouseRent = () => {
           {' '}
           <span className='font-bold text-lg text-blue-600'>Yes</span>
         </Checkbox>
-        <Checkbox
-          checked={isCheckboxChecked11}
-          onChange={handleCheckboxChange11}
-          className='rounded-full'
-        >
-          {' '}
-          <span className='font-bold text-lg text-blue-600'> {'<='} 80%</span>
-        </Checkbox>
-        <Checkbox
-          checked={isCheckboxChecked12}
-          onChange={handleCheckboxChange12}
-          className='rounded-full'
-        >
-          {' '}
-          <span className='font-bold text-lg text-blue-600'> {'>'} 80%</span>
-        </Checkbox>
+        <div type='checkbox' className='rounded-full'>
+          <input type='checkbox' checked={master.disability_self_less} onChange={(e)=>dispatch(updateMasterDisability_self_less(e.target.checked))} />{' '}
+          <span className='font-bold text-lg text-blue-600'> {''} 40%</span>
+        </div>
+        <div type='checkbox' className='rounded-full'>
+          <input type='checkbox' checked={master.disability_self_greater} onChange={(e)=>dispatch(updateMasterDisability_self_greater(e.target.checked))} />{' '}
+          <span className='font-bold text-lg text-blue-600'> {''} 80%</span>
+        </div>
+       
       </div>
     </div>
   );
