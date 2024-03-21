@@ -186,10 +186,6 @@ const financeSlice = createSlice({
       updateNhis(state);
       updateTotalDeduction(state);
     },
-    updateFourMaintenance: (state, action) => {
-      state.form[0].itForm.lessFour.maintenance = action.payload;
-      updateTotalDeduction(state);
-    },
     updateFourMedical: (state, action) => {
       state.form[0].itForm.lessFour.medical = action.payload;
       updateMedicalTwo(state);
@@ -368,6 +364,16 @@ const financeSlice = createSlice({
     updateMasterTuition: (state, action) => {
       state.form[0].master.tuition = action.payload;
       updateTotalDeduction(state);
+    },
+    updateMasterDisability_self_less: (state, action) => {
+      state.form[0].master.disability_self_less = action.payload;
+      updateMaintenanceTwo(state);
+      updateTotalDeduction(state)
+    },
+    updateMasterDisability_self_greater: (state, action) => {
+      state.form[0].master.disability_self_greater = action.payload;
+      updateMaintenanceTwo(state);
+      updateTotalDeduction(state)
     },
     // <------------------- Master ---------------------->
 
@@ -815,6 +821,7 @@ const updateTotalDeduction = (state) => {
   updateDisabilityTwo(state);
   updateFourDonationLast(state);
   updateNilTaxOn(state);
+  updateMaintenanceTwo(state)
   updatePlusOne(state);
   updateInterestLast(state);
   updateTtb(state);
@@ -1221,6 +1228,17 @@ const updateInterestOnHousingLoan = (state) => {
   }
   return state;
 };
+const updateMaintenanceTwo = (state) => {
+  const { disability_self_less, disability_self_greater } =
+    state.form[0].master;
+  if (disability_self_less) {
+    state.form[0].itForm.lessFour.maintenanceTwo = 75000;
+  } else if (disability_self_greater) {
+    state.form[0].itForm.lessFour.maintenanceTwo = 125000;
+  } else {
+    state.form[0].itForm.lessFour.maintenanceTwo = 0;
+  }
+};
 
 // <------------------- Master ---------------------->
 
@@ -1257,7 +1275,6 @@ export const {
   updateOtherSpf,
   updateFourOne,
   updateFourTwo,
-  updateFourMaintenance,
   updateFourMedical,
   updateFourRepay,
   updateFourHomeLoan,
@@ -1297,6 +1314,8 @@ export const {
   updateBillDataCell,
   updateCheckPp,
   updateGrossSalaryIncome,
+  updateMasterDisability_self_less,
+  updateMasterDisability_self_greater,
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

@@ -30,7 +30,6 @@ import {
   updateOtherSpf,
   updateFourOne,
   updateFourTwo,
-  updateFourMaintenance,
   updateFourMedical,
   updateFourRepay,
   updateFourHomeLoan,
@@ -930,13 +929,8 @@ const GrossSalary = () => {
             (vii) DED u/s 80 DD : Maintenance / Treatment of Dependant
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
-            <label className='font-bold'>₹</label>
-            <input
-              className='input '
-              type='number'
-              value={data.lessFour.maintenance}
-              onChange={(e) => dispatch(updateFourMaintenance(e.target.value))}
-            />
+            <label className='font-bold'></label>
+            
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
             <label className='font-bold'>₹</label>
