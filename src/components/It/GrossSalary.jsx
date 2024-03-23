@@ -369,7 +369,7 @@ const GrossSalary = () => {
         <tr>
           <td className='td1 border-l-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-            (c) Any other Income (FD Interest, Agricultural Income, etc)
+            (c) Any other Income (FD Interest, etc)
           </td>
           <td className='crAmount3 td1 border-2 border-black'>
             <label className='font-bold'>₹</label>
