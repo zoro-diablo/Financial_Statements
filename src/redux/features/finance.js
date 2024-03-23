@@ -600,6 +600,7 @@ const updateBillTotalNetIncome = (state) => {
 const updateLessThreeFinDedTwo = (state) =>{
   const { dedTwo } = state.form[0].itForm.lessThree;
   state.form[0].itForm.lessThree.findedTwo=parseFloat(dedTwo);
+  updategrossTaxableIncome(state);
 }
 
 const updateItFOrmTotalIncome = (state) => {
@@ -774,14 +775,14 @@ const otherSpecific = (state) => {
 };
 const updategrossTaxableIncome = (state) => {
   const { grossTotalIncome } = state.form[0].itForm;
-  const { deduction, finDed, otherSpecific } = state.form[0].itForm.lessThree;
+  const { deduction, finDed, otherSpecific , findedTwo } = state.form[0].itForm.lessThree;
 
   const newGrossTaxableIncome =
     parseFloat(grossTotalIncome) -
     parseFloat(deduction) -
     parseFloat(finDed) -
-    parseFloat(otherSpecific);
-
+    parseFloat(otherSpecific) + 
+    parseFloat(findedTwo)
   state.form[0].itForm.grossTaxableIncome = newGrossTaxableIncome;
   updateNextTaxIncome(state);
   updateRoundedNetTaxableIncome(state);
