@@ -229,12 +229,11 @@ const financeSlice = createSlice({
     updateAddAgri: (state, action) => {
       const newValue = action.payload > 5000 ? 5000 : action.payload;
       state.form[0].itForm.add.agri = newValue;
-      updateGrossTotalIncome(state)
+      updateGrossTotalIncome(state);
     },
-    
-    updateAddOthers: (state,action) => {
-      state.form[0].itForm.add.incOthers=action.payload
-      updateGrossTotalIncome(state)
+
+    updateAddOthers: (state, action) => {
+      state.form[0].itForm.add.incOthers = action.payload;
     },
 
     updateFourOthers: (state, action) => {
@@ -370,22 +369,22 @@ const financeSlice = createSlice({
     updateMasterDisability_self_less: (state, action) => {
       state.form[0].master.disability_self_less = action.payload;
       updateMaintenanceTwo(state);
-      updateTotalDeduction(state)
+      updateTotalDeduction(state);
     },
     updateMasterDisability_self_greater: (state, action) => {
       state.form[0].master.disability_self_greater = action.payload;
       updateMaintenanceTwo(state);
-      updateTotalDeduction(state)
+      updateTotalDeduction(state);
     },
     updateMasterDisability_selfOne: (state, action) => {
-      state.form[0].master.disability_self_One = action.payload;   
-      updateDisabilityMasterValues(state)
-      updateTotalDeduction(state)
+      state.form[0].master.disability_self_One = action.payload;
+      updateDisabilityMasterValues(state);
+      updateTotalDeduction(state);
     },
     updateMasterDisability_selfTwo: (state, action) => {
       state.form[0].master.disability_self_Two = action.payload;
-      updateDisabilityMasterValues(state)
-      updateTotalDeduction(state)
+      updateDisabilityMasterValues(state);
+      updateTotalDeduction(state);
     },
     // <------------------- Master ---------------------->
 
@@ -606,11 +605,11 @@ const updateBillTotalNetIncome = (state) => {
 
 // <------------------- It form ---------------------->
 
-const updateLessThreeFinDedTwo = (state) =>{
+const updateLessThreeFinDedTwo = (state) => {
   const { dedTwo } = state.form[0].itForm.lessThree;
-  state.form[0].itForm.lessThree.findedTwo=parseFloat(dedTwo);
+  state.form[0].itForm.lessThree.findedTwo = parseFloat(dedTwo);
   updategrossTaxableIncome(state);
-}
+};
 
 const updateItFOrmTotalIncome = (state) => {
   const { totalIncome } = state.form[0].billTotal;
@@ -661,14 +660,14 @@ const updateTaxableIncome = (state) => {
 };
 const updateGrossTotalIncome = (state) => {
   const { taxableSalaryIncome } = state.form[0].itForm;
-  const { houseProperty, savingBank, other , agri , incOthers } = state.form[0].itForm.add;
+  const { houseProperty, savingBank, other, agri } =
+    state.form[0].itForm.add;
   const grossTotalIncome =
     parseFloat(taxableSalaryIncome) +
     parseFloat(houseProperty) +
     parseFloat(savingBank) +
     parseFloat(other) +
-    parseFloat(agri) +
-    parseFloat(incOthers) 
+    parseFloat(agri) 
   state.form[0].itForm.grossTotalIncome = grossTotalIncome;
   updategrossTaxableIncome(state);
 };
@@ -786,14 +785,15 @@ const otherSpecific = (state) => {
 };
 const updategrossTaxableIncome = (state) => {
   const { grossTotalIncome } = state.form[0].itForm;
-  const { deduction, finDed, otherSpecific , findedTwo } = state.form[0].itForm.lessThree;
+  const { deduction, finDed, otherSpecific, findedTwo } =
+    state.form[0].itForm.lessThree;
 
   const newGrossTaxableIncome =
     parseFloat(grossTotalIncome) -
     parseFloat(deduction) -
     parseFloat(finDed) -
-    parseFloat(otherSpecific) - 
-    parseFloat(findedTwo)
+    parseFloat(otherSpecific) -
+    parseFloat(findedTwo);
   state.form[0].itForm.grossTaxableIncome = newGrossTaxableIncome;
   updateNextTaxIncome(state);
   updateRoundedNetTaxableIncome(state);
@@ -836,7 +836,7 @@ const updateTotalDeduction = (state) => {
   state.form[0].itForm.lessFour.totalDed = total;
   updateFourDonationLast(state);
   updateNilTaxOn(state);
-  updateMaintenanceTwo(state)
+  updateMaintenanceTwo(state);
   updatePlusOne(state);
   updateInterestLast(state);
   updateTtb(state);
@@ -1256,8 +1256,7 @@ const updateMaintenanceTwo = (state) => {
   }
 };
 const updateDisabilityMasterValues = (state) => {
-  const { disability_self_One, disability_self_Two } =
-    state.form[0].master;
+  const { disability_self_One, disability_self_Two } = state.form[0].master;
   if (disability_self_One) {
     state.form[0].itForm.lessFour.disabilityTwo = 75000;
   } else if (disability_self_Two) {
