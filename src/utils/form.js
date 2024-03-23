@@ -69,6 +69,8 @@ export const form = [
         deduction: 150000,
         ded: 0,
         finDed: 0,
+        dedTwo: 0,
+        dedTwo: 0,
         otherSpf: 0,
         otherSpecific: 0,
       },

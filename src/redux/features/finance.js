@@ -318,6 +318,10 @@ const financeSlice = createSlice({
           return total + paid;
         }, 0);
     },
+    updateLessThreeDedTwo: (state, action) => {
+      state.form[0].itForm.lessThree.dedTwo = action.payload;
+      updateLessThreeFinDedTwo(state);
+    },
     // <------------------- It form ---------------------->
 
     // <------------------- Master ---------------------->
@@ -593,6 +597,11 @@ const updateBillTotalNetIncome = (state) => {
 // <------------------- Bill Total ---------------------->
 
 // <------------------- It form ---------------------->
+
+const updateLessThreeFinDedTwo = (state) =>{
+  const { dedTwo } = state.form[0].itForm.lessThree;
+  state.form[0].itForm.lessThree.findedTwo=parseFloat(dedTwo);
+}
 
 const updateItFOrmTotalIncome = (state) => {
   const { totalIncome } = state.form[0].billTotal;
@@ -1314,6 +1323,7 @@ export const {
   updateBillDataCell,
   updateCheckPp,
   updateGrossSalaryIncome,
+  updateLessThreeDedTwo,
   updateMasterDisability_self_less,
   updateMasterDisability_self_greater,
 } = financeSlice.actions;

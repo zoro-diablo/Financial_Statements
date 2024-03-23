@@ -48,6 +48,7 @@ import {
   updateFourGovOne,
   updateFourGovTwo,
   updateTicketMetro,
+  updateLessThreeDedTwo,
 } from '../../redux/features/finance';
 import { FaGreaterThan } from 'react-icons/fa6';
 
@@ -719,6 +720,31 @@ const GrossSalary = () => {
               className='input font-bold'
               type='number'
               value={data.lessThree.finDed}
+              disabled
+            />
+          </td>
+        </tr>
+        <tr>
+          <td className='td1 border-2 border-black'></td>
+          <td className='td1 border-2 border-black'>
+            (iv) DED u/s 80 CCD(2)
+          </td>
+          <td className='crAmount4 td1 border-2 border-black'>
+            {' '}
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.lessThree.dedTwo}
+              onChange={(e) => dispatch(updateLessThreeDedTwo(e.target.value))}
+            />
+          </td>
+          <td className='crAmount4 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input font-bold'
+              type='number'
+              value={data.lessThree.findedTwo}
               disabled
             />
           </td>
