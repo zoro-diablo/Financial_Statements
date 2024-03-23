@@ -226,18 +226,7 @@ const financeSlice = createSlice({
       updateFourDonationLast(state);
       updateTotalDeduction(state);
     },
-    updateFourDisability: (state, action) => {
-      const newDisabilityValue = action.payload;
-      const maxDisabilityValue = 125000;
-      if (newDisabilityValue > maxDisabilityValue) {
-        state.form[0].itForm.lessFour.disability = maxDisabilityValue;
-      } else {
-        state.form[0].itForm.lessFour.disability = newDisabilityValue;
-      }
 
-      updateDisabilityTwo(state);
-      updateTotalDeduction(state);
-    },
 
     updateFourOthers: (state, action) => {
       state.form[0].itForm.lessFour.others = action.payload;
@@ -377,6 +366,16 @@ const financeSlice = createSlice({
     updateMasterDisability_self_greater: (state, action) => {
       state.form[0].master.disability_self_greater = action.payload;
       updateMaintenanceTwo(state);
+      updateTotalDeduction(state)
+    },
+    updateMasterDisability_selfOne: (state, action) => {
+      state.form[0].master.disability_self_One = action.payload;   
+      updateDisabilityMasterValues(state)
+      updateTotalDeduction(state)
+    },
+    updateMasterDisability_selfTwo: (state, action) => {
+      state.form[0].master.disability_self_Two = action.payload;
+      updateDisabilityMasterValues(state)
       updateTotalDeduction(state)
     },
     // <------------------- Master ---------------------->
@@ -798,10 +797,6 @@ const updateDonation = (state) => {
   state.form[0].itForm.lessFour.donation = donation;
   updateFourDonationLast(state);
 };
-const updateDisabilityTwo = (state) => {
-  const { disability } = state.form[0].itForm.lessFour;
-  state.form[0].itForm.lessFour.disabilityTwo = parseFloat(disability);
-};
 const updateTotalDeduction = (state) => {
   const {
     nhisTwo,
@@ -827,13 +822,13 @@ const updateTotalDeduction = (state) => {
     parseFloat(disabilityTwo) +
     parseFloat(othersTwo);
   state.form[0].itForm.lessFour.totalDed = total;
-  updateDisabilityTwo(state);
   updateFourDonationLast(state);
   updateNilTaxOn(state);
   updateMaintenanceTwo(state)
   updatePlusOne(state);
   updateInterestLast(state);
   updateTtb(state);
+  updateDisabilityMasterValues(state);
   updateMinValue(state);
   updateNextTaxIncome(state);
 };
@@ -1248,6 +1243,17 @@ const updateMaintenanceTwo = (state) => {
     state.form[0].itForm.lessFour.maintenanceTwo = 0;
   }
 };
+const updateDisabilityMasterValues = (state) => {
+  const { disability_self_One, disability_self_Two } =
+    state.form[0].master;
+  if (disability_self_One) {
+    state.form[0].itForm.lessFour.disabilityTwo = 75000;
+  } else if (disability_self_Two) {
+    state.form[0].itForm.lessFour.disabilityTwo = 125000;
+  } else {
+    state.form[0].itForm.lessFour.disabilityTwo = 0;
+  }
+};
 
 // <------------------- Master ---------------------->
 
@@ -1289,7 +1295,6 @@ export const {
   updateFourHomeLoan,
   updateFourCmprf,
   updateFourDonn,
-  updateFourDisability,
   updateFourOthers,
   updateTuitionFeeDetails,
   updateMutualFundDetails,
@@ -1324,6 +1329,8 @@ export const {
   updateCheckPp,
   updateGrossSalaryIncome,
   updateLessThreeDedTwo,
+  updateMasterDisability_selfOne,
+  updateMasterDisability_selfTwo,
   updateMasterDisability_self_less,
   updateMasterDisability_self_greater,
 } = financeSlice.actions;

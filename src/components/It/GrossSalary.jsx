@@ -35,7 +35,6 @@ import {
   updateFourHomeLoan,
   updateFourDonn,
   updateFourCmprf,
-  updateFourDisability,
   updateFourOthers,
   updateFiveValue,
   updateFiveValueTwo,
@@ -1124,13 +1123,7 @@ const GrossSalary = () => {
             (xiv) DED u/s 80 U : Permanent physical disability (Self)
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
-            <label className='font-bold'>₹</label>
-            <input
-              className='input '
-              type='number'
-              value={data.lessFour.disability}
-              onChange={(e) => dispatch(updateFourDisability(e.target.value))}
-            />
+            <label className='font-bold'></label>           
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
             <label className='font-bold'>₹</label>

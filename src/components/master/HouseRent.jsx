@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Checkbox } from 'antd';
 import {
   updateInterestOfHousingLoan,
+  updateMasterDisability_selfOne,
+  updateMasterDisability_selfTwo,
   updateMasterDisability_self_greater,
   updateMasterDisability_self_less,
   updateMasterHouseRent,
@@ -19,8 +21,6 @@ const HouseRent = () => {
   const [isCheckboxChecked6, setIsCheckboxChecked6] = useState(false);
   const [isCheckboxChecked9, setIsCheckboxChecked9] = useState(false);
   const [isCheckboxChecked10, setIsCheckboxChecked10] = useState(false);
-  const [isCheckboxChecked11, setIsCheckboxChecked11] = useState(false);
-  const [isCheckboxChecked12, setIsCheckboxChecked12] = useState(false);
 
   const handleCheckboxChange5 = (e) => {
     setIsCheckboxChecked5(e.target.checked);
@@ -38,13 +38,6 @@ const HouseRent = () => {
     setIsCheckboxChecked10(e.target.checked);
   };
 
-  const handleCheckboxChange11 = (e) => {
-    setIsCheckboxChecked11(e.target.checked);
-  };
-
-  const handleCheckboxChange12 = (e) => {
-    setIsCheckboxChecked12(e.target.checked);
-  };
 
   return (
     <div className='bg-yellow-200 border-t-2 border-red-800'>
@@ -148,22 +141,18 @@ const HouseRent = () => {
           {' '}
           <span className='font-bold text-lg text-blue-600'>Yes</span>
         </Checkbox>
-        <Checkbox
-          checked={isCheckboxChecked11}
-          onChange={handleCheckboxChange11}
-          className='rounded-full'
-        >
-          {' '}
+        <div type='checkbox' className='rounded-full'>
+          <input type='checkbox' checked={master.disability_self_One}  onChange={(e) =>
+              dispatch(updateMasterDisability_selfOne(e.target.checked))
+            } />{' '}
           <span className='font-bold text-lg text-blue-600'> {'<='} 80%</span>
-        </Checkbox>
-        <Checkbox
-          checked={isCheckboxChecked12}
-          onChange={handleCheckboxChange12}
-          className='rounded-full'
-        >
-          {' '}
+        </div>
+        <div type='checkbox' className='rounded-full'>
+          <input type='checkbox' checked={master.disability_self_Two}  onChange={(e) =>
+              dispatch(updateMasterDisability_selfTwo(e.target.checked))
+            } />{' '}
           <span className='font-bold text-lg text-blue-600'> {'>'} 80%</span>
-        </Checkbox>
+        </div>
       </div>
       <div className='flex py-4 space-x-20 items-center justify-center'>
         <h1 className='font-bold text-lg'>Permanent Disability (Dependant)</h1>
@@ -184,14 +173,25 @@ const HouseRent = () => {
           <span className='font-bold text-lg text-blue-600'>Yes</span>
         </Checkbox>
         <div type='checkbox' className='rounded-full'>
-          <input type='checkbox' checked={master.disability_self_less} onChange={(e)=>dispatch(updateMasterDisability_self_less(e.target.checked))} />{' '}
+          <input
+            type='checkbox'
+            checked={master.disability_self_less}
+            onChange={(e) =>
+              dispatch(updateMasterDisability_self_less(e.target.checked))
+            }
+          />{' '}
           <span className='font-bold text-lg text-blue-600'> {''} 40%</span>
         </div>
         <div type='checkbox' className='rounded-full'>
-          <input type='checkbox' checked={master.disability_self_greater} onChange={(e)=>dispatch(updateMasterDisability_self_greater(e.target.checked))} />{' '}
+          <input
+            type='checkbox'
+            checked={master.disability_self_greater}
+            onChange={(e) =>
+              dispatch(updateMasterDisability_self_greater(e.target.checked))
+            }
+          />{' '}
           <span className='font-bold text-lg text-blue-600'> {''} 80%</span>
         </div>
-       
       </div>
     </div>
   );
