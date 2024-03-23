@@ -792,7 +792,7 @@ const updategrossTaxableIncome = (state) => {
     parseFloat(grossTotalIncome) -
     parseFloat(deduction) -
     parseFloat(finDed) -
-    parseFloat(otherSpecific) + 
+    parseFloat(otherSpecific) - 
     parseFloat(findedTwo)
   state.form[0].itForm.grossTaxableIncome = newGrossTaxableIncome;
   updateNextTaxIncome(state);
