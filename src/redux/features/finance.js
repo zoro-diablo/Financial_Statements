@@ -229,7 +229,7 @@ const financeSlice = createSlice({
     updateAddAgri: (state, action) => {
       const newValue = action.payload > 5000 ? 5000 : action.payload;
       state.form[0].itForm.add.agri = newValue;
-      updateGrossTotalIncome(state);
+    
     },
 
     updateAddOthers: (state, action) => {
@@ -660,14 +660,13 @@ const updateTaxableIncome = (state) => {
 };
 const updateGrossTotalIncome = (state) => {
   const { taxableSalaryIncome } = state.form[0].itForm;
-  const { houseProperty, savingBank, other, agri } =
+  const { houseProperty, savingBank, other,  } =
     state.form[0].itForm.add;
   const grossTotalIncome =
     parseFloat(taxableSalaryIncome) +
     parseFloat(houseProperty) +
     parseFloat(savingBank) +
-    parseFloat(other) +
-    parseFloat(agri) 
+    parseFloat(other) 
   state.form[0].itForm.grossTotalIncome = grossTotalIncome;
   updategrossTaxableIncome(state);
 };
