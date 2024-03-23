@@ -48,6 +48,8 @@ import {
   updateFourGovTwo,
   updateTicketMetro,
   updateLessThreeDedTwo,
+  updateAddAgri,
+  updateAddOthers,
 } from '../../redux/features/finance';
 import { FaGreaterThan } from 'react-icons/fa6';
 
@@ -376,6 +378,36 @@ const GrossSalary = () => {
               type='number'
               value={data.add.other}
               onChange={(e) => dispatch(updateOther(e.target.value))}
+            />
+          </td>
+        </tr>
+        <tr>
+          <td className='td1 border-l-2 border-black'></td>
+          <td className='td1 border-2 border-black'>
+          Exempt Income : a) Agriculuture Income
+          </td>
+          <td className='crAmount3 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.add.agri}
+              onChange={(e) => dispatch(updateAddAgri(e.target.value))}
+            />
+          </td>
+        </tr>
+        <tr>
+          <td className='td1 border-l-2 border-black'></td>
+          <td className='td1 border-2 border-black'>
+          Exempt Income : b ) others
+          </td>
+          <td className='crAmount3 td1 border-2 border-black'>
+            <label className='font-bold'>₹</label>
+            <input
+              className='input'
+              type='number'
+              value={data.add.incOthers}
+              onChange={(e) => dispatch(updateAddOthers(e.target.value))}
             />
           </td>
         </tr>

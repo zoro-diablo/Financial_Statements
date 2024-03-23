@@ -44,6 +44,8 @@ export const form = [
         houseProperty: 0,
         savingBank: 0,
         other: 0,
+        agri:0,
+        incOthers:0
       },
       grossTotalIncome: 716976,
       lessThree: {

@@ -226,7 +226,16 @@ const financeSlice = createSlice({
       updateFourDonationLast(state);
       updateTotalDeduction(state);
     },
-
+    updateAddAgri: (state, action) => {
+      const newValue = action.payload > 5000 ? 5000 : action.payload;
+      state.form[0].itForm.add.agri = newValue;
+      updateGrossTotalIncome(state)
+    },
+    
+    updateAddOthers: (state,action) => {
+      state.form[0].itForm.add.incOthers=action.payload
+      updateGrossTotalIncome(state)
+    },
 
     updateFourOthers: (state, action) => {
       state.form[0].itForm.lessFour.others = action.payload;
@@ -652,12 +661,14 @@ const updateTaxableIncome = (state) => {
 };
 const updateGrossTotalIncome = (state) => {
   const { taxableSalaryIncome } = state.form[0].itForm;
-  const { houseProperty, savingBank, other } = state.form[0].itForm.add;
+  const { houseProperty, savingBank, other , agri , incOthers } = state.form[0].itForm.add;
   const grossTotalIncome =
     parseFloat(taxableSalaryIncome) +
     parseFloat(houseProperty) +
     parseFloat(savingBank) +
-    parseFloat(other);
+    parseFloat(other) +
+    parseFloat(agri) +
+    parseFloat(incOthers) 
   state.form[0].itForm.grossTotalIncome = grossTotalIncome;
   updategrossTaxableIncome(state);
 };
@@ -1334,6 +1345,8 @@ export const {
   updateMasterDisability_selfTwo,
   updateMasterDisability_self_less,
   updateMasterDisability_self_greater,
+  updateAddAgri,
+  updateAddOthers,
 } = financeSlice.actions;
 
 export default financeSlice.reducer;
