@@ -58,6 +58,7 @@ const financeSlice = createSlice({
     },
     updateHouseProperty: (state, action) => {
       state.form[0].itForm.add.houseProperty = action.payload;
+      updateAddHouseProperty(state);
       updateGrossTotalIncome(state);
     },
     updateSavingBank: (state, action) => {
@@ -229,7 +230,6 @@ const financeSlice = createSlice({
     updateAddAgri: (state, action) => {
       const newValue = action.payload > 5000 ? 5000 : action.payload;
       state.form[0].itForm.add.agri = newValue;
-    
     },
 
     updateAddOthers: (state, action) => {
@@ -318,6 +318,24 @@ const financeSlice = createSlice({
     updateLessThreeDedTwo: (state, action) => {
       state.form[0].itForm.lessThree.dedTwo = action.payload;
       updateLessThreeFinDedTwo(state);
+    },
+    updateAddRentRealized: (state, action) => {
+      state.form[0].itForm.add.rentRealized = action.payload;
+    },
+    updateAddActualRent: (state, action) => {
+      state.form[0].itForm.add.actualRent = action.payload;
+    },
+    updateAddMunicipalTax: (state, action) => {
+      state.form[0].itForm.add.muncipalTax = action.payload;
+    },
+    updateAddInterestBorr: (state, action) => {
+      state.form[0].itForm.add.interestBorrowed = action.payload;
+    },
+    updateAddThirtyPercent: (state, action) => {
+      state.form[0].itForm.add.thirtyPerDed = action.payload;
+    },
+    updateAddButtonPress: (state, action) => {
+      state.form[0].itForm.add.buttonPress = action.payload;
     },
     // <------------------- It form ---------------------->
 
@@ -660,13 +678,12 @@ const updateTaxableIncome = (state) => {
 };
 const updateGrossTotalIncome = (state) => {
   const { taxableSalaryIncome } = state.form[0].itForm;
-  const { houseProperty, savingBank, other,  } =
-    state.form[0].itForm.add;
+  const { houseProperty, savingBank, other } = state.form[0].itForm.add;
   const grossTotalIncome =
     parseFloat(taxableSalaryIncome) +
     parseFloat(houseProperty) +
     parseFloat(savingBank) +
-    parseFloat(other) 
+    parseFloat(other);
   state.form[0].itForm.grossTotalIncome = grossTotalIncome;
   updategrossTaxableIncome(state);
 };
@@ -1215,6 +1232,19 @@ const updateFiftyPercentSal = (state) => {
     state.form[0].itForm.less.percentage = 40;
   }
 };
+const updateAddHouseProperty = (state) => {
+  const { rentRealized, actualRent, muncipalTax, interestBorrowed } =
+    state.form[0].itForm.add;
+  const grossAnualValue = Math.max(
+    parseFloat(rentRealized),
+    parseFloat(actualRent)
+  );
+  const netAnnualValue = grossAnualValue - parseFloat(muncipalTax);
+  const standardDeduction = netAnnualValue * 0.3;
+  const incomeFormHouseProperty = netAnnualValue - (standardDeduction + parseFloat(interestBorrowed));
+
+  state.form[0].itForm.add.houseProperty = incomeFormHouseProperty.toFixed(2); 
+};
 // <------------------- It form ---------------------->
 
 // <------------------- Master ---------------------->
@@ -1345,6 +1375,11 @@ export const {
   updateMasterDisability_self_greater,
   updateAddAgri,
   updateAddOthers,
+  updateAddRentRealized,
+  updateAddActualRent,
+  updateAddMunicipalTax,
+  updateAddInterestBorr,
+  updateAddThirtyPercent,
 } = financeSlice.actions;
 
 export default financeSlice.reducer;

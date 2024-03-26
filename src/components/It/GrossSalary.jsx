@@ -50,14 +50,42 @@ import {
   updateLessThreeDedTwo,
   updateAddAgri,
   updateAddOthers,
+  updateAddRentRealized,
+  updateAddActualRent,
+  updateAddMunicipalTax,
+  updateAddInterestBorr,
+  updateAddThirtyPercent,
 } from '../../redux/features/finance';
 import { FaGreaterThan } from 'react-icons/fa6';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import React from 'react';
+import { TextField } from '@mui/material';
 
 const GrossSalary = () => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.finance.form[0].itForm);
   const { master } = useSelector((state) => state.finance.form[0]);
+
+  const [open, setOpen] = React.useState(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    dispatch(updateHouseProperty());
+    setOpen(false);
+  };
 
   return (
     <table
@@ -240,6 +268,88 @@ const GrossSalary = () => {
             />
           </td>
         </tr>
+        <div className='absolute right-20'>
+          <Button variant='contained' onClick={handleClickOpen}>
+            Calculate
+          </Button>
+        </div>
+        <Dialog
+          fullScreen={fullScreen}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='responsive-dialog-title'
+        >
+          <DialogTitle id='responsive-dialog-title'>
+            {'House Property Income Calculator'}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText className='py-2 flex flex-column gap-4'>
+              <TextField
+                type='number'
+                id='outlined-basic'
+                label='The amount of rent that cannot be realized'
+                variant='outlined'
+                className='w-full place'
+                placeholder='Enter amount of rent'
+                value={data.add.rentRealized}
+                onChange={(e) =>
+                  dispatch(updateAddRentRealized(e.target.value))
+                }
+              />
+              <TextField
+                type='number'
+                id='outlined-basic'
+                label='Actual rent'
+                variant='outlined'
+                className='w-full place'
+                placeholder='Enter actual rent'
+                value={data.add.actualRent}
+                onChange={(e) => dispatch(updateAddActualRent(e.target.value))}
+              />
+              <TextField
+                type='number'
+                id='outlined-basic'
+                label='Municipal taxes paid during the year'
+                variant='outlined'
+                className='w-full place'
+                placeholder='Enter muncipal tax'
+                value={data.add.muncipalTax}
+                onChange={(e) =>
+                  dispatch(updateAddMunicipalTax(e.target.value))
+                }
+              />
+              <TextField
+                type='number'
+                id='outlined-basic'
+                label='Interest on borrowed capital'
+                variant='outlined'
+                className='w-full place'
+                placeholder='Enter Interest on borrowed capital'
+                value={data.add.interestBorrowed}
+                onChange={(e) =>
+                  dispatch(updateAddInterestBorr(e.target.value))
+                }
+              />
+              <TextField
+                type='number'
+                id='outlined-basic'
+                label='30% Deduction'
+                variant='outlined'
+                className='w-full place'
+                placeholder='Enter Interest on borrowed capital'
+                value={data.add.thirtyPerDed}
+                onChange={(e) =>
+                  dispatch(updateAddThirtyPercent(e.target.value))
+                }
+              />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} variant='contained' autoFocus>
+              Calculate
+            </Button>
+          </DialogActions>
+        </Dialog>
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
@@ -255,6 +365,7 @@ const GrossSalary = () => {
             />
           </td>
         </tr>
+
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
@@ -347,7 +458,8 @@ const GrossSalary = () => {
               className='input'
               type='number'
               value={data.add.houseProperty}
-              onChange={(e) => dispatch(updateHouseProperty(e.target.value))}
+              // onChange={(e) => dispatch(updateHouseProperty(e.target.value))}
+              disabled
             />
           </td>
         </tr>
@@ -384,7 +496,7 @@ const GrossSalary = () => {
         <tr>
           <td className='td1 border-l-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-          Exempt Income : a) Agriculuture Income
+            Exempt Income : a) Agriculuture Income
           </td>
           <td className='crAmount3 td1 border-2 border-black'>
             <label className='font-bold'>₹</label>
@@ -399,7 +511,7 @@ const GrossSalary = () => {
         <tr>
           <td className='td1 border-l-2 border-black'></td>
           <td className='td1 border-2 border-black'>
-          Exempt Income : b ) others
+            Exempt Income : b ) others
           </td>
           <td className='crAmount3 td1 border-2 border-black'>
             <label className='font-bold'>₹</label>
@@ -757,9 +869,7 @@ const GrossSalary = () => {
         </tr>
         <tr>
           <td className='td1 border-2 border-black'></td>
-          <td className='td1 border-2 border-black'>
-            (iv) DED u/s 80 CCD(2)
-          </td>
+          <td className='td1 border-2 border-black'>(iv) DED u/s 80 CCD(2)</td>
           <td className='crAmount4 td1 border-2 border-black'>
             {' '}
             <label className='font-bold'>₹</label>
@@ -987,7 +1097,6 @@ const GrossSalary = () => {
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
             <label className='font-bold'></label>
-            
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
             <label className='font-bold'>₹</label>
@@ -1116,7 +1225,6 @@ const GrossSalary = () => {
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
             <label className='font-bold'></label>
-            
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
             <label className='font-bold'>₹</label>
@@ -1133,11 +1241,7 @@ const GrossSalary = () => {
           <td className='td1 border-2 border-black'>(xiii) DED u/s 80TTB</td>
           <td className='crAmount5 td1 border-2 border-black'>
             <label className='font-bold'></label>
-            <input
-              className='input '
-              type='number'
-              disabled
-            />
+            <input className='input ' type='number' disabled />
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
             <label className='font-bold'>₹</label>
@@ -1155,7 +1259,7 @@ const GrossSalary = () => {
             (xiv) DED u/s 80 U : Permanent physical disability (Self)
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
-            <label className='font-bold'></label>           
+            <label className='font-bold'></label>
           </td>
           <td className='crAmount5 td1 border-2 border-black'>
             <label className='font-bold'>₹</label>
