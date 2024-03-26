@@ -1228,9 +1228,8 @@ const updateAddHouseProperty = (state) => {
     state.form[0].itForm.add;
 
   const netAnnualValue = parseFloat(actualRent) - parseFloat(muncipalTax);
-  const standardDeduction = netAnnualValue * 0.3;
+  const standardDeduction = (netAnnualValue - 1000) * 0.3;
   const incomeFormHouseProperty = netAnnualValue - (standardDeduction + parseFloat(interestBorrowed));
-
   state.form[0].itForm.add.houseProperty = incomeFormHouseProperty.toFixed(2); 
 };
 // <------------------- It form ---------------------->
