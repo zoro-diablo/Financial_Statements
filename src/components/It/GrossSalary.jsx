@@ -268,88 +268,7 @@ const GrossSalary = () => {
             />
           </td>
         </tr>
-        <div className='absolute right-20'>
-          <Button variant='contained' onClick={handleClickOpen}>
-            Calculate
-          </Button>
-        </div>
-        <Dialog
-          fullScreen={fullScreen}
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='responsive-dialog-title'
-        >
-          <DialogTitle id='responsive-dialog-title'>
-            {'House Property Income Calculator'}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText className='py-2 flex flex-column gap-4'>
-              <TextField
-                type='number'
-                id='outlined-basic'
-                label='The amount of rent that cannot be realized'
-                variant='outlined'
-                className='w-full place'
-                placeholder='Enter amount of rent'
-                value={data.add.rentRealized}
-                onChange={(e) =>
-                  dispatch(updateAddRentRealized(e.target.value))
-                }
-              />
-              <TextField
-                type='number'
-                id='outlined-basic'
-                label='Actual rent'
-                variant='outlined'
-                className='w-full place'
-                placeholder='Enter actual rent'
-                value={data.add.actualRent}
-                onChange={(e) => dispatch(updateAddActualRent(e.target.value))}
-              />
-              <TextField
-                type='number'
-                id='outlined-basic'
-                label='Municipal taxes paid during the year'
-                variant='outlined'
-                className='w-full place'
-                placeholder='Enter muncipal tax'
-                value={data.add.muncipalTax}
-                onChange={(e) =>
-                  dispatch(updateAddMunicipalTax(e.target.value))
-                }
-              />
-              <TextField
-                type='number'
-                id='outlined-basic'
-                label='Interest on borrowed capital'
-                variant='outlined'
-                className='w-full place'
-                placeholder='Enter Interest on borrowed capital'
-                value={data.add.interestBorrowed}
-                onChange={(e) =>
-                  dispatch(updateAddInterestBorr(e.target.value))
-                }
-              />
-              <TextField
-                type='number'
-                id='outlined-basic'
-                label='30% Deduction'
-                variant='outlined'
-                className='w-full place'
-                placeholder='Enter Interest on borrowed capital'
-                value={data.add.thirtyPerDed}
-                onChange={(e) =>
-                  dispatch(updateAddThirtyPercent(e.target.value))
-                }
-              />
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} variant='contained' autoFocus>
-              Calculate
-            </Button>
-          </DialogActions>
-        </Dialog>
+        
         <tr>
           <td className='td1 border-2 border-black'></td>
           <td className='td1 border-2 border-black'>
@@ -446,7 +365,88 @@ const GrossSalary = () => {
             />
           </td>
         </tr>
-
+        <div className='absolute right-20'>
+          <Button variant='contained' onClick={handleClickOpen}>
+            Calculate
+          </Button>
+        </div>
+        <Dialog
+          fullScreen={fullScreen}
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='responsive-dialog-title'
+        >
+          <DialogTitle id='responsive-dialog-title'>
+            {'House Property Income Calculator'}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText className='py-2 flex flex-column gap-4'>
+              <TextField
+                type='number'
+                id='outlined-basic'
+                label='The amount of rent that cannot be realized'
+                variant='outlined'
+                className='w-full place'
+                placeholder='Enter amount of rent'
+                value={data.add.rentRealized}
+                onChange={(e) =>
+                  dispatch(updateAddRentRealized(e.target.value))
+                }
+              />
+              <TextField
+                type='number'
+                id='outlined-basic'
+                label='Actual rent'
+                variant='outlined'
+                className='w-full place'
+                placeholder='Enter actual rent'
+                value={data.add.actualRent}
+                onChange={(e) => dispatch(updateAddActualRent(e.target.value))}
+              />
+              <TextField
+                type='number'
+                id='outlined-basic'
+                label='Municipal taxes paid during the year'
+                variant='outlined'
+                className='w-full place'
+                placeholder='Enter muncipal tax'
+                value={data.add.muncipalTax}
+                onChange={(e) =>
+                  dispatch(updateAddMunicipalTax(e.target.value))
+                }
+              />
+              <TextField
+                type='number'
+                id='outlined-basic'
+                label='Interest on borrowed capital'
+                variant='outlined'
+                className='w-full place'
+                placeholder='Enter Interest on borrowed capital'
+                value={data.add.interestBorrowed}
+                onChange={(e) =>
+                  dispatch(updateAddInterestBorr(e.target.value))
+                }
+              />
+              <TextField
+                type='number'
+                id='outlined-basic'
+                label='30% Deduction'
+                variant='outlined'
+                className='w-full place'
+                placeholder='Enter Interest on borrowed capital'
+                value={data.add.thirtyPerDed}
+                onChange={(e) =>
+                  dispatch(updateAddThirtyPercent(e.target.value))
+                }
+              />
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} variant='contained' autoFocus>
+              Calculate
+            </Button>
+          </DialogActions>
+        </Dialog>
         <tr>
           <td className='td1 border-2 border-black'>6</td>
           <td className='td1 border-2 border-black'>
