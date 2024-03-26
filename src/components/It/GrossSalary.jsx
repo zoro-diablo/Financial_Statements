@@ -50,11 +50,9 @@ import {
   updateLessThreeDedTwo,
   updateAddAgri,
   updateAddOthers,
-  updateAddRentRealized,
   updateAddActualRent,
   updateAddMunicipalTax,
   updateAddInterestBorr,
-  updateAddThirtyPercent,
 } from '../../redux/features/finance';
 import { FaGreaterThan } from 'react-icons/fa6';
 import Button from '@mui/material/Button';
@@ -381,18 +379,7 @@ const GrossSalary = () => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText className='py-2 flex flex-column gap-4'>
-              <TextField
-                type='number'
-                id='outlined-basic'
-                label='The amount of rent that cannot be realized'
-                variant='outlined'
-                className='w-full place'
-                placeholder='Enter amount of rent'
-                value={data.add.rentRealized}
-                onChange={(e) =>
-                  dispatch(updateAddRentRealized(e.target.value))
-                }
-              />
+          
               <TextField
                 type='number'
                 id='outlined-basic'
@@ -427,18 +414,7 @@ const GrossSalary = () => {
                   dispatch(updateAddInterestBorr(e.target.value))
                 }
               />
-              <TextField
-                type='number'
-                id='outlined-basic'
-                label='30% Deduction'
-                variant='outlined'
-                className='w-full place'
-                placeholder='Enter Interest on borrowed capital'
-                value={data.add.thirtyPerDed}
-                onChange={(e) =>
-                  dispatch(updateAddThirtyPercent(e.target.value))
-                }
-              />
+          
             </DialogContentText>
           </DialogContent>
           <DialogActions>

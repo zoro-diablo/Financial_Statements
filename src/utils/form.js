@@ -41,11 +41,9 @@ export const form = [
       },
       taxableSalaryIncome: 716976,
       add: {
-        rentRealized:0,
         actualRent:0,
         muncipalTax:0,
         interestBorrowed:0,
-        thirtyPerDed:0,
         houseProperty: 0,
         savingBank: 0,
         other: 0,
