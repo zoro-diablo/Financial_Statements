@@ -53,6 +53,7 @@ import {
   updateAddActualRent,
   updateAddMunicipalTax,
   updateAddInterestBorr,
+  updateLastTaxDed,
 } from '../../redux/features/finance';
 import { FaGreaterThan } from 'react-icons/fa6';
 import Button from '@mui/material/Button';
@@ -1578,7 +1579,7 @@ const GrossSalary = () => {
               className='input font-bold'
               type='number'
               value={data.taxAlreadyDed}
-              disabled
+              onChange={(e)=>dispatch(updateLastTaxDed(e.target.value))}
             />
           </td>
         </tr>

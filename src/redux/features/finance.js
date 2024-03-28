@@ -13,6 +13,7 @@ const financeSlice = createSlice({
 
     updateGrossSalaryIncome: (state, action) => {
       state.form[0].itForm.grossSalaryIncome = action.payload;
+      updateLastNetTaxPayable(state)
     },
     updateRentPaid: (state, action) => {
       state.form[0].itForm.less.rentPaid = action.payload;
@@ -328,6 +329,10 @@ const financeSlice = createSlice({
     updateAddInterestBorr: (state, action) => {
       state.form[0].itForm.add.interestBorrowed = action.payload;
     },
+    updateLastTaxDed:(state,action) =>{
+      state.form[0].itForm.taxAlreadyDed= action.payload;
+      updateLastNetTaxPayable(state)
+    },
     // <------------------- It form ---------------------->
 
     // <------------------- Master ---------------------->
@@ -395,6 +400,7 @@ const financeSlice = createSlice({
       updateDisabilityMasterValues(state);
       updateTotalDeduction(state);
     },
+   
     // <------------------- Master ---------------------->
 
     // <------------------- Bill Drawn ---------------------->
@@ -1365,6 +1371,7 @@ export const {
   updateAddActualRent,
   updateAddMunicipalTax,
   updateAddInterestBorr,
+  updateLastTaxDed
 } = financeSlice.actions;
 
 export default financeSlice.reducer;
